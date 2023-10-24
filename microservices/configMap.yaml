@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+data:
+  POSTGRES_DB: appstore
+  POSTGRES_USER: store-user 
+  POSTGRES_PASSWORD: store-password
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: services-config
+data:
+  POSTGRES: postgresdb
