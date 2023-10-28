@@ -11,7 +11,7 @@ version controll
 		ng  16.2.7
 
 
-# run 
+# run (need docker and kubectl) 
 ./microservices/script.sh 
 	- postgres:
 		user: store-user
