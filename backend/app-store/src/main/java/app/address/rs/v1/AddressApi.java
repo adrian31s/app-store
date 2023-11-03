@@ -30,21 +30,13 @@ public class AddressApi {
         return Response.ok(service.getById(id)).build();
     }
 
-    @POST
-    @Path("/create")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@RequestBody Address address) {
-        return Response.ok(service.createAddress(new Address())).build();
-    }
-
     @PATCH
     @Path("/update/id/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateById(@PathParam("id") Long id, @RequestBody AddressSearchCriteria searchCriteria){
-        int affectedRecords = service.updateById(id,searchCriteria);
-        if(affectedRecords==0){
+    public Response updateById(@PathParam("id") Long id, @RequestBody AddressSearchCriteria searchCriteria) {
+        int affectedRecords = service.updateById(id, searchCriteria);
+        if (affectedRecords == 0) {
             return Response.accepted().build();
         }
         return Response.ok(affectedRecords).build();

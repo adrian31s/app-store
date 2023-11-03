@@ -40,13 +40,16 @@ public class Person extends BaseEntity {
     private String lastName;
 
 
-    @ManyToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "BID")
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinTable(
+            name = "person_to_address",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id"))
     @ToString.Exclude
-    private Address address;
+    private Set<Address> addresses;
 
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private Set<Bucket> buckets = new HashSet<>();
 }

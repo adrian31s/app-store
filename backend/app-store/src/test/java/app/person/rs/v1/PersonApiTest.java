@@ -40,47 +40,6 @@ public class PersonApiTest {
         addressDao.deleteAll();
     }
 
-    @AfterEach
-    public void cleanUp() {
-    }
-
-    @Test
-    public void whenUpdateAddressByIdShouldUpdateAddress() {
-        Person person = personService.createPerson(PersonFactory.createRandomPerson());
-        Address address = AddressFactory.createRandomAddress();
-
-        given()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(address)
-                .when()
-                .patch("/person/updateAddress/id/" + person.getBid())
-                .then()
-                .statusCode(200);
-
-        Person updatedPerson = personDao.getById(person.getBid());
-        Assertions.assertNotNull(updatedPerson.getAddress());
-    }
-
-    @Test
-    public void whenUpdateAddressByIdThatExistsShouldReplaceAddress() {
-        Long personId = personService.createPerson(PersonFactory.createRandomPerson()).getBid();
-        Long addressId = addressDao.createEntity(AddressFactory.createRandomAddress()).getBid();
-        personService.addAddress(personId, addressId);
-
-        given()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(AddressFactory.createRandomAddress())
-                .when()
-                .patch("/person/updateAddress/id/" + personId)
-                .then()
-                .statusCode(200);
-
-        List<Address> addresses = addressService.getAll();
-        Long updatedAddressId = addresses.get(0).getBid();
-
-        Assertions.assertNotEquals(addressId, updatedAddressId);
-        Assertions.assertEquals(1, addresses.size());
-    }
 
 
 }

@@ -3,6 +3,7 @@ package app.person.service;
 import app.address.dao.AddressDao;
 import app.address.model.Address;
 import app.address.service.AddressService;
+import app.bucket.model.Bucket;
 import app.person.dao.PersonDao;
 import app.person.model.Person;
 import app.person.model.PersonSearchCriteria;
@@ -20,9 +21,6 @@ public class PersonService {
     PersonDao dao;
 
     @Inject
-    AddressService addressService;
-
-    @Inject
     AddressDao addressDao;
 
     public List<Person> getAll() {
@@ -37,32 +35,28 @@ public class PersonService {
         return dao.createEntity(person);
     }
 
-    public void deletePersonById(Long id) {
-        dao.deleteById(id);
-    }
-
     public int updateById(Long id, PersonSearchCriteria searchCriteria) {
         return dao.updateEntitiesFieldsById(id, getPredicates(searchCriteria));
     }
 
-
-    public void removeAddress(Long personId) {
+    @Transactional(Transactional.TxType.REQUIRED)
+    public void removeAddress(Long personId, Long addressId) {
         Person person = dao.getById(personId);
-        if (person == null || person.getAddress() == null) return;
-        Long addressId = person.getAddress().getBid();
-        person.setAddress(null);
+        Address address = addressDao.getById(addressId);
+        if (person == null || address == null) return;
+
+        person.getAddresses().remove(address);
         dao.updateEntity(person);
-        addressService.removePerson(addressId, person);
     }
 
+    @Transactional(Transactional.TxType.REQUIRED)
     public Person addAddress(Long personId, Long addressId) {
         Person person = dao.getById(personId);
         if (person == null) return null;
-        if (person.getAddress() != null) {
-            removeAddress(personId);
-        }
-        addressService.addPerson(addressId, person);
-        person.setAddress(addressService.getById(addressId));
+        Address address = addressDao.getById(addressId);
+        if (address == null) return null;
+
+        person.getAddresses().add(address);
         return dao.updateEntity(person);
     }
 

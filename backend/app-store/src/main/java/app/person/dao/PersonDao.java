@@ -1,20 +1,19 @@
 package app.person.dao;
 
 import adi.jpa.crud.dao.BaseDao;
-import adi.jpa.crud.exception.BaseDaoException;
-import adi.jpa.crud.model.BaseEntity;
-import app.address.model.Address;
-import app.address.service.AddressService;
+
+import app.bucket.model.Bucket;
+import app.bucket.model.Bucket_;
 import app.person.model.Person;
-import io.quarkus.narayana.jta.QuarkusTransaction;
-import org.hibernate.Session;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.TransactionManager;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+
 
 @ApplicationScoped
 public class PersonDao extends BaseDao<Person> {

@@ -38,6 +38,6 @@ public class Address extends BaseEntity {
 
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "address",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "addresses")
     private Set<Person> personSet = new HashSet<>();
 }

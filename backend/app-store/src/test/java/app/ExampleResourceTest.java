@@ -35,7 +35,6 @@ public class ExampleResourceTest {
     Long personId;
     Long person1Id;
     Long person2Id;
-    Long person3Id;
 
     Long addressId;
     Long address1Id;
@@ -47,15 +46,14 @@ public class ExampleResourceTest {
         personId = personDao.createEntity(PersonFactory.createRandomPerson()).getBid();
         person1Id = personDao.createEntity(PersonFactory.createRandomPerson()).getBid();
         person2Id = personDao.createEntity(PersonFactory.createRandomPerson()).getBid();
-        person3Id = personDao.createEntity(PersonFactory.createRandomPerson()).getBid();
 
         addressId = addressDao.createEntity(AddressFactory.createRandomAddress()).getBid();
         address1Id = addressDao.createEntity(AddressFactory.createRandomAddress()).getBid();
         address2Id = addressDao.createEntity(AddressFactory.createRandomAddress()).getBid();
 
         addPeopleToAddress(addressId, personId);
-        addPeopleToAddress(address1Id, person1Id, person2Id);
-        addPeopleToAddress(address2Id, person3Id);
+        addPeopleToAddress(address1Id, personId, person1Id, person2Id);
+        addPeopleToAddress(address2Id, person2Id);
     }
 
     @AfterEach
@@ -69,40 +67,32 @@ public class ExampleResourceTest {
     public void shouldPersistAllDataBeforeEach() {
         //then
         Assertions.assertEquals(3, addressDao.getAllEntities().size());
-        Assertions.assertEquals(4, personDao.getAllEntities().size());
+        Assertions.assertEquals(3, personDao.getAllEntities().size());
     }
 
     @Test
-    public void shouldDeletePersonFromAddressListWhenPersonDeleteAddress() {
+    public void shouldAllAddressesSetCorrectlyWhenAddAddress() {
+        //then
+        int address = addressDao.getById(addressId).getPersonSet().size();
+        int address1 = addressDao.getById(address1Id). getPersonSet().size();
+        int address2 = addressDao.getById(address2Id).getPersonSet().size();
+
+        Assertions.assertEquals(1,address);
+        Assertions.assertEquals(3,address1);
+        Assertions.assertEquals(1,address2);
+    }
+
+    @Test
+    public void shouldRemovePersonAddressesWhenRemoveAddress() {
         //when
-        personService.removeAddress(personId);
-        personService.removeAddress(person1Id);
+        personService.removeAddress(personId,addressId);
 
         //then
-        Address addressWithOnePerson = addressService.getById(address1Id);
+        Address address = addressDao.getById(addressId);
         Person person = personDao.getById(personId);
-        Person person1 = personDao.getById(person1Id);
 
-        Assertions.assertNull(person.getAddress());
-        Assertions.assertNull(person1.getAddress());
-        Assertions.assertEquals(2, addressDao.getAllEntities().size());
-        Assertions.assertEquals(1, addressWithOnePerson.getPersonSet().size());
-
-    }
-
-    @Test
-    public void shouldChangePersonAddressWhenAddAddress() {
-        //when
-        personService.addAddress(personId, address1Id);
-
-        //then
-        Address addressWithThreePeople = addressService.getById(address1Id);
-        Person personWithChangedAddress = personService.getById(personId);
-        int activeAddresses = addressDao.getAllEntities().size();
-
-        Assertions.assertEquals(3, addressWithThreePeople.getPersonSet().size());
-        Assertions.assertEquals(addressWithThreePeople.getBid(), personWithChangedAddress.getAddress().getBid());
-        Assertions.assertEquals(2, activeAddresses);
+        Assertions.assertEquals(1,person.getAddresses().size());
+        Assertions.assertEquals(0,address.getPersonSet().size());
     }
 
 
