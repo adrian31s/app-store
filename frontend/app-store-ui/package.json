@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "gen-open-api": "ng-openapi-gen --input app-store-openapi.yml --output app-store-api/src/app/api"
+    "gen-open-api": "ng-openapi-gen --input src/client/app-store.yaml --output app-store-api/src/app/api"
   },
   "private": true,
   "dependencies": {
