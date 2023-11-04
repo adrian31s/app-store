@@ -10,6 +10,8 @@ import lombok.Setter;
 @Builder
 public class PersonSearchCriteria {
     private String username;
+    private String password;
+    private String email;
     private String name;
     private String lastName;
 }

@@ -49,7 +49,7 @@ public class Person extends BaseEntity {
     private Set<Address> addresses;
 
     @ToString.Exclude
-    @JsonIgnore
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Bucket> buckets = new HashSet<>();
 }

@@ -1,12 +1,15 @@
 package app.product.types.cooler.model;
 
 import adi.jpa.crud.model.BaseEntity;
+import app.product.model.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 @ToString
@@ -27,4 +30,9 @@ public class Cooler extends BaseEntity {
 
     @Column(name = "COOLER_TYPE")
     private String coolerType;
+
+    @OneToOne(mappedBy = "cooler")
+    @ToString.Exclude
+    @JsonIgnore
+    private Product product;
 }

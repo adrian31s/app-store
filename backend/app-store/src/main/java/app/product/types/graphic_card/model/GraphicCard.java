@@ -1,12 +1,15 @@
 package app.product.types.graphic_card.model;
 
 import adi.jpa.crud.model.BaseEntity;
+import app.product.model.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 @ToString
@@ -27,5 +30,10 @@ public class GraphicCard extends BaseEntity {
 
     @Column(name = "MEMORY_CLOCKING")
     private String memoryClocking;
+
+    @OneToOne(mappedBy = "graphicCard")
+    @ToString.Exclude
+    @JsonIgnore
+    private Product product;
 
 }

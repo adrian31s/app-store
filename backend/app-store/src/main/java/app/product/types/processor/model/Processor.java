@@ -1,12 +1,15 @@
 package app.product.types.processor.model;
 
 import adi.jpa.crud.model.BaseEntity;
+import app.product.model.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 @ToString
@@ -27,4 +30,9 @@ public class Processor extends BaseEntity {
 
     @Column(name = "L3_CAPACITY")
     private int l3Capacity;
+
+    @OneToOne(mappedBy = "processor")
+    @ToString.Exclude
+    @JsonIgnore
+    private Product product;
 }

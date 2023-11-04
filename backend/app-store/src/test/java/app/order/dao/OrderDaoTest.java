@@ -18,8 +18,9 @@ import java.util.List;
 public class OrderDaoTest extends BaseTest {
     @Inject
     OrderService orderService;
+
     @BeforeEach
-    public void cleanUp(){
+    public void setup(){
         super.cleanUp();
     }
 

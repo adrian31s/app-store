@@ -1,5 +1,7 @@
 package app.address.rs.v1;
 
+import app.address.mapper.AddressMapper;
+import app.address.mapper.AddressMapperImpl;
 import app.address.model.Address;
 import app.address.model.AddressSearchCriteria;
 import app.address.service.AddressService;
@@ -9,17 +11,20 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("address")
 public class AddressApi {
     @Inject
     AddressService service;
 
+    private final AddressMapper addressMapper = new AddressMapperImpl();
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        return Response.ok(service.getAll()).build();
+        List<Address> addresses = service.getAll();
+        return Response.ok(addressMapper.mapToListDTO(addresses)).build();
     }
 
     @GET
@@ -27,7 +32,8 @@ public class AddressApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAddress(@PathParam("id") Long id) {
-        return Response.ok(service.getById(id)).build();
+        Address address = service.getById(id);
+        return Response.ok(addressMapper.mapToDTO(address)).build();
     }
 
     @PATCH

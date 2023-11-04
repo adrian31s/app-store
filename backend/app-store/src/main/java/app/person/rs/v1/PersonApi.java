@@ -1,12 +1,8 @@
 package app.person.rs.v1;
 
-import app.address.mapper.AddressMapper;
-import app.address.mapper.AddressMapperImpl;
-import app.address.model.Address;
-import app.address.model.AddressSearchCriteria;
-import app.address.service.AddressService;
 import app.person.model.Person;
-import app.person.model.PersonSearchCriteria;
+import app.person.service.PersonMapper;
+import app.person.service.PersonMapperImpl;
 import app.person.service.PersonService;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
@@ -21,31 +17,34 @@ public class PersonApi {
     @Inject
     PersonService service;
 
+    private final PersonMapper personMapper = new PersonMapperImpl();
+
     @GET
-    @Path("/all")
+    @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        return Response.ok(service.getAll()).build();
+        List<Person> people = service.getAll();
+        return Response.ok(personMapper.mapToListDTO(people)).build();
     }
 
     @GET
-    @Path("/id/{id}")
+    @Path("/getById/id/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAddress(@PathParam("id") Long id) {
-        return Response.ok(service.getById(id)).build();
+    public Response getPersonById(@PathParam("id") Long id) {
+        Person person = service.getById(id);
+        return Response.ok(personMapper.mapToDTO(person)).build();
     }
 
     @PATCH
-    @Path("/update/id/{id}")
+    @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateById(@PathParam("id") Long id, @RequestBody PersonSearchCriteria searchCriteria) {
-        int affectedRecords = service.updateById(id, searchCriteria);
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateById(@RequestBody Person person) {
+        int affectedRecords = service.updateById(person.getBid(), personMapper.mapToSearchCriteria(person));
         if (affectedRecords == 0) {
             return Response.accepted().build();
         }
         return Response.ok(affectedRecords).build();
     }
-
 }
