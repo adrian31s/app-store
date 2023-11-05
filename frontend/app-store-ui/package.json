@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "gen-open-api": "ng-openapi-gen --input src/client/app-store.yaml --output app-store-api/src/app/api"
+    "gen-open-api": "ng-openapi-gen --input src/client/app-store.yaml --output client/src/app/api"
   },
   "private": true,
   "dependencies": {

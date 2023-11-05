@@ -91,8 +91,12 @@
             ],
             "scripts": []
           }
-        }
+        },
+        "proxyConfig": "/proxy.conf.json"
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
