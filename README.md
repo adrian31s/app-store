@@ -1,6 +1,5 @@
 # app-store
-version controll 
-
+version controll
 	backend: 
 		java 17
 		maven 3.8.8
@@ -21,9 +20,11 @@ version controll
 		host: localhost
 		url: jdbc:postgresql://localhost:30200/appstore
 
-# manual run
-backend (app-store/backend/app-store/): 
-	mvn quarkus:dev -DDB_USER=store-user -DDB_PASSWORD=store-password -DDB_URL=jdbc:postgresql://localhost:30200/appstore
+# hosts:
+frontend: http://localhost:30002
+backend: http://localhost:30001
+swaggerUi: http://localhost:30001/q/swagger-ui/
 
-frontend (app-store/frontend/app-store-ui): 
-	npm start
+# manual run
+frontend (app-store/frontend/app-store-ui | runs on http://localhost:4200):
+	npm start 
