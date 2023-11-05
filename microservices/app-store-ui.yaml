@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-store-ui
+  labels:
+    app: app-store-ui
+spec:
+  containers:
+  - name: app-store-ui
+    image: adrian31s/app-store-ui:1.0.0-SNAPSHOT
+    imagePullPolicy: Always
+    ports:
+    - containerPort: 4200
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-store-ui
+spec:
+  selector:
+    app: app-store-ui
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30002
+  type: NodePort  

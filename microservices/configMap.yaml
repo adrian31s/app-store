@@ -13,3 +13,7 @@ metadata:
   name: services-config
 data:
   POSTGRES: postgresdb
+  DB_URL: jdbc:postgresql://postgresdb/appstore
+  DB_PASSWORD: store-password
+  DB_USER: store-user
+  HIBERNATE_GENERATION: update
