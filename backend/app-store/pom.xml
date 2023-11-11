@@ -103,6 +103,11 @@
       <version>1.5.2.Final</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-s3</artifactId>
+      <version>1.12.583</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

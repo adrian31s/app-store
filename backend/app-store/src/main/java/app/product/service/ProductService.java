@@ -6,9 +6,6 @@ import app.product.model.ProductSearchCriteria;
 import app.product.service.mapper.ProductMapper;
 import app.product.service.mapper.ProductMapperImpl;
 import app.product.types.charger.dao.ChargerDao;
-import app.product.types.charger.model.Charger;
-import app.product.types.charger.service.ChargerMapper;
-import app.product.types.charger.service.ChargerMapperImpl;
 import app.product.types.cooler.dao.CoolerDao;
 import app.product.types.dram_memory.dao.DRAMMemoryDao;
 import app.product.types.graphic_card.dao.GraphicCardDao;
@@ -16,14 +13,13 @@ import app.product.types.hard_drive.dao.HardDriveDao;
 import app.product.types.motherboard.dao.MotherboardDao;
 import app.product.types.pc_case.dao.PcCaseDao;
 import app.product.types.processor.dao.ProcessorDao;
+import app.s3.service.S3BucketHandler;
 import io.netty.util.internal.StringUtil;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.core.Response;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @ApplicationScoped
 public class ProductService {
@@ -45,16 +41,29 @@ public class ProductService {
     PcCaseDao pcCaseDao;
     @Inject
     ProcessorDao processorDao;
+    @Inject
+    S3BucketHandler s3BucketHandler;
 
     @Transactional(Transactional.TxType.REQUIRED)
     public Product createProduct(Product product) {
         ProductMapper productMapper = new ProductMapperImpl();
         List<Product> products = findProductsBySearchCriteria(productMapper.mapToSearchCriteria(product));
-        if (!products.isEmpty()) {
-            Product product1 = products.get(0);
-            product1.setQuantity(product.getQuantity());
-            return productDao.updateEntity(product1);
+        if (!products.isEmpty())
+            return products.get(0);
+
+        String thumbnail = s3BucketHandler.putObject(product.getThumbnailAsByte(), UUID.randomUUID().toString());
+        List<String> pictures = new ArrayList<>();
+
+        if (product.getPicturesAsBytes() == null) {
+            pictures.add("not-found");
+        } else {
+            String[] picturesAsBytes = product.getPicturesAsBytes().split(",");
+            for (String pictureAsByte : picturesAsBytes) {
+                pictures.add(s3BucketHandler.putObject(pictureAsByte, UUID.randomUUID().toString()));
+            }
         }
+        product.setThumbnail(thumbnail);
+        product.setPictures(String.join(", ", pictures));
         return productDao.createEntity(product);
     }
 
