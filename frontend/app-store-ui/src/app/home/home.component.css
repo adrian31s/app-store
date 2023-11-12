@@ -1,0 +1,111 @@
+.input-group {
+    padding-top: 5vh;
+    width: 55vh;
+    margin: 0 auto;
+}
+  
+.input-group input {
+    text-align: center;
+}
+
+#main-text {
+    margin-top: 17vh;
+    text-align: center;
+}
+
+#main-text strong {
+    font-size: 2.8vh;
+}
+
+#choose {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vh;
+    background-color: #273f42;
+    height: 9vh;
+    width: auto;
+}
+
+/*dla sekcji "typ urządzenia"*/
+.dropdown {
+    margin-right: 5vh;
+    text-align: center;
+    height: 8.5vh;
+    width: 32vh;
+    border-radius: 25px;
+    background-color: #2c393d;
+    border: 2px solid #59888a;
+    padding: 2vh;
+  }
+
+.dropdown-content {
+    margin-top: 4vh;
+    margin-left: -1.8vh;
+    padding-bottom: 2vh;
+    display: none;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+    background-color: #2c393d;
+    border-radius: 25px;
+    border: 2px solid #59888a;
+}
+
+.dropdown-content input {
+    width: 25vh;
+}
+
+.dropdown:hover .dropdown {
+    padding-top: 10vh;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+  
+.dropdown-content a:hover {
+    color: black;
+    background-color: #00A4BD;
+}
+
+/*dla sekcji "przeznaczenie"*/
+.dropdown-inner {
+    margin-left: 3vh;
+    text-align: center;
+    height: 5vh;
+    width: 25vh;
+    border-radius: 25px;
+    background-color: #2c393d;
+    border: 2px solid #59888a;
+  }
+
+.dropdown-content-inner {
+    margin-top: 4vh;
+    margin-left: -1.8vh;
+    display: none;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+    background-color: #2c393d;
+    border-radius: 25px;
+    border: 2px solid #59888a;
+}
+
+.dropdown-content-inner input {
+    width: 20vh;
+}
+
+.dropdown-inner:hover .dropdown-inner {
+    padding-top: 10vh;
+}
+
+.dropdown-inner:hover .dropdown-content-inner {
+    display: block;
+    margin-top: 1vh;
+}
+  
+.dropdown-content-inner a:hover {
+    color: black;
+    background-color: #00A4BD;
+}

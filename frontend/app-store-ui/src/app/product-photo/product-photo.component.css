@@ -1,0 +1,19 @@
+ngb-carousel {
+    height: 50vh;
+    width: 60vh;
+}
+
+ng-template {
+    height: 10vh;
+    width: auto;
+}
+
+.carousel-caption {
+    height: 10vh;
+    width: auto;
+}
+
+.picsum-img-wrapper {
+    height: 50vh;
+    width: 60vh;
+}

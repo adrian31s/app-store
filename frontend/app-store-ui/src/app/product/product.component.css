@@ -1,0 +1,75 @@
+@font-face {
+    font-family: "TT Octosquares Trial Black";
+    src:
+        url("../../assets/fonts/TT Octosquares Trial Black.ttf");
+}
+
+.product {
+    margin-top: 10vh;
+    display: inline-block;
+    font-size: 3vh;
+}
+
+.photo {
+    height: 10vh;
+    width: auto;
+    margin-left: 10vh;
+}
+
+.specs {
+    margin-top: -10vh;
+    margin-left: 100vh;
+    margin-bottom: 10vh;
+}
+
+.product .top h1 {
+    font-size: 5vh;
+    font-family: "TT Octosquares Trial Black";
+}
+
+.price {
+    display: flex;
+    margin-left: 85vh;
+}
+
+.price button {
+    margin-left: 6vh;
+    font-size: 3vh;
+}
+
+.previous-product img {
+    width: 5vh;
+    height: auto;
+}
+
+.filter-white {
+    filter: invert(100%) sepia(93%) saturate(0%) hue-rotate(201deg) brightness(106%) contrast(106%);
+}
+
+.filter-white:hover {
+    filter: invert(56%) sepia(0%) saturate(0%) hue-rotate(213deg) brightness(89%) contrast(84%);
+}
+
+.top-underspecs {
+    display: flex;
+}
+
+.previous-product {
+    margin-left: 10vh;
+}
+
+/*opinie, opis*/
+.product-bottom {
+    margin: 15vh;
+    margin-top: 10vh;
+    font-size: 3vh;
+}
+
+.feed-top {
+    display: flex;
+}
+
+.feed-top button {
+    margin-left: 5vh;
+    font-size: 3vh;
+}

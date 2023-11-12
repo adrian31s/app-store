@@ -1,0 +1,53 @@
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Wyszukaj wśród produktów" aria-label="Search" aria-describedby="basic-addon1">
+</div>
+
+<div id="main-text"><strong>Podaj jedynie kwotę oraz przeznaczenie, resztą zajmiejmy się za Ciebie</strong></div>
+
+<br>
+
+<div id="choose">
+    <div class="dropdown">Komputery
+        <div class="dropdown-content">
+            <input type="range" class="form-range" id="customRange1">
+            <label for="customRange1" class="form-label">Cena</label>
+            <div class="dropdown-inner">{{choose}}
+                <div class="dropdown-content-inner">
+                    <a>Do grania</a><br>
+                    <a>Biurowy</a><br>
+                    <a>Do zadań specjalnych</a>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="dropdown">Laptopy
+        <div class="dropdown-content">
+            <input type="range" class="form-range" id="customRange1">
+            <label for="customRange1" class="form-label">Cena</label>
+        </div>
+      </div>
+
+      <div class="dropdown">Akcesoria
+        <div class="dropdown-content">
+            <input type="range" class="form-range" id="customRange1">
+            <label for="customRange1" class="form-label">Cena</label>
+        </div>
+      </div>
+
+      <div class="dropdown">Gotowe zestawy
+        <div class="dropdown-content">
+            <input type="range" class="form-range" id="customRange1">
+            <label for="customRange1" class="form-label">Cena</label>
+        </div>
+      </div>
+
+      <div class="dropdown">Kontakt
+        <div class="dropdown-content">
+            <input type="range" class="form-range" id="customRange1">
+            <label for="customRange1" class="form-label">Cena</label>
+        </div>
+      </div>
+</div>
+
+<router-outlet></router-outlet>

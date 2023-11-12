@@ -1,0 +1,20 @@
+.person {
+    display: flex;
+}
+
+.person img {
+    width: 5vh;
+    height: auto;
+}
+
+.person p {
+    margin-left: 5vh;
+}
+
+.filter-white {
+    filter: invert(100%) sepia(93%) saturate(0%) hue-rotate(201deg) brightness(106%) contrast(106%);
+}
+
+.rating p {
+    color: green;
+}
