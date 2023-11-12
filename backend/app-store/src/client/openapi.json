@@ -637,6 +637,12 @@
             "format" : "int64",
             "type" : "integer"
           },
+          "thumbnail" : {
+            "type" : "string"
+          },
+          "pictures" : {
+            "type" : "string"
+          },
           "productCategory" : {
             "$ref" : "#/components/schemas/ProductCategory"
           },
@@ -690,6 +696,12 @@
           },
           "processor" : {
             "$ref" : "#/components/schemas/Processor"
+          },
+          "thumbnailAsByte" : {
+            "type" : "string"
+          },
+          "picturesAsBytes" : {
+            "type" : "string"
           }
         }
       },
