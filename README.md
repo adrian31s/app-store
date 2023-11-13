@@ -22,8 +22,8 @@ version controll
 
 
 # manual run
-docker pull adrian31s/app-store-ui:1.0.0-SNAPSHOT
-docker pull adrian31s/app-store:1.0.0-SNAPSHOT
+docker pull adrian31s/app-store-ui:1.0.0
+docker pull adrian31s/app-store:1.0.0
 docker pull postgres:latest
 
 docker network create app-store-network
@@ -32,9 +32,9 @@ docker run -d --name app_postgres -p 30200:5432 -e POSTGRES_DB=appstore -e POSTG
 
 ### wait 30 sek 
 
-docker run -d -e DB_URL=jdbc:postgresql://app_postgres/appstore -e DB_PASSWORD=store-password -e DB_USER=store-user -e HIBERNATE_GENERATION=update -p 30001:8080 --network app-store-network adrian31s/app-store:1.0.0-SNAPSHOT
+docker run -d -e DB_URL=jdbc:postgresql://app_postgres/appstore -e DB_PASSWORD=store-password -e DB_USER=store-user -e HIBERNATE_GENERATION=update -p 30001:8080 --network app-store-network adrian31s/app-store:1.0.0
 
-docker run -d -p 30002:80 --network app-store-network adrian31s/app-store-ui:1.0.0-SNAPSHOT
+docker run -d -p 30002:80 --network app-store-network adrian31s/app-store-ui:1.0.0
 
 
 
