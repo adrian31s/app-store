@@ -1,0 +1,7 @@
+{
+    "/":{
+        "target":"http://app-store",
+        "secure": true,
+        "changeOrigin":false
+        }
+}
