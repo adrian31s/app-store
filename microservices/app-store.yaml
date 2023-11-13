@@ -29,7 +29,22 @@ spec:
         valueFrom:
           configMapKeyRef:
             name: services-config
-            key: HIBERNATE_GENERATION                      
+            key: HIBERNATE_GENERATION
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          configMapKeyRef:
+            name: sensitive-services-config
+            key: AWS_ACCESS_KEY_ID  
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          configMapKeyRef:
+            name: sensitive-services-config
+            key: AWS_SECRET_ACCESS_KEY
+      - name: AWS_BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: sensitive-services-config
+            key: AWS_BUCKET_NAME                 
     ports:
     - containerPort: 8080  
 ---

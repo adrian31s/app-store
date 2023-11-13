@@ -440,10 +440,6 @@ components:
         bid:
           format: int64
           type: integer
-        thumbnail:
-          type: string
-        pictures:
-          type: string
         productCategory:
           $ref: '#/components/schemas/ProductCategory'
         name:
@@ -481,10 +477,6 @@ components:
           $ref: '#/components/schemas/PcCase'
         processor:
           $ref: '#/components/schemas/Processor'
-        thumbnailAsByte:
-          type: string
-        picturesAsBytes:
-          type: string
     ProductCategory:
       enum:
       - PROCESSOR

@@ -16,6 +16,8 @@ import lombok.Setter;
 @Setter
 public class ProductDTO {
     private Long bid;
+    private String thumbnail;
+    private String pictures;
     private ProductCategory productCategory;
     private String name;
     private String producer;

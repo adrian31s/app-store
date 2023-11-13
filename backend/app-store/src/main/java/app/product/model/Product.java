@@ -24,6 +24,12 @@ import java.util.Set;
 @Getter
 @Setter
 public class Product extends BaseEntity {
+    @Column(name = "THUMBNAIL")
+    private String thumbnail;
+
+    @Column(name = "PICTURES", length = 1024)
+    private String pictures;
+
     @Column(name = "CATEGORY")
     private ProductCategory productCategory;
 
@@ -81,4 +87,9 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "processor_id", referencedColumnName = "BID")
     private Processor processor;
 
+    @Transient
+    private String thumbnailAsByte;
+
+    @Transient
+    private String picturesAsBytes;
 }
