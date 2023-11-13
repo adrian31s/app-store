@@ -1,2 +1,32 @@
-<app-sample-component></app-sample-component>
+<header>
+  <div id="title"><a style="text-decoration:none" [routerLink]="'home'"><strong>KUP<strong id="red-s">S</strong>PRZECIK.PL</strong></a></div>
+  <div id="panel">
+    <div id="user">
+      <div class="dropdown">      <img [src]="images[0]" class="filter-white" alt="Panel użytkownika" />
+        <div class="dropdown-content">
+          <a>Zaloguj się</a>
+          <br>
+          Nie masz jeszcze konta?
+          <a>Zarejestruj się</a>
+          <a>Konto</a>
+          <a>Zamówienia</a>
+          <a>Opinie</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="cart">
+      <div class="dropdown">      <img [src]="images[1]" class="filter-white" alt="Koszyk" />
+        <div class="dropdown-content">
+          <a>Koszyk jest pusty!</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 <router-outlet></router-outlet>
+
+<h1>***DO TESTU***</h1>
+<a style="text-decoration:none" [routerLink]="'home'"><button>Strona główna</button></a>
+<a style="text-decoration:none" [routerLink]="'products'"><button>Wykaz produktów</button></a>
+<a style="text-decoration:none" [routerLink]="'product'"><button>Podstrona produktu</button></a>

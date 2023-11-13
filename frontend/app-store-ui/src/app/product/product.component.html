@@ -1,0 +1,47 @@
+<div class="product">
+    <div class="top">
+        <div class="photo">
+            <app-product-photo></app-product-photo>
+        </div>
+        <div class="specs">
+            <h1>{{name}}</h1>
+            <br>
+            <br>
+            System operacyjny:
+            <br>Rozdzielczość: {{res}}
+            <br>Procesor: {{cpu}}
+            <br>Pamięć RAM: {{ram}}
+            <br>Dysk: {{disk}}
+            <br>Grafika: {{gpu}}
+        </div>
+    </div>
+    <div class="top-underspecs">
+        <div class="previous-product">
+            <a href="#" class="previous round"><img class="filter-white" [src]=images[0] /></a>
+        </div>
+        <div class="price">
+            <h2>CENA: {{price}} ZŁ</h2>
+            <button type="button" class="btn btn-danger">Dodaj do koszyka</button>
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="product-bottom">
+    <div class="description">
+        <h1>Co jest w zestawie?</h1>
+        {{desc}}
+    </div>
+    <br>
+    <br>
+    <div class="feed">
+        <div class="feed-top">
+            <h1>Opinie</h1>
+            <button type="button" class="btn btn-secondary">Dodaj opinię</button>
+        </div>
+        <div class="feed-bottom">
+            <app-feed></app-feed>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

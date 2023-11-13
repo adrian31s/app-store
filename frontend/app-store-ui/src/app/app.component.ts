@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app-store-ui';
+  title = 'KUPSPRZECIK.PL';
+  images = ['./assets/images/person.svg', './assets/images/cart.svg'];
 }
