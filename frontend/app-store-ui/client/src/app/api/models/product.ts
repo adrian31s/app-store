@@ -22,14 +22,10 @@ export interface Product {
   motherboard?: Motherboard;
   name?: string;
   pcCase?: PcCase;
-  pictures?: string;
-  picturesAsBytes?: string;
   price?: number;
   processor?: Processor;
   producer?: string;
   productCategory?: ProductCategory;
   productOrders?: Array<ProductOrder>;
   quantity?: number;
-  thumbnail?: string;
-  thumbnailAsByte?: string;
 }
