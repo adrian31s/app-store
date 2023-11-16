@@ -8,4 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'KUPSPRZECIK.PL';
   images = ['./assets/images/person.svg', './assets/images/cart.svg'];
+  visible: boolean=false;
+
+  showDialog() {
+    this.visible=true;
+  }
 }

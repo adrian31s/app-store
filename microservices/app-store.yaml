@@ -30,6 +30,11 @@ spec:
           configMapKeyRef:
             name: services-config
             key: HIBERNATE_GENERATION
+      - name: QUARKUS_LOG_LEVEL
+        valueFrom:
+          configMapKeyRef:
+            name: services-config
+            key: QUARKUS_LOG_LEVEL      
       - name: AWS_ACCESS_KEY_ID
         valueFrom:
           configMapKeyRef:

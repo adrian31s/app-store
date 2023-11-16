@@ -16,4 +16,5 @@ data:
   DB_URL: jdbc:postgresql://postgresdb/appstore
   DB_PASSWORD: store-password
   DB_USER: store-user
-  HIBERNATE_GENERATION: update
+  HIBERNATE_GENERATION: validate
+  QUARKUS_LOG_LEVEL: debug

@@ -1,0 +1,42 @@
+<div class="flex justify-content-center m-3">
+    <p-dropdown [options]="productTypes" optionLabel="category" [(ngModel)]="selectedProductType" [showClear]="true"
+        [showClear]="false" placeholder="Wybierz rodzaj produktu"></p-dropdown>
+</div>
+<div class="flex justify-content-center gap-5" *ngIf="selectedProductType">
+    <div>
+        <span class="productLabelInput" *ngFor="let productCommonLabel of productCommonFields">
+            <label [for]="productCommonLabel['label']">{{ productCommonLabel['label'] }} </label>
+            <input pInputText [pKeyFilter]="productCommonLabel['type']" [placeholder]="productCommonLabel['label']"
+                [id]="productCommonLabel['label']" #productCommonLabel />
+        </span>
+        <span class="productLabelInput" *ngFor="let productLabel of getNumberOfInputsArray()">
+            <label [for]="productLabel['label']">{{ productLabel['label'] }} </label>
+            <input pInputText [pKeyFilter]="productLabel['type']" [placeholder]="productLabel['label']"
+                [id]="productLabel['label']" />
+        </span>
+    </div>
+    <div>
+        <p-fileUpload class="m-3" name="files" [multiple]="true" [showUploadButton]="false" accept="image/*"
+            [maxFileSize]="1000000" (onSelect)="onPicturesSelect($event)" (onClear)="onPictureCancel()" [fileLimit]="5">
+            <ng-template pTemplate="toolbar">
+                <div class="py-3">Max 5 zdjec</div>
+            </ng-template>
+            <ng-template let-file pTemplate="file">
+                <div> {{ file.name }} {{ file.size }} bytes </div>
+            </ng-template>
+        </p-fileUpload>
+        <p-fileUpload class="m-3" name="files" [multiple]="false" [showUploadButton]="false" accept="image/*"
+            [maxFileSize]="1000000" (onSelect)="onThumbnailSelect($event)" (onClear)="onThumbnailCancel()"
+            [fileLimit]="1">
+            <ng-template pTemplate="toolbar">
+                <div class="py-3">Wybierz miniaturke</div>
+            </ng-template>
+            <ng-template let-file pTemplate="file">
+                <div> {{ file.name }} {{ file.size }} bytes </div>
+            </ng-template>
+        </p-fileUpload>
+    </div>
+</div>
+<div class="flex justify-content-center m-5" *ngIf="selectedProductType">
+    <p-button (onClick)="createProduct()" label="Stworz przedmiot" severity="success"></p-button>
+</div>
