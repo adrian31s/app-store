@@ -252,17 +252,14 @@ export class ProductCreatorComponent {
     },
   ];
 
-  private getFilteredSelectedProductLabels(): any[] {
+  getSelectedProductLabels(): any[] {
     if (this.selectedProductType === undefined) return [];
-    const selectedProductType = this.productTypes.find(
+    const selectedProductCategory = this.productTypes.find(
       (productType) =>
         productType.category === this.selectedProductType.category
     );
-    return selectedProductType?.labels;
-  }
 
-  getSelectedProductLabels(): any[] {
-    let labels = this.getFilteredSelectedProductLabels();
+    let labels = selectedProductCategory.labels
     if (labels === undefined || labels.length === 0) return [];
     return labels;
   }
@@ -297,100 +294,81 @@ export class ProductCreatorComponent {
     this.uploadedThumbnail.clear();
   }
 
-  createProduct(){
-    let product:Product={};
-    product.productCategory=this.selectedProductType.category
-    product.thumbnailAsByte=this.uploadedThumbnailAsString;
-    product.picturesAsBytes=this.uploadedPicturesAsString;
-    product.name=(<HTMLInputElement>document.getElementById("name")).value;
-    product.producer=(<HTMLInputElement>document.getElementById("producer")).value;
-    product.guarantee=(<HTMLInputElement>document.getElementById("guarantee")).value;
-    product.model=(<HTMLInputElement>document.getElementById("model")).value;
-    product.price=Number((<HTMLInputElement>document.getElementById("price")).value);
-    product.quantity=Number((<HTMLInputElement>document.getElementById("quantity")).value);
-   
-    switch(this.selectedProductType.category){
-      case ProductCategory.Charger:{
-          let charger:Charger={};
-          charger.coolingType=(<HTMLInputElement>document.getElementById("coolingType")).value;
-          charger.depth=Number((<HTMLInputElement>document.getElementById("depth")).value);
-          charger.height=Number((<HTMLInputElement>document.getElementById("height")).value);
-          charger.noise=Number((<HTMLInputElement>document.getElementById("noise")).value);
-          charger.power=(<HTMLInputElement>document.getElementById("power")).value;
-          charger.standard=(<HTMLInputElement>document.getElementById("standard")).value;
-          charger.width=Number((<HTMLInputElement>document.getElementById("width")).value);
-          product.charger=charger;
-          break;
-      }
-      case ProductCategory.Cooler:{
-        let cooler:Cooler={};
-        cooler.coolerType=(<HTMLInputElement>document.getElementById("coolerType")).value;
-        cooler.maxRotationSpeed=Number((<HTMLInputElement>document.getElementById("maxRotationSpeed")).value);
-        cooler.maxVolume=Number((<HTMLInputElement>document.getElementById("maxVolume")).value);
-        cooler.supplyVoltage=Number((<HTMLInputElement>document.getElementById("supplyVoltage")).value);
-        cooler.type=(<HTMLInputElement>document.getElementById("type")).value;
-        product.cooler=cooler;
+  //fillObjectsWithHTMLDocumnetInputsByIdBasedOnKey
+  fillObjects(obj: any, keys: any[]) {
+    for (let key of keys) {
+      if (key['type'] === 'alpha') {
+        obj[key['label']] = (<HTMLInputElement>(
+          document.getElementById(key['label'])
+        )).value;
+      } else
+        obj[key['label']] = Number(
+          (<HTMLInputElement>document.getElementById(key['label'])).value
+        );
+    }
+  }
+
+  createProduct() {
+    let product: Product = {};
+    product.productCategory = this.selectedProductType.category;
+    product.thumbnailAsByte = this.uploadedThumbnailAsString;
+    product.picturesAsBytes = this.uploadedPicturesAsString;
+    this.fillObjects(product, this.productCommonFields);
+
+    switch (this.selectedProductType.category) {
+      case ProductCategory.Charger: {
+        let charger: Charger = {};
+        this.fillObjects(charger, this.getSelectedProductLabels());
+        product.charger = charger;
         break;
       }
-      case ProductCategory.DramMemory:{
-        let dramMemory:DramMemory={};
-        dramMemory.frequency=(<HTMLInputElement>document.getElementById("frequency")).value;
-        dramMemory.latencyCycle=(<HTMLInputElement>document.getElementById("latencyCycle")).value;
-        dramMemory.memory=Number((<HTMLInputElement>document.getElementById("memory")).value);
-        dramMemory.memoryType=(<HTMLInputElement>document.getElementById("memoryType")).value;
-        product.dramMemory=dramMemory;
+      case ProductCategory.Cooler: {
+        let cooler: Cooler = {};
+        this.fillObjects(cooler, this.getSelectedProductLabels());
+        product.cooler = cooler;
         break;
       }
-      case ProductCategory.GraphicCard:{
-        let graphicCart:GraphicCard={};
-        graphicCart.connectorType=(<HTMLInputElement>document.getElementById("connectorType")).value;
-        graphicCart.memory=Number((<HTMLInputElement>document.getElementById("memory")).value);
-        graphicCart.memoryChipset=(<HTMLInputElement>document.getElementById("memoryChipset")).value;
-        graphicCart.memoryClocking=(<HTMLInputElement>document.getElementById("memoryClocking")).value;
-        graphicCart.memoryType=(<HTMLInputElement>document.getElementById("memoryType")).value;
-        product.graphicCard=graphicCart;
+      case ProductCategory.DramMemory: {
+        let dramMemory: DramMemory = {};
+        this.fillObjects(dramMemory, this.getSelectedProductLabels());
+        product.dramMemory = dramMemory;
         break;
       }
-      case ProductCategory.HardDrive:{
-        let hardDrive:HardDrive={};
-        hardDrive.memory=Number((<HTMLInputElement>document.getElementById("memory")).value);
-        hardDrive.memoryInterface=(<HTMLInputElement>document.getElementById("memoryInterface")).value;
-        hardDrive.memoryType=(<HTMLInputElement>document.getElementById("memoryType")).value;
-        product.hardDrive=hardDrive;
+      case ProductCategory.GraphicCard: {
+        let graphicCart: GraphicCard = {};
+        this.fillObjects(graphicCart, this.getSelectedProductLabels());
+        product.graphicCard = graphicCart;
         break;
       }
-      case ProductCategory.Motherboard:{
-        let motherboard:Motherboard={};
-        motherboard.maxMemory=Number((<HTMLInputElement>document.getElementById("maxMemory")).value);
-        motherboard.memoryType=(<HTMLInputElement>document.getElementById("memoryType")).value;
-        motherboard.motherboardStandard=(<HTMLInputElement>document.getElementById("motherboardStandard")).value;
-        motherboard.processorSocket=(<HTMLInputElement>document.getElementById("processorSocket")).value;
-        product.motherboard=motherboard;
+      case ProductCategory.HardDrive: {
+        let hardDrive: HardDrive = {};
+        this.fillObjects(hardDrive, this.getSelectedProductLabels());
+        product.hardDrive = hardDrive;
         break;
       }
-      case ProductCategory.PcCase:{
-        let pcCase:PcCase={};
-        pcCase.depth=Number((<HTMLInputElement>document.getElementById("depth")).value);
-        pcCase.width=Number((<HTMLInputElement>document.getElementById("width")).value);
-        pcCase.length=Number((<HTMLInputElement>document.getElementById("length")).value);
-        product.pcCase=pcCase;
+      case ProductCategory.Motherboard: {
+        let motherboard: Motherboard = {};
+        this.fillObjects(motherboard, this.getSelectedProductLabels());
+        product.motherboard = motherboard;
         break;
       }
-      case ProductCategory.Processor:{
-        let processor:Processor={};
-        processor.l3Capacity=Number((<HTMLInputElement>document.getElementById("l3Capacity")).value);
-        processor.numberOfCores=Number((<HTMLInputElement>document.getElementById("numberOfCores")).value);
-        processor.numberOfThreads=Number((<HTMLInputElement>document.getElementById("numberOfThreads")).value);
-        processor.processorType=(<HTMLInputElement>document.getElementById("processorType")).value;
-        processor.socketType=(<HTMLInputElement>document.getElementById("socketType")).value;
-        product.processor=processor;
+      case ProductCategory.PcCase: {
+        let pcCase: PcCase = {};
+        this.fillObjects(pcCase, this.getSelectedProductLabels());
+        product.pcCase = pcCase;
+        break;
+      }
+      case ProductCategory.Processor: {
+        let processor: Processor = {};
+        this.fillObjects(processor, this.getSelectedProductLabels());
+        product.processor = processor;
         break;
       }
     }
 
     this.productApiService
       .productCreatePost({ body: product })
-      .subscribe((v) => console.info);
+      .subscribe((v) => console.info(v));
   }
 
   urlToImageByByteData(data: any): string {
