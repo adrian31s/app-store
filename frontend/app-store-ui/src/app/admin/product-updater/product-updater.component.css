@@ -1,0 +1,23 @@
+.productDetailsElem{
+    background-color: #1f2429;
+    color: white;
+    font-family: "TT Octosquares Trial Light";
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    border-color: blueviolet;
+    border-style: solid;
+    border-width: 3px;
+}
+
+
+.editButton{
+    border-radius: 15px;
+    border-color: blueviolet;
+    border-style: solid;
+    border-width: 3px;
+    background-color: #67696c;
+}

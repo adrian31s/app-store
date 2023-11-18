@@ -35,5 +35,6 @@
 <button (click)="showDialog()">Opcja dla administratora - dodaj produkt</button>
 <p-dialog header="Zarzadzanie produktami" [(visible)]="visible" [modal]="true" [style]="{width: '90%', height: '900px'}"
   [draggable]="false" [resizable]="false">
+  <app-product-updater></app-product-updater>
   <app-product-creator></app-product-creator>
 </p-dialog>

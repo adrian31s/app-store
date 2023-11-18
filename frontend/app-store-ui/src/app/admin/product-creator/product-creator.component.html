@@ -9,7 +9,7 @@
             <input pInputText [pKeyFilter]="productCommonLabel['type']" [placeholder]="productCommonLabel['label']"
                 [id]="productCommonLabel['label']" #productCommonLabel />
         </span>
-        <span class="productLabelInput" *ngFor="let productLabel of getNumberOfInputsArray()">
+        <span class="productLabelInput" *ngFor="let productLabel of getSelectedProductLabels()">
             <label [for]="productLabel['label']">{{ productLabel['label'] }} </label>
             <input pInputText [pKeyFilter]="productLabel['type']" [placeholder]="productLabel['label']"
                 [id]="productLabel['label']" />

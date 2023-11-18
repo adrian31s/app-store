@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   Charger,
   Cooler,
@@ -10,6 +10,7 @@ import {
   Processor,
   Product,
   ProductCategory,
+  ProductDto,
 } from 'client/src/app/api/models';
 import { Buffer } from 'buffer';
 import { ProductApiService } from 'client/src/app/api/services';
@@ -251,7 +252,7 @@ export class ProductCreatorComponent {
     },
   ];
 
-  getSelectedProductLabels(): any[] {
+  private getFilteredSelectedProductLabels(): any[] {
     if (this.selectedProductType === undefined) return [];
     const selectedProductType = this.productTypes.find(
       (productType) =>
@@ -260,8 +261,8 @@ export class ProductCreatorComponent {
     return selectedProductType?.labels;
   }
 
-  getNumberOfInputsArray(): any[] {
-    let labels = this.getSelectedProductLabels();
+  getSelectedProductLabels(): any[] {
+    let labels = this.getFilteredSelectedProductLabels();
     if (labels === undefined || labels.length === 0) return [];
     return labels;
   }
@@ -298,6 +299,7 @@ export class ProductCreatorComponent {
 
   createProduct(){
     let product:Product={};
+    product.productCategory=this.selectedProductType.category
     product.thumbnailAsByte=this.uploadedThumbnailAsString;
     product.picturesAsBytes=this.uploadedPicturesAsString;
     product.name=(<HTMLInputElement>document.getElementById("name")).value;

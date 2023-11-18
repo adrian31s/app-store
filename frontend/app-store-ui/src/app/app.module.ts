@@ -18,6 +18,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ProductUpdaterComponent } from './admin/product-updater/product-updater.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,10 @@ import { FileUploadModule } from 'primeng/fileupload';
     HomeComponent,
     ProductComponent,
     ProductCreatorComponent,
+    ProductUpdaterComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent, HomeComponent, ProductComponent],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -43,7 +46,9 @@ import { FileUploadModule } from 'primeng/fileupload';
     DropdownModule,
     ButtonModule,
     KeyFilterModule,
-    FileUploadModule
+    FileUploadModule,
+    TableModule,
+    
   ],
 })
 export class AppModule {}
