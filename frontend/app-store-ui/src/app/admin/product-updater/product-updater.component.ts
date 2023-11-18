@@ -245,17 +245,14 @@ export class ProductUpdaterComponent {
     this.selectedProductCategory = selectedProductCategory;
   }
 
-  private getFilteredSelectedProductLabels(): any[] {
+  getSelectedProductLabels(): any[] {
     if (this.selectedProductCategory === undefined) return [];
-    const selectedProductType = this.productTypes.find(
+    const selectedProductCategory = this.productTypes.find(
       (productType) =>
         productType.category === this.selectedProductCategory.category
     );
-    return selectedProductType?.labels;
-  }
 
-  getSelectedProductLabels(): any[] {
-    let labels = this.getFilteredSelectedProductLabels();
+    let labels = selectedProductCategory.labels;
     if (labels === undefined || labels.length === 0) return [];
     return labels;
   }
@@ -287,33 +284,22 @@ export class ProductUpdaterComponent {
         return productDTO.processor;
       }
     }
-
-    return null;
   }
 
   isPropertyDefined(obj: any, prop: string): obj is { [key: string]: any } {
     return obj[prop] !== null && obj[prop] !== undefined;
   }
 
-  filterProductsByCategory(): any[] {
-    let filteredProducts: any[] = [];
-
-    this.products.forEach((product) => {
-      if (
-        this.isPropertyDefined(
-          product,
-          this.selectedProductCategory.category.toLowerCase()
-        )
-      ) {
-        filteredProducts.push(product);
-      }
-    });
+  filterProductsByCategory(): ProductDto[] {
+    const filteredProducts = this.products.filter(
+      (p) => p.productCategory === this.selectedProductCategory.category
+    );
     return filteredProducts;
   }
 
-  productToUpdate?:ProductDto;
+  productToUpdate?: ProductDto;
 
   openEditProductDialog(product: ProductDto) {
-      this.productToUpdate=product;
+    this.productToUpdate = product;
   }
 }
