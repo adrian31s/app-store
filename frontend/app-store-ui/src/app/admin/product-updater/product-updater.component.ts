@@ -1,241 +1,44 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductCategory, ProductDto } from 'client/src/app/api/models';
 import { ProductApiService } from 'client/src/app/api/services';
 import { Table } from 'primeng/table';
+import {
+  productCommonFieldsUtil,
+  productTypesFieldsUtil,
+} from 'src/app/utils/ProductLabels';
 
 @Component({
   selector: 'app-product-updater',
   templateUrl: './product-updater.component.html',
   styleUrls: ['./product-updater.component.css'],
 })
-export class ProductUpdaterComponent {
+export class ProductUpdaterComponent implements OnInit {
   @ViewChild('dt') dt: Table | undefined;
 
   products: ProductDto[] = [];
-  selectedProducts: ProductDto[] = [];
+  selectedProducts: ProductDto[] = []; //to consider if delete will be implemented
   selectedProductCategory?: any;
 
+  //labels
+  productCommonFields: any[];
+  productTypes: any[];
+
+  //onUpdate
+  productToUpdate?: ProductDto;
+  productDetailModel?: any;
+
   constructor(private productApiService: ProductApiService) {
+    this.productCommonFields = productCommonFieldsUtil;
+    this.productTypes = productTypesFieldsUtil;
+  }
+
+  ngOnInit(): void {
     this.productApiService.productGetAllGet().subscribe({
       next: (val) => {
         this.products = val;
       },
     });
   }
-
-  productCommonFields: any[] = [
-    {
-      type: 'alpha',
-      label: 'name',
-    },
-    {
-      type: 'alpha',
-      label: 'producer',
-    },
-    {
-      type: 'alpha',
-      label: 'guarantee',
-    },
-    {
-      type: 'alpha',
-      label: 'model',
-    },
-    {
-      type: 'num',
-      label: 'price',
-    },
-    {
-      type: 'int',
-      label: 'quantity',
-    },
-  ];
-
-  productTypes: any[] = [
-    {
-      category: ProductCategory.Charger,
-      labels: [
-        {
-          type: 'alpha',
-          label: 'power',
-        },
-        {
-          type: 'alpha',
-          label: 'standard',
-        },
-        {
-          type: 'int',
-          label: 'noise',
-        },
-        {
-          type: 'alpha',
-          label: 'coolingType',
-        },
-        {
-          type: 'int',
-          label: 'width',
-        },
-        {
-          type: 'int',
-          label: 'height',
-        },
-        {
-          type: 'int',
-          label: 'depth',
-        },
-      ],
-    },
-    {
-      category: ProductCategory.Cooler,
-      labels: [
-        {
-          type: 'alpha',
-          label: 'type',
-        },
-        {
-          type: 'int',
-          label: 'maxRotationSpeed',
-        },
-        {
-          type: 'int',
-          label: 'maxVolume',
-        },
-        {
-          type: 'int',
-          label: 'supplyVoltage',
-        },
-        {
-          type: 'alpha',
-          label: 'coolerType',
-        },
-      ],
-    },
-    {
-      category: ProductCategory.DramMemory,
-      labels: [
-        {
-          type: 'alpha',
-          label: 'latencyCycle',
-        },
-        {
-          type: 'alpha',
-          label: 'memoryType',
-        },
-        {
-          type: 'alpha',
-          label: 'frequency',
-        },
-        {
-          type: 'int',
-          label: 'memory',
-        },
-      ],
-    },
-    {
-      category: ProductCategory.GraphicCard,
-      labels: [
-        {
-          type: 'alpha',
-          label: 'memoryChipset',
-        },
-        {
-          type: 'alpha',
-          label: 'connectorType',
-        },
-        {
-          type: 'alpha',
-          label: 'memoryType',
-        },
-        {
-          type: 'alpha',
-          label: 'memoryClocking',
-        },
-        {
-          type: 'int',
-          label: 'memory',
-        },
-      ],
-    },
-    {
-      category: ProductCategory.HardDrive,
-      labels: [
-        {
-          type: 'alpha',
-          label: 'memoryInterface',
-        },
-        {
-          type: 'alpha',
-          label: 'memoryType',
-        },
-        {
-          type: 'int',
-          label: 'memory',
-        },
-      ],
-    },
-    {
-      category: ProductCategory.Motherboard,
-      labels: [
-        {
-          type: 'alpha',
-          label: 'motherboardStandard',
-        },
-        {
-          type: 'alpha',
-          label: 'processorSocket',
-        },
-        {
-          type: 'alpha',
-          label: 'memoryType',
-        },
-        {
-          type: 'int',
-          label: 'maxMemory',
-        },
-      ],
-    },
-    {
-      category: ProductCategory.PcCase,
-      labels: [
-        {
-          type: 'num',
-          label: 'width',
-        },
-        {
-          type: 'num',
-          label: 'length',
-        },
-        {
-          type: 'num',
-          label: 'depth',
-        },
-      ],
-    },
-    {
-      category: ProductCategory.Processor,
-      labels: [
-        {
-          type: 'alpha',
-          label: 'processorType',
-        },
-        {
-          type: 'alpha',
-          label: 'socketType',
-        },
-        {
-          type: 'int',
-          label: 'numberOfCores',
-        },
-        {
-          type: 'int',
-          label: 'numberOfThreads',
-        },
-        {
-          type: 'int',
-          label: 'l3Capacity',
-        },
-      ],
-    },
-  ];
 
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
@@ -297,11 +100,8 @@ export class ProductUpdaterComponent {
     return filteredProducts;
   }
 
-  productToUpdate?: ProductDto;
-  productDetailModel?:any;
-
   openEditProductDialog(product: ProductDto) {
     this.productToUpdate = product;
-    this.productDetailModel=this.getProductDetailModel(this.productToUpdate);
+    this.productDetailModel = this.getProductDetailModel(this.productToUpdate);
   }
 }

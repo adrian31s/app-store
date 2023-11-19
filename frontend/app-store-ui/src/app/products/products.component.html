@@ -1,10 +1,10 @@
 <div class="mainView">
     <h2>Lista produktów odpowiadająca twoim wymaganiom:</h2>
     <div class="productList">
-        <div class="border-solid border-purple-500 border-3 flex gap-4" *ngFor="let product of products">
+        <div class="border-solid border-purple-500 border-3 flex gap-4" *ngFor="let product of products; let i = index">
             <div class="imageDiv">
-                fotka
-                <img [src]="getImageSrc(product.thumbnail)" alt="">
+                <img class="max-w-full max-h-full" *ngIf="imagesUrlToBytes[i]!==undefined" [src]="imagesUrlToBytes[i]"
+                    [alt]="product.thumbnail">
             </div>
             <div class="flex-column">
                 <div class="productName">
@@ -13,7 +13,7 @@
                 <div class="flex">
                     <div class="productAtribiutes">
                         <span *ngFor="let productAttribute of productCommonFields">
-                            <li class="text-xl" *ngIf="productAttribute!='model'">{{
+                            <li class="text-xl">{{
                                 getProductAttribute(product,productAttribute['label']) }}</li>
                         </span>
                     </div>
