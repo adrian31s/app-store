@@ -298,8 +298,10 @@ export class ProductUpdaterComponent {
   }
 
   productToUpdate?: ProductDto;
+  productDetailModel?:any;
 
   openEditProductDialog(product: ProductDto) {
     this.productToUpdate = product;
+    this.productDetailModel=this.getProductDetailModel(this.productToUpdate);
   }
 }

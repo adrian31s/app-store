@@ -20,7 +20,13 @@ import { ProductApiService } from 'client/src/app/api/services';
   templateUrl: './product-creator.component.html',
   styleUrls: ['./product-creator.component.css'],
 })
-export class ProductCreatorComponent {
+export class ProductCreatorComponent implements OnInit {
+  @Input()
+  productToUpdate?: ProductDto;
+  @Input()
+  productDetailsToUpdate?: any;
+  disableSelectProductType: boolean = false;
+
   selectedProductType?: any;
   uploadedPictures: Set<any> = new Set();
   uploadedThumbnail: Set<any> = new Set();
@@ -28,6 +34,34 @@ export class ProductCreatorComponent {
   uploadedThumbnailAsString?: string;
 
   constructor(private productApiService: ProductApiService) {}
+
+  ngOnInit(): void {
+    if (this.productToUpdate !== undefined) {
+      this.selectedProductType = this.productTypes.find(
+        (productType) =>
+          productType.category === this.productToUpdate!.productCategory
+      );
+      this.disableSelectProductType = true;
+      this.delayFillInputs();
+    }
+  }
+
+  //fillInputsToUpdateByIdBasedOnKey
+  fillInputsToUpdate(obj: any, keys: any[]) {
+    for (let key of keys) {
+      (<HTMLInputElement>document.getElementById(key['label'])).value =
+        obj[key['label']];
+    }
+  }
+
+  private async delayFillInputs() {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    this.fillInputsToUpdate(this.productToUpdate, this.productCommonFields);
+    this.fillInputsToUpdate(
+      this.productDetailsToUpdate,
+      this.getSelectedProductLabels()
+    );
+  }
 
   private async convertFilesToStringBytes(files: Set<any>): Promise<string> {
     let uploadedPicturesAsStringByte = [];
@@ -259,7 +293,7 @@ export class ProductCreatorComponent {
         productType.category === this.selectedProductType.category
     );
 
-    let labels = selectedProductCategory.labels
+    let labels = selectedProductCategory.labels;
     if (labels === undefined || labels.length === 0) return [];
     return labels;
   }
@@ -366,9 +400,16 @@ export class ProductCreatorComponent {
       }
     }
 
-    this.productApiService
-      .productCreatePost({ body: product })
-      .subscribe((v) => console.info(v));
+    if (this.productToUpdate) {
+      product.bid = this.productToUpdate.bid;
+      this.productApiService
+      .productUpdateProductWithDetailsPut({body: product})
+      .subscribe((v)=>console.log(v));
+    } else {
+      this.productApiService
+        .productCreatePost({ body: product })
+        .subscribe((v) => console.info(v));
+    }
   }
 
   urlToImageByByteData(data: any): string {

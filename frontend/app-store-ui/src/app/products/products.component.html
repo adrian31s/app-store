@@ -1,1 +1,28 @@
-<H1>works!</H1>
+<div class="mainView">
+    <h2>Lista produktów odpowiadająca twoim wymaganiom:</h2>
+    <div class="productList">
+        <div class="border-solid border-purple-500 border-3 flex gap-4" *ngFor="let product of products">
+            <div class="imageDiv">
+                fotka
+                <img [src]="getImageSrc(product.thumbnail)" alt="">
+            </div>
+            <div class="flex-column">
+                <div class="productName">
+                    <h4>{{ product['name'] + " " + product['model'] }}</h4>
+                </div>
+                <div class="flex">
+                    <div class="productAtribiutes">
+                        <span *ngFor="let productAttribute of productCommonFields">
+                            <li class="text-xl" *ngIf="productAttribute!='model'">{{
+                                getProductAttribute(product,productAttribute['label']) }}</li>
+                        </span>
+                    </div>
+                    <div class="priceAndBucket">
+                        <h2 class="text-green-300">{{ "Cena: " + product['price'] + "Zł"}}</h2>
+                        <h2 class="text-red-300">DODAJ DO KOSZYKA</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

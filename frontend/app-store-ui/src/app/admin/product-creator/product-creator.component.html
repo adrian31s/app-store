@@ -1,6 +1,6 @@
 <div class="flex justify-content-center m-3">
     <p-dropdown [options]="productTypes" optionLabel="category" [(ngModel)]="selectedProductType" [showClear]="true"
-        [showClear]="false" placeholder="Wybierz rodzaj produktu"></p-dropdown>
+        [showClear]="false" placeholder="Wybierz rodzaj produktu" [disabled]="disableSelectProductType"></p-dropdown>
 </div>
 <div class="flex justify-content-center gap-5" *ngIf="selectedProductType">
     <div>
@@ -38,5 +38,6 @@
     </div>
 </div>
 <div class="flex justify-content-center m-5" *ngIf="selectedProductType">
-    <p-button (onClick)="createProduct()" label="Stworz przedmiot" severity="success"></p-button>
+    <p-button *ngIf="productToUpdate===undefined" (onClick)="createProduct()" label="Stworz przedmiot" severity="success"></p-button>
+    <p-button *ngIf="productToUpdate" (onClick)="createProduct()" label="Zaaktualizuj obiekt" severity="success"></p-button>
 </div>
