@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: app-store
-    image: adrian31s/app-store:1.0.0
+    image: adrian31s/app-store:1.0.1
     imagePullPolicy: Always
     env:
       - name: DB_URL
@@ -30,6 +30,11 @@ spec:
           configMapKeyRef:
             name: services-config
             key: HIBERNATE_GENERATION
+      - name: QUARKUS_LOG_LEVEL
+        valueFrom:
+          configMapKeyRef:
+            name: services-config
+            key: QUARKUS_LOG_LEVEL      
       - name: AWS_ACCESS_KEY_ID
         valueFrom:
           configMapKeyRef:

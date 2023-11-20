@@ -6,24 +6,52 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
-import { ProductPhotoComponent } from "./product-photo/product-photo.component";
+import { ProductPhotoComponent } from './product-photo/product-photo.component';
 import { FeedComponent } from './feed/feed.component';
+import { DialogModule } from 'primeng/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductCreatorComponent } from './admin/product-creator/product-creator.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ProductUpdaterComponent } from './admin/product-updater/product-updater.component';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ProductsComponent,
-        HomeComponent,
-        ProductComponent,
-    ],
-    providers: [],
-    bootstrap: [AppComponent, HomeComponent, ProductComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgbModule,
-        ProductPhotoComponent,
-        FeedComponent,
-    ]
+  declarations: [
+    AppComponent,
+    ProductsComponent,
+    HomeComponent,
+    ProductComponent,
+    ProductCreatorComponent,
+    ProductUpdaterComponent,
+  ],
+  providers: [MessageService],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    ProductPhotoComponent,
+    FeedComponent,
+    DialogModule,
+    BrowserAnimationsModule,
+    InputTextModule,
+    FormsModule,
+    ListboxModule,
+    DropdownModule,
+    ButtonModule,
+    KeyFilterModule,
+    FileUploadModule,
+    TableModule,
+    ToastModule
+    
+  ],
 })
-export class AppModule { }
+export class AppModule {}

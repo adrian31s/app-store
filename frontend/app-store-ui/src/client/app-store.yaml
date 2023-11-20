@@ -111,7 +111,13 @@ paths:
       - Product Api
       responses:
         "200":
-          description: OK
+          description: get all products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDTO'
   /product/getById/id/{id}:
     get:
       tags:
@@ -125,7 +131,60 @@ paths:
           type: integer
       responses:
         "200":
-          description: OK
+          description: get product by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  thumbnail:
+                    type: string
+                  pictures:
+                    type: string
+                  productCategory:
+                    $ref: '#/components/schemas/ProductCategory'
+                  name:
+                    type: string
+                  producer:
+                    type: string
+                  guarantee:
+                    type: string
+                  model:
+                    type: string
+                  price:
+                    format: double
+                    type: number
+                  quantity:
+                    format: int32
+                    type: integer
+                  productOrders:
+                    uniqueItems: true
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductOrder'
+                  charger:
+                    $ref: '#/components/schemas/Charger'
+                  cooler:
+                    $ref: '#/components/schemas/Cooler'
+                  dramMemory:
+                    $ref: '#/components/schemas/DRAMMemory'
+                  graphicCard:
+                    $ref: '#/components/schemas/GraphicCard'
+                  hardDrive:
+                    $ref: '#/components/schemas/HardDrive'
+                  motherboard:
+                    $ref: '#/components/schemas/Motherboard'
+                  pcCase:
+                    $ref: '#/components/schemas/PcCase'
+                  processor:
+                    $ref: '#/components/schemas/Processor'
+                  thumbnailAsByte:
+                    type: string
+                  picturesAsBytes:
+                    type: string
   /product/updateBaseById/id/{id}:
     put:
       tags:
@@ -298,12 +357,49 @@ components:
         depth:
           format: int32
           type: integer
+    ChargerDTO:
+      type: object
+      properties:
+        power:
+          type: string
+        standard:
+          type: string
+        coolingType:
+          type: string
+        noise:
+          format: int32
+          type: integer
+        width:
+          format: int32
+          type: integer
+        height:
+          format: int32
+          type: integer
+        depth:
+          format: int32
+          type: integer
     Cooler:
       type: object
       properties:
         bid:
           format: int64
           type: integer
+        type:
+          type: string
+        maxRotationSpeed:
+          format: int32
+          type: integer
+        maxVolume:
+          format: int32
+          type: integer
+        supplyVoltage:
+          format: int32
+          type: integer
+        coolerType:
+          type: string
+    CoolerDTO:
+      type: object
+      properties:
         type:
           type: string
         maxRotationSpeed:
@@ -332,12 +428,38 @@ components:
           type: string
         frequency:
           type: string
+    DRAMMemoryDTO:
+      type: object
+      properties:
+        latencyCycle:
+          type: string
+        memoryType:
+          type: string
+        frequency:
+          type: string
+        memory:
+          format: int32
+          type: integer
     GraphicCard:
       type: object
       properties:
         bid:
           format: int64
           type: integer
+        memoryChipset:
+          type: string
+        memory:
+          format: int32
+          type: integer
+        connectorType:
+          type: string
+        memoryType:
+          type: string
+        memoryClocking:
+          type: string
+    GraphicCardDTO:
+      type: object
+      properties:
         memoryChipset:
           type: string
         memory:
@@ -362,6 +484,16 @@ components:
           type: integer
         memoryType:
           type: string
+    HardDriveDTO:
+      type: object
+      properties:
+        memoryInterface:
+          type: string
+        memory:
+          format: int32
+          type: integer
+        memoryType:
+          type: string
     Motherboard:
       type: object
       properties:
@@ -377,12 +509,36 @@ components:
         maxMemory:
           format: int32
           type: integer
+    MotherboardDTO:
+      type: object
+      properties:
+        motherboardStandard:
+          type: string
+        processorSocket:
+          type: string
+        memoryType:
+          type: string
+        maxMemory:
+          format: int32
+          type: integer
     PcCase:
       type: object
       properties:
         bid:
           format: int64
           type: integer
+        width:
+          format: double
+          type: number
+        length:
+          format: double
+          type: number
+        depth:
+          format: double
+          type: number
+    PcCaseDTO:
+      type: object
+      properties:
         width:
           format: double
           type: number
@@ -421,6 +577,22 @@ components:
         bid:
           format: int64
           type: integer
+        processorType:
+          type: string
+        socketType:
+          type: string
+        numberOfCores:
+          format: int32
+          type: integer
+        numberOfThreads:
+          format: int32
+          type: integer
+        l3Capacity:
+          format: int32
+          type: integer
+    ProcessorDTO:
+      type: object
+      properties:
         processorType:
           type: string
         socketType:
@@ -496,6 +668,48 @@ components:
       - HARD_DRIVE
       - CHARGER
       type: string
+    ProductDTO:
+      type: object
+      properties:
+        bid:
+          format: int64
+          type: integer
+        thumbnail:
+          type: string
+        pictures:
+          type: string
+        productCategory:
+          $ref: '#/components/schemas/ProductCategory'
+        name:
+          type: string
+        producer:
+          type: string
+        guarantee:
+          type: string
+        model:
+          type: string
+        price:
+          format: double
+          type: number
+        quantity:
+          format: int32
+          type: integer
+        charger:
+          $ref: '#/components/schemas/ChargerDTO'
+        cooler:
+          $ref: '#/components/schemas/CoolerDTO'
+        dramMemory:
+          $ref: '#/components/schemas/DRAMMemoryDTO'
+        graphicCard:
+          $ref: '#/components/schemas/GraphicCardDTO'
+        hardDrive:
+          $ref: '#/components/schemas/HardDriveDTO'
+        motherboard:
+          $ref: '#/components/schemas/MotherboardDTO'
+        pcCase:
+          $ref: '#/components/schemas/PcCaseDTO'
+        processor:
+          $ref: '#/components/schemas/ProcessorDTO'
     ProductOrder:
       type: object
       properties:
