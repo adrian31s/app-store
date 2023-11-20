@@ -14,7 +14,11 @@ export class ObjectReceiverService {
   async getS3ImageSrcByImageName(
     imageName?: string
   ): Promise<string | undefined> {
-    if (this.accessKeyId === '' || this.secretAccessKey === '' || imageName=="not-found")
+    if (
+      this.accessKeyId === '' ||
+      this.secretAccessKey === '' ||
+      imageName == 'not-found'
+    )
       return '/assets/images/not-found.jpg';
 
     const client = new S3Client({

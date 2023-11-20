@@ -18,6 +18,8 @@ import {
   productTypesFieldsUtil,
 } from 'src/app/utils/ProductLabels';
 import PhotoUtil from 'src/app/utils/PhotoUtil';
+import { MessageService } from 'primeng/api';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-product-creator',
@@ -40,7 +42,10 @@ export class ProductCreatorComponent implements OnInit {
   productCommonFields: any[];
   productTypes: any[];
 
-  constructor(private productApiService: ProductApiService) {
+  constructor(
+    private productApiService: ProductApiService,
+    private messageService: MessageService
+  ) {
     this.productCommonFields = productCommonFieldsUtil;
     this.productTypes = productTypesFieldsUtil;
   }
@@ -200,11 +205,41 @@ export class ProductCreatorComponent implements OnInit {
       product.bid = this.productToUpdate.bid;
       this.productApiService
         .productUpdateProductWithDetailsPut({ body: product })
-        .subscribe((v) => console.log(v));
+        .subscribe(
+          (value) => {
+            if (typeof value === 'string') {
+              this.displayToastMessage('success', 'Zaaktualizowano', value);
+            }
+          },
+          (error) => {
+            this.displayToastMessage('error', 'Blad', error.message);
+          }
+        );
     } else {
-      this.productApiService
-        .productCreatePost({ body: product })
-        .subscribe((v) => console.info(v));
+      this.productApiService.productCreatePost({ body: product }).subscribe(
+        (value) => {
+          if (typeof value === 'string') {
+            this.displayToastMessage('success', 'Dodano', value);
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.displayToastMessage('error', 'Blad', error.message);
+        }
+      );
     }
+  }
+
+  private displayToastMessage(
+    severity: string,
+    summary: string,
+    detail: string
+  ) {
+    this.messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+    });
+    console.log('[psz;p');
   }
 }

@@ -20,6 +20,8 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ProductUpdaterComponent } from './admin/product-updater/product-updater.component';
 import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,7 @@ import { TableModule } from 'primeng/table';
     ProductCreatorComponent,
     ProductUpdaterComponent,
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { TableModule } from 'primeng/table';
     KeyFilterModule,
     FileUploadModule,
     TableModule,
+    ToastModule
     
   ],
 })
