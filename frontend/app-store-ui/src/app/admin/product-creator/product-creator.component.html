@@ -6,13 +6,11 @@
     <div>
         <span class="productLabelInput" *ngFor="let productCommonLabel of productCommonFields">
             <label [for]="productCommonLabel['label']">{{ productCommonLabel['label'] }} </label>
-            <input pInputText [pKeyFilter]="productCommonLabel['type']" [placeholder]="productCommonLabel['label']"
-                [id]="productCommonLabel['label']" #productCommonLabel />
+            <input [type]="productCommonLabel['type']" [placeholder]="productCommonLabel['label']" [id]="productCommonLabel['label']">
         </span>
         <span class="productLabelInput" *ngFor="let productLabel of getSelectedProductLabels()">
             <label [for]="productLabel['label']">{{ productLabel['label'] }} </label>
-            <input pInputText [pKeyFilter]="productLabel['type']" [placeholder]="productLabel['label']"
-                [id]="productLabel['label']" />
+            <input [type]="productLabel['type']" [placeholder]="productLabel['label']" [id]="productLabel['label']">
         </span>
     </div>
     <div>
@@ -38,6 +36,8 @@
     </div>
 </div>
 <div class="flex justify-content-center m-5" *ngIf="selectedProductType">
-    <p-button *ngIf="productToUpdate===undefined" (onClick)="createProduct()" label="Stworz przedmiot" severity="success"></p-button>
-    <p-button *ngIf="productToUpdate" (onClick)="createProduct()" label="Zaaktualizuj obiekt" severity="success"></p-button>
+    <p-button *ngIf="productToUpdate===undefined" (onClick)="createProduct()" label="Stworz przedmiot"
+        severity="success"></p-button>
+    <p-button *ngIf="productToUpdate" (onClick)="createProduct()" label="Zaaktualizuj obiekt"
+        severity="success"></p-button>
 </div>

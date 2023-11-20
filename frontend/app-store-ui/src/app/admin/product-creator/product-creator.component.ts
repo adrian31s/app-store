@@ -127,7 +127,7 @@ export class ProductCreatorComponent implements OnInit {
   //fillObjectsWithHTMLDocumnetInputsByIdBasedOnKey
   fillObjects(obj: any, keys: any[]) {
     for (let key of keys) {
-      if (key['type'] === 'alpha') {
+      if (key['type'] === 'text') {
         obj[key['label']] = (<HTMLInputElement>(
           document.getElementById(key['label'])
         )).value;

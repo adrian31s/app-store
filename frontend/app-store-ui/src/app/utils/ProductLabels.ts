@@ -2,27 +2,27 @@ import { ProductCategory } from 'client/src/app/api/models/product-category';
 
 export const productCommonFieldsUtil: any[] = [
   {
-    type: 'alpha',
+    type: 'text',
     label: 'name',
   },
   {
-    type: 'alpha',
+    type: 'text',
     label: 'producer',
   },
   {
-    type: 'alpha',
+    type: 'text',
     label: 'guarantee',
   },
   {
-    type: 'alpha',
+    type: 'text',
     label: 'model',
   },
   {
-    type: 'num',
+    type: 'number',
     label: 'price',
   },
   {
-    type: 'int',
+    type: 'number',
     label: 'quantity',
   },
 ];
@@ -33,31 +33,31 @@ export const productTypesFieldsUtil: any[] = [
     category: ProductCategory.Charger,
     labels: [
       {
-        type: 'alpha',
+        type: 'text',
         label: 'power',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'standard',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'noise',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'coolingType',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'width',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'height',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'depth',
       },
     ],
@@ -66,23 +66,23 @@ export const productTypesFieldsUtil: any[] = [
     category: ProductCategory.Cooler,
     labels: [
       {
-        type: 'alpha',
+        type: 'text',
         label: 'type',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'maxRotationSpeed',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'maxVolume',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'supplyVoltage',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'coolerType',
       },
     ],
@@ -91,19 +91,19 @@ export const productTypesFieldsUtil: any[] = [
     category: ProductCategory.DramMemory,
     labels: [
       {
-        type: 'alpha',
+        type: 'text',
         label: 'latencyCycle',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'memoryType',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'frequency',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'memory',
       },
     ],
@@ -112,23 +112,23 @@ export const productTypesFieldsUtil: any[] = [
     category: ProductCategory.GraphicCard,
     labels: [
       {
-        type: 'alpha',
+        type: 'text',
         label: 'memoryChipset',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'connectorType',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'memoryType',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'memoryClocking',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'memory',
       },
     ],
@@ -137,15 +137,15 @@ export const productTypesFieldsUtil: any[] = [
     category: ProductCategory.HardDrive,
     labels: [
       {
-        type: 'alpha',
+        type: 'text',
         label: 'memoryInterface',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'memoryType',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'memory',
       },
     ],
@@ -154,19 +154,19 @@ export const productTypesFieldsUtil: any[] = [
     category: ProductCategory.Motherboard,
     labels: [
       {
-        type: 'alpha',
+        type: 'text',
         label: 'motherboardStandard',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'processorSocket',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'memoryType',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'maxMemory',
       },
     ],
@@ -175,15 +175,15 @@ export const productTypesFieldsUtil: any[] = [
     category: ProductCategory.PcCase,
     labels: [
       {
-        type: 'num',
+        type: 'number',
         label: 'width',
       },
       {
-        type: 'num',
+        type: 'number',
         label: 'length',
       },
       {
-        type: 'num',
+        type: 'number',
         label: 'depth',
       },
     ],
@@ -192,23 +192,23 @@ export const productTypesFieldsUtil: any[] = [
     category: ProductCategory.Processor,
     labels: [
       {
-        type: 'alpha',
+        type: 'text',
         label: 'processorType',
       },
       {
-        type: 'alpha',
+        type: 'text',
         label: 'socketType',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'numberOfCores',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'numberOfThreads',
       },
       {
-        type: 'int',
+        type: 'number',
         label: 'l3Capacity',
       },
     ],

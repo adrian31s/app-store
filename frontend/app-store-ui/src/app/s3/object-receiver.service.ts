@@ -6,15 +6,21 @@ import PhotoUtil from '../utils/PhotoUtil';
   providedIn: 'root',
 })
 export class ObjectReceiverService {
+  accessKeyId: string = '';
+  secretAccessKey: string = '';
+
   constructor() {}
 
   async getS3ImageSrcByImageName(
     imageName?: string
   ): Promise<string | undefined> {
+    if (this.accessKeyId === '' || this.secretAccessKey === '' || imageName=="not-found")
+      return '/assets/images/not-found.jpg';
+
     const client = new S3Client({
       credentials: {
-        accessKeyId: 'AKIA2Y4DV6GK2TG5GOHI',
-        secretAccessKey: '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',
+        accessKeyId: this.accessKeyId,
+        secretAccessKey: this.secretAccessKey,
       },
       region: 'us-east-1',
     });
