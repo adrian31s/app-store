@@ -46,6 +46,33 @@ paths:
       responses:
         "200":
           description: OK
+  /auth/login:
+    get:
+      tags:
+      - Login
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
+    post:
+      tags:
+      - Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        "200":
+          description: OK
   /bucket/getActiveBucketById/id/{id}:
     get:
       tags:
@@ -333,6 +360,13 @@ components:
         apartmentNumber:
           format: int32
           type: integer
+    AuthRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
     Charger:
       type: object
       properties:

@@ -14,6 +14,7 @@ import app.order.service.OrderMapper;
 import app.order.service.OrderMapperImpl;
 import app.order.service.OrderService;
 import app.person.model.Person;
+import app.person.model.utill.Role;
 import app.person.service.PersonMapper;
 import app.person.service.PersonMapperImpl;
 import app.person.service.PersonService;
@@ -23,6 +24,7 @@ import app.single_product_order.dao.ProductOrderDao;
 import app.single_product_order.model.ProductOrder;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
+import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -71,6 +73,7 @@ public class ApplicationApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createPerson(@RequestBody Person person) {
+        person.setRole(Role.USER);
         Long personId = personService.createPerson(person).getBid();
         bucketService.create(personId);
         Person createdPerson = personService.getById(personId);
