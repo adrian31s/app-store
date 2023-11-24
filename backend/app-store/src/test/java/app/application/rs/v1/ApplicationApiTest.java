@@ -46,9 +46,9 @@ public class ApplicationApiTest extends BaseTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(address)
                 .when()
-                .patch("store/updatePersonAddress/id/" + person.getBid())
+                .patch("store/updatePersonAddressById/id/" + person.getBid())
                 .then()
-                .statusCode(200);
+                .statusCode(202);
 
         //then
         Person updatedPerson = personDao.getById(person.getBid());
@@ -67,7 +67,7 @@ public class ApplicationApiTest extends BaseTest {
                 .when()
                 .post("store/create/person")
                 .then()
-                .statusCode(200);
+                .statusCode(202);
 
         //then
         Assertions.assertEquals(1, personDao.getAllEntities().size());
@@ -91,7 +91,7 @@ public class ApplicationApiTest extends BaseTest {
                 .when()
                 .post("store/create/order")
                 .then()
-                .statusCode(200);
+                .statusCode(202);
         //then
         Person updatedPerson = personDao.getById(person.getBid());
         Order order = orderDao.getOrdersAssignedToPerson(person.getBid()).get(0);

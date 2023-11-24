@@ -1,10 +1,10 @@
 package app.security.authorization;
 
 
-import antlr.Token;
 import app.person.model.Person;
-import app.person.model.PersonSearchCriteria;
 import app.person.service.PersonService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Base64;
 
 @Slf4j
 public class Authorization {
@@ -51,37 +52,31 @@ public class Authorization {
     }
 
     @Path("/auth")
-    public static class Login{
+    public static class Login {
         @Inject
         PersonService personService;
 
-        @ConfigProperty(name = "com.ard333.quarkusjwt.jwt.duration") public Long duration;
-        @ConfigProperty(name = "mp.jwt.verify.issuer") public String issuer;
+        @ConfigProperty(name = "com.ard333.quarkusjwt.jwt.duration")
+        public Long duration;
+        @ConfigProperty(name = "mp.jwt.verify.issuer")
+        public String issuer;
 
         @PermitAll
         @POST
         @Path("/login")
         @Produces(MediaType.APPLICATION_JSON)
-        public Response login(@RequestBody  AuthRequest authRequest) {
+        public Response login(@RequestBody AuthRequest authRequest) {
             Person person = personService.findByUsernameAndPassword(authRequest.username, authRequest.password);
 
             if (person != null) {
                 try {
-                    return Response.ok(new AuthResponse(TokenUtils.generateToken(person.getUsername(), person.getRole(), duration, issuer))).build();
+                    return Response.ok(new AuthResponse(TokenUtils.generateToken(person.getBid(), person.getRole(), duration, issuer))).build();
                 } catch (Exception e) {
                     return Response.status(Response.Status.UNAUTHORIZED).build();
                 }
             } else {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
-        }
-
-        @RolesAllowed("USER")
-        @GET
-        @Path("/test")
-        @Produces(MediaType.APPLICATION_JSON)
-        public Response logi1n(@HeaderParam("Authorization") String jwtCookie) throws Exception {
-            return Response.ok(PersonSearchCriteria.builder().name("asd").build()).build();
         }
     }
 }

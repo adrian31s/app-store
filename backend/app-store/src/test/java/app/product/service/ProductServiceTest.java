@@ -90,12 +90,11 @@ public class ProductServiceTest extends BaseTest {
 
     @Test
     public void shouldCreateAllProductTypesWhenCreateProduct(){
-        //given
-        createProducts();
-
         //when
+        createProducts();
+        
+        //then
         List<Product> allProducts = productService.getAllProducts();
-
         Assertions.assertEquals(8,allProducts.size());
     }
 

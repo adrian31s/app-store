@@ -1,11 +1,15 @@
 package app.security.authorization;
 
 import app.person.model.utill.Role;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 import java.security.Key;
@@ -16,8 +20,10 @@ import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 
+@UtilityClass
+@Slf4j
 public class TokenUtils {
-    public static String generateToken(String username, Role role, Long duration, String issuer) throws Exception {
+    public String generateToken(Long username, Role role, Long duration, String issuer) throws Exception {
         String privateKeyLocation = "/security/tokens/privatekey.pem";
         PrivateKey privateKey = readPrivateKey(privateKeyLocation);
 
@@ -29,7 +35,7 @@ public class TokenUtils {
 
 
         claimsBuilder.issuer(issuer);
-        claimsBuilder.subject(username);
+        claimsBuilder.subject(String.valueOf(username));
         claimsBuilder.issuedAt(currentTimeInSecs);
         claimsBuilder.expiresAt(currentTimeInSecs + duration);
         claimsBuilder.groups(group);
@@ -37,7 +43,7 @@ public class TokenUtils {
         return claimsBuilder.jws().signatureKeyId(privateKeyLocation).sign(privateKey);
     }
 
-    public static PrivateKey readPrivateKey(final String pemResName) throws Exception {
+    public PrivateKey readPrivateKey(final String pemResName) throws Exception {
         try (InputStream contentIS = TokenUtils.class.getResourceAsStream(pemResName)) {
             byte[] tmp = new byte[4096];
             int length = contentIS.read(tmp);
@@ -45,7 +51,7 @@ public class TokenUtils {
         }
     }
 
-    public static PrivateKey decodePrivateKey(final String pemEncoded) throws Exception {
+    public PrivateKey decodePrivateKey(final String pemEncoded) throws Exception {
         byte[] encodedBytes = toEncodedBytes(pemEncoded);
 
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encodedBytes);
@@ -53,12 +59,12 @@ public class TokenUtils {
         return kf.generatePrivate(keySpec);
     }
 
-    public static byte[] toEncodedBytes(final String pemEncoded) {
+    public byte[] toEncodedBytes(final String pemEncoded) {
         final String normalizedPem = removeBeginEnd(pemEncoded);
         return Base64.getDecoder().decode(normalizedPem);
     }
 
-    public static String removeBeginEnd(String pem) {
+    public String removeBeginEnd(String pem) {
         pem = pem.replaceAll("-----BEGIN (.*)-----", "");
         pem = pem.replaceAll("-----END (.*)----", "");
         pem = pem.replaceAll("\r\n", "");
@@ -66,7 +72,24 @@ public class TokenUtils {
         return pem.trim();
     }
 
-    public static int currentTimeInSecs() {
+    public Long encodeToken(String token) {
+        try {
+            String[] chunks = token.replace("Bearer ", "").split("\\.");
+            Base64.Decoder decoder = Base64.getUrlDecoder();
+            String payload = new String(decoder.decode(chunks[1]));
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(payload);
+
+            return jsonNode.get("sub").asLong();
+        } catch (Exception ex) {
+            log.error("error during encodigToken: {}", token);
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public int currentTimeInSecs() {
         long currentTimeMS = System.currentTimeMillis();
         return (int) (currentTimeMS / 1000);
     }
