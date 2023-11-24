@@ -7,14 +7,18 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface PersonGetByIdIdIdGet$Params {
-  id: number;
+export interface AddProductToBucket$Params {
+  personId?: number;
+  productId?: number;
+  quantity?: number;
 }
 
-export function personGetByIdIdIdGet(http: HttpClient, rootUrl: string, params: PersonGetByIdIdIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, personGetByIdIdIdGet.PATH, 'get');
+export function addProductToBucket(http: HttpClient, rootUrl: string, params?: AddProductToBucket$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, addProductToBucket.PATH, 'post');
   if (params) {
-    rb.path('id', params.id, {});
+    rb.query('personId', params.personId, {});
+    rb.query('productId', params.productId, {});
+    rb.query('quantity', params.quantity, {});
   }
 
   return http.request(
@@ -27,4 +31,4 @@ export function personGetByIdIdIdGet(http: HttpClient, rootUrl: string, params: 
   );
 }
 
-personGetByIdIdIdGet.PATH = '/person/getById/id/{id}';
+addProductToBucket.PATH = '/store/addProductToBucket';

@@ -113,6 +113,8 @@
     "/auth/login" : {
       "post" : {
         "tags" : [ "Login" ],
+        "description" : "login",
+        "operationId" : "login",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -124,7 +126,58 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK"
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "token" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "NOT AUTHORIZED"
+          }
+        }
+      }
+    },
+    "/auth/testUserResource" : {
+      "post" : {
+        "tags" : [ "Login" ],
+        "description" : "return sample text if authorized",
+        "operationId" : "testUserResource",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AuthRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "token" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "NOT AUTHORIZED"
           }
         }
       }

@@ -17,11 +17,11 @@ import { Processor } from '../../models/processor';
 import { ProductCategory } from '../../models/product-category';
 import { ProductOrder } from '../../models/product-order';
 
-export interface ProductGetByIdIdIdGet$Params {
+export interface GetProductById$Params {
   id: number;
 }
 
-export function productGetByIdIdIdGet(http: HttpClient, rootUrl: string, params: ProductGetByIdIdIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+export function getProductById(http: HttpClient, rootUrl: string, params: GetProductById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'thumbnail'?: string;
 'pictures'?: string;
@@ -44,7 +44,7 @@ export function productGetByIdIdIdGet(http: HttpClient, rootUrl: string, params:
 'thumbnailAsByte'?: string;
 'picturesAsBytes'?: string;
 }>> {
-  const rb = new RequestBuilder(rootUrl, productGetByIdIdIdGet.PATH, 'get');
+  const rb = new RequestBuilder(rootUrl, getProductById.PATH, 'get');
   if (params) {
     rb.path('id', params.id, {});
   }
@@ -81,4 +81,4 @@ export function productGetByIdIdIdGet(http: HttpClient, rootUrl: string, params:
   );
 }
 
-productGetByIdIdIdGet.PATH = '/product/getById/id/{id}';
+getProductById.PATH = '/product/getById/id/{id}';

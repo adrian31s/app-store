@@ -6,18 +6,17 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ProductSearchCriteria } from '../../models/product-search-criteria';
 
-export interface ProductUpdateBaseByIdIdIdPut$Params {
-  id: number;
-      body?: ProductSearchCriteria
+export interface RemoveProductFromBucket$Params {
+  personId?: number;
+  productId?: number;
 }
 
-export function productUpdateBaseByIdIdIdPut(http: HttpClient, rootUrl: string, params: ProductUpdateBaseByIdIdIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, productUpdateBaseByIdIdIdPut.PATH, 'put');
+export function removeProductFromBucket(http: HttpClient, rootUrl: string, params?: RemoveProductFromBucket$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, removeProductFromBucket.PATH, 'post');
   if (params) {
-    rb.path('id', params.id, {});
-    rb.body(params.body, 'application/json');
+    rb.query('personId', params.personId, {});
+    rb.query('productId', params.productId, {});
   }
 
   return http.request(
@@ -30,4 +29,4 @@ export function productUpdateBaseByIdIdIdPut(http: HttpClient, rootUrl: string, 
   );
 }
 
-productUpdateBaseByIdIdIdPut.PATH = '/product/updateBaseById/id/{id}';
+removeProductFromBucket.PATH = '/store/removeProductFromBucket';

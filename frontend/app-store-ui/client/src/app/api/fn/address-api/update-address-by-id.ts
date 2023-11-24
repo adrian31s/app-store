@@ -6,15 +6,17 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Person } from '../../models/person';
+import { AddressSearchCriteria } from '../../models/address-search-criteria';
 
-export interface StoreCreateOrderPost$Params {
-      body?: Person
+export interface UpdateAddressById$Params {
+  id: number;
+      body?: AddressSearchCriteria
 }
 
-export function storeCreateOrderPost(http: HttpClient, rootUrl: string, params?: StoreCreateOrderPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, storeCreateOrderPost.PATH, 'post');
+export function updateAddressById(http: HttpClient, rootUrl: string, params: UpdateAddressById$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, updateAddressById.PATH, 'patch');
   if (params) {
+    rb.path('id', params.id, {});
     rb.body(params.body, 'application/json');
   }
 
@@ -28,4 +30,4 @@ export function storeCreateOrderPost(http: HttpClient, rootUrl: string, params?:
   );
 }
 
-storeCreateOrderPost.PATH = '/store/create/order';
+updateAddressById.PATH = '/address/updateAddressById/id/{id}';

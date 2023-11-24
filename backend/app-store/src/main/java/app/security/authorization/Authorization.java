@@ -1,6 +1,7 @@
 package app.security.authorization;
 
 
+import app.address.model.AddressDTO;
 import app.person.model.Person;
 import app.person.service.PersonService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -11,7 +12,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -65,6 +72,22 @@ public class Authorization {
         @POST
         @Path("/login")
         @Produces(MediaType.APPLICATION_JSON)
+        @Operation(operationId = "login", description = "login")
+        @APIResponses({
+                @APIResponse(
+                        responseCode = "200",
+                        description = "OK",
+                        content = @Content(
+                                mediaType = MediaType.APPLICATION_JSON,
+                                schema = @Schema(type = SchemaType.OBJECT, implementation = AuthResponse.class)
+                        )
+                ),
+                @APIResponse(
+                        responseCode = "401",
+                        description = "NOT AUTHORIZED"
+                )
+        })
+
         public Response login(@RequestBody AuthRequest authRequest) {
             Person person = personService.findByUsernameAndPassword(authRequest.username, authRequest.password);
 
@@ -77,6 +100,30 @@ public class Authorization {
             } else {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
+        }
+
+        @PermitAll
+        @POST
+        @Path("/testUserResource")
+        @Produces(MediaType.APPLICATION_JSON)
+        @Operation(operationId = "testUserResource", description = "return sample text if authorized")
+        @APIResponses({
+                @APIResponse(
+                        responseCode = "200",
+                        description = "OK",
+                        content = @Content(
+                                mediaType = MediaType.APPLICATION_JSON,
+                                schema = @Schema(type = SchemaType.OBJECT, implementation = AuthResponse.class)
+                        )
+                ),
+                @APIResponse(
+                        responseCode = "401",
+                        description = "NOT AUTHORIZED"
+                )
+        })
+
+        public Response testUserResource(@RequestBody AuthRequest authRequest) {
+            return Response.ok(new AuthResponse("test")).build();
         }
     }
 }

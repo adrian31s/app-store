@@ -33,7 +33,7 @@ export class ProductUpdaterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productApiService.productGetAllGet().subscribe({
+    this.productApiService.getProducts().subscribe({
       next: (val) => {
         this.products = val;
       },
