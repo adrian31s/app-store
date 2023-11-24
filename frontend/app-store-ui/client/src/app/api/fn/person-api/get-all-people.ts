@@ -6,13 +6,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ProductDto } from '../../models/product-dto';
+import { PersonDto } from '../../models/person-dto';
 
-export interface ProductGetAllGet$Params {
+export interface GetAllPeople$Params {
 }
 
-export function productGetAllGet(http: HttpClient, rootUrl: string, params?: ProductGetAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ProductDto>>> {
-  const rb = new RequestBuilder(rootUrl, productGetAllGet.PATH, 'get');
+export function getAllPeople(http: HttpClient, rootUrl: string, params?: GetAllPeople$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PersonDto>>> {
+  const rb = new RequestBuilder(rootUrl, getAllPeople.PATH, 'get');
   if (params) {
   }
 
@@ -21,9 +21,9 @@ export function productGetAllGet(http: HttpClient, rootUrl: string, params?: Pro
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<ProductDto>>;
+      return r as StrictHttpResponse<Array<PersonDto>>;
     })
   );
 }
 
-productGetAllGet.PATH = '/product/getAll';
+getAllPeople.PATH = '/person/getAll';

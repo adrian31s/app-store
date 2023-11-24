@@ -19,7 +19,7 @@ export class ProductsComponent implements OnInit {
     private objectReceiverService: ObjectReceiverService
   ) {}
   ngOnInit(): void {
-    this.productApiService.productGetAllGet().subscribe({
+    this.productApiService.getProducts().subscribe({
       next: (val) => {
         this.products = val;
         this.imagesUrlToBytes = new Array(this.products.length).fill('');

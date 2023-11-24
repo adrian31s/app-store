@@ -6,26 +6,30 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Person } from '../../models/person';
+import { AuthRequest } from '../../models/auth-request';
 
-export interface PersonUpdatePatch$Params {
-      body?: Person
+export interface Login$Params {
+      body?: AuthRequest
 }
 
-export function personUpdatePatch(http: HttpClient, rootUrl: string, params?: PersonUpdatePatch$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, personUpdatePatch.PATH, 'patch');
+export function login(http: HttpClient, rootUrl: string, params?: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+'token'?: string;
+}>> {
+  const rb = new RequestBuilder(rootUrl, login.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<{
+      'token'?: string;
+      }>;
     })
   );
 }
 
-personUpdatePatch.PATH = '/person/update';
+login.PATH = '/auth/login';

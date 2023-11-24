@@ -10,13 +10,23 @@ paths:
     get:
       tags:
       - Address Api
+      description: get all addresses
+      operationId: getAllAddresses
       responses:
         "200":
           description: OK
-  /address/id/{id}:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AddressDTO'
+  /address/getAddressById/id/{id}:
     get:
       tags:
       - Address Api
+      description: get address by id
+      operationId: getAddressById
       parameters:
       - name: id
         in: path
@@ -27,10 +37,31 @@ paths:
       responses:
         "200":
           description: OK
-  /address/update/id/{id}:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  province:
+                    type: string
+                  zipCode:
+                    type: string
+                  streetName:
+                    type: string
+                  buildingNumber:
+                    type: string
+                  apartmentNumber:
+                    format: int32
+                    type: integer
+  /address/updateAddressById/id/{id}:
     patch:
       tags:
       - Address Api
+      description: update address by id
+      operationId: updateAddressById
       parameters:
       - name: id
         in: path
@@ -44,12 +75,60 @@ paths:
             schema:
               $ref: '#/components/schemas/AddressSearchCriteria'
       responses:
+        "204":
+          description: NO CONTENT
+  /auth/login:
+    post:
+      tags:
+      - Login
+      description: login
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
         "200":
           description: OK
-  /bucket/getActiveBucketById/id/{id}:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "401":
+          description: NOT AUTHORIZED
+  /auth/testUserResource:
+    post:
+      tags:
+      - Login
+      description: return sample text if authorized
+      operationId: testUserResource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "401":
+          description: NOT AUTHORIZED
+  /bucket/getActiveBucketAssignedToPersonById/id/{id}:
     get:
       tags:
       - Bucket Api
+      description: get active bucket which can be modified assigned to person
+      operationId: getActiveBucketAssignedToPersonById
       parameters:
       - name: id
         in: path
@@ -60,17 +139,47 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  archived:
+                    type: boolean
+                  productOrders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductOrderDTO'
+                  personId:
+                    format: int64
+                    type: integer
+                  orderId:
+                    format: int64
+                    type: integer
   /person/getAll:
     get:
       tags:
       - Person Api
+      description: get all people
+      operationId: getAllPeople
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonDTO'
   /person/getById/id/{id}:
     get:
       tags:
       - Person Api
+      description: get person by id
+      operationId: getPersonById
       parameters:
       - name: id
         in: path
@@ -81,37 +190,123 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  username:
+                    type: string
+                  name:
+                    type: string
+                  lastName:
+                    type: string
+                  addresses:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddressDTO'
   /person/update:
     patch:
       tags:
       - Person Api
+      description: update person by id
+      operationId: updatePersonById
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Person'
       responses:
-        "200":
-          description: OK
+        "202":
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  username:
+                    type: string
+                  name:
+                    type: string
+                  lastName:
+                    type: string
+                  addresses:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddressDTO'
   /product/create:
     post:
       tags:
       - Product Api
+      description: create product
+      operationId: createProduct
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Product'
       responses:
-        "200":
-          description: OK
+        "202":
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  thumbnail:
+                    type: string
+                  pictures:
+                    type: string
+                  productCategory:
+                    $ref: '#/components/schemas/ProductCategory'
+                  name:
+                    type: string
+                  producer:
+                    type: string
+                  guarantee:
+                    type: string
+                  model:
+                    type: string
+                  price:
+                    format: double
+                    type: number
+                  quantity:
+                    format: int32
+                    type: integer
+                  charger:
+                    $ref: '#/components/schemas/ChargerDTO'
+                  cooler:
+                    $ref: '#/components/schemas/CoolerDTO'
+                  dramMemory:
+                    $ref: '#/components/schemas/DRAMMemoryDTO'
+                  graphicCard:
+                    $ref: '#/components/schemas/GraphicCardDTO'
+                  hardDrive:
+                    $ref: '#/components/schemas/HardDriveDTO'
+                  motherboard:
+                    $ref: '#/components/schemas/MotherboardDTO'
+                  pcCase:
+                    $ref: '#/components/schemas/PcCaseDTO'
+                  processor:
+                    $ref: '#/components/schemas/ProcessorDTO'
   /product/getAll:
     get:
       tags:
       - Product Api
+      description: get all products
+      operationId: getProducts
       responses:
         "200":
-          description: get all products
+          description: OK
           content:
             application/json:
               schema:
@@ -122,6 +317,8 @@ paths:
     get:
       tags:
       - Product Api
+      description: get product by id
+      operationId: getProductById
       parameters:
       - name: id
         in: path
@@ -131,7 +328,7 @@ paths:
           type: integer
       responses:
         "200":
-          description: get product by id
+          description: OK
           content:
             application/json:
               schema:
@@ -189,6 +386,8 @@ paths:
     put:
       tags:
       - Product Api
+      description: update product base attributes by id
+      operationId: updateProductBaseById
       parameters:
       - name: id
         in: path
@@ -202,24 +401,116 @@ paths:
             schema:
               $ref: '#/components/schemas/ProductSearchCriteria'
       responses:
-        "200":
-          description: OK
+        "202":
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  thumbnail:
+                    type: string
+                  pictures:
+                    type: string
+                  productCategory:
+                    $ref: '#/components/schemas/ProductCategory'
+                  name:
+                    type: string
+                  producer:
+                    type: string
+                  guarantee:
+                    type: string
+                  model:
+                    type: string
+                  price:
+                    format: double
+                    type: number
+                  quantity:
+                    format: int32
+                    type: integer
+                  charger:
+                    $ref: '#/components/schemas/ChargerDTO'
+                  cooler:
+                    $ref: '#/components/schemas/CoolerDTO'
+                  dramMemory:
+                    $ref: '#/components/schemas/DRAMMemoryDTO'
+                  graphicCard:
+                    $ref: '#/components/schemas/GraphicCardDTO'
+                  hardDrive:
+                    $ref: '#/components/schemas/HardDriveDTO'
+                  motherboard:
+                    $ref: '#/components/schemas/MotherboardDTO'
+                  pcCase:
+                    $ref: '#/components/schemas/PcCaseDTO'
+                  processor:
+                    $ref: '#/components/schemas/ProcessorDTO'
   /product/updateProductWithDetails:
     put:
       tags:
       - Product Api
+      description: update product with details by id
+      operationId: updateProductWithDetailsById
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Product'
       responses:
-        "200":
-          description: OK
+        "202":
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  thumbnail:
+                    type: string
+                  pictures:
+                    type: string
+                  productCategory:
+                    $ref: '#/components/schemas/ProductCategory'
+                  name:
+                    type: string
+                  producer:
+                    type: string
+                  guarantee:
+                    type: string
+                  model:
+                    type: string
+                  price:
+                    format: double
+                    type: number
+                  quantity:
+                    format: int32
+                    type: integer
+                  charger:
+                    $ref: '#/components/schemas/ChargerDTO'
+                  cooler:
+                    $ref: '#/components/schemas/CoolerDTO'
+                  dramMemory:
+                    $ref: '#/components/schemas/DRAMMemoryDTO'
+                  graphicCard:
+                    $ref: '#/components/schemas/GraphicCardDTO'
+                  hardDrive:
+                    $ref: '#/components/schemas/HardDriveDTO'
+                  motherboard:
+                    $ref: '#/components/schemas/MotherboardDTO'
+                  pcCase:
+                    $ref: '#/components/schemas/PcCaseDTO'
+                  processor:
+                    $ref: '#/components/schemas/ProcessorDTO'
   /store/addProductToBucket:
     post:
       tags:
       - Application Api
+      description: add product to active bucket
+      operationId: addProductToBucket
       parameters:
       - name: personId
         in: query
@@ -237,36 +528,82 @@ paths:
           format: int32
           type: integer
       responses:
-        "200":
-          description: OK
+        "204":
+          description: NO CONTENT
+        "304":
+          description: NOT MODIFIED
   /store/create/order:
     post:
       tags:
       - Application Api
+      description: create new order
+      operationId: createOrder
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Person'
       responses:
-        "200":
-          description: OK
+        "202":
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  ordered:
+                    $ref: '#/components/schemas/Date'
+                  delivered:
+                    $ref: '#/components/schemas/Date'
+                  status:
+                    $ref: '#/components/schemas/Status'
+                  totalPrice:
+                    format: double
+                    type: number
+                  bucketId:
+                    format: int64
+                    type: integer
   /store/create/person:
     post:
       tags:
       - Application Api
+      description: create new person
+      operationId: createPerson
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Person'
       responses:
-        "200":
-          description: OK
+        "202":
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  username:
+                    type: string
+                  name:
+                    type: string
+                  lastName:
+                    type: string
+                  addresses:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddressDTO'
   /store/removeProductFromBucket:
     post:
       tags:
       - Application Api
+      description: remove product from bucket
+      operationId: removeProductFromBucket
       parameters:
       - name: personId
         in: query
@@ -279,12 +616,15 @@ paths:
           format: int64
           type: integer
       responses:
-        "200":
-          description: OK
-  /store/updatePersonAddress/id/{id}:
+        "204":
+          description: NO CONTENT
+  /store/updatePersonAddressById/id/{id}:
     patch:
       tags:
       - Application Api
+      description: "update person address by person id, if address not exists then\
+        \ create new one"
+      operationId: updatePersonAddressById
       parameters:
       - name: id
         in: path
@@ -298,11 +638,46 @@ paths:
             schema:
               $ref: '#/components/schemas/AddressSearchCriteria'
       responses:
-        "200":
-          description: OK
+        "202":
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  username:
+                    type: string
+                  name:
+                    type: string
+                  lastName:
+                    type: string
+                  addresses:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddressDTO'
 components:
   schemas:
     Address:
+      type: object
+      properties:
+        bid:
+          format: int64
+          type: integer
+        province:
+          type: string
+        zipCode:
+          type: string
+        streetName:
+          type: string
+        buildingNumber:
+          type: string
+        apartmentNumber:
+          format: int32
+          type: integer
+    AddressDTO:
       type: object
       properties:
         bid:
@@ -333,6 +708,13 @@ components:
         apartmentNumber:
           format: int32
           type: integer
+    AuthRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
     Charger:
       type: object
       properties:
@@ -440,6 +822,10 @@ components:
         memory:
           format: int32
           type: integer
+    Date:
+      format: date
+      type: string
+      example: 2022-03-10
     GraphicCard:
       type: object
       properties:
@@ -571,6 +957,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Address'
+    PersonDTO:
+      type: object
+      properties:
+        bid:
+          format: int64
+          type: integer
+        username:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressDTO'
     Processor:
       type: object
       properties:
@@ -721,6 +1123,18 @@ components:
           type: integer
         product:
           $ref: '#/components/schemas/Product'
+    ProductOrderDTO:
+      type: object
+      properties:
+        quantityProductOrder:
+          format: int32
+          type: integer
+        productId:
+          format: int64
+          type: integer
+        bucketId:
+          format: int64
+          type: integer
     ProductSearchCriteria:
       type: object
       properties:
@@ -744,4 +1158,10 @@ components:
       - ADMIN
       - USER
       - NOT_LOGGED
+      type: string
+    Status:
+      enum:
+      - IN_PROGRESS
+      - DELIVERED
+      - ON_THE_WAY
       type: string

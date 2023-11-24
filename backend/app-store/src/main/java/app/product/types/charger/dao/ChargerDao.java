@@ -27,6 +27,11 @@ public class ChargerDao extends BaseDao<Charger>  {
         }
     }
 
+    @Transactional
+    public void deleteAll() {
+        getEntityManager().createQuery("DELETE FROM Charger").executeUpdate();
+    }
+
     @Override
     public Class<Charger> getClazz() {
         return Charger.class;

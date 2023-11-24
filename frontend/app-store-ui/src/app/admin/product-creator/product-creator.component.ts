@@ -204,23 +204,21 @@ export class ProductCreatorComponent implements OnInit {
     if (this.productToUpdate) {
       product.bid = this.productToUpdate.bid;
       this.productApiService
-        .productUpdateProductWithDetailsPut({ body: product })
+        .updateProductWithDetailsById({ body: product })
         .subscribe(
           (value) => {
-            if (typeof value === 'string') {
-              this.displayToastMessage('success', 'Zaaktualizowano', value);
-            }
+              let jsonString = JSON.stringify(value);
+              this.displayToastMessage('success', 'Zaaktualizowano', jsonString);
           },
           (error) => {
             this.displayToastMessage('error', 'Blad', error.message);
           }
         );
     } else {
-      this.productApiService.productCreatePost({ body: product }).subscribe(
+      this.productApiService.createProduct({ body: product }).subscribe(
         (value) => {
-          if (typeof value === 'string') {
-            this.displayToastMessage('success', 'Dodano', value);
-          }
+            let jsonString = JSON.stringify(value);
+            this.displayToastMessage('success', 'Dodano', jsonString);          
         },
         (error) => {
           console.log(error);
@@ -240,6 +238,5 @@ export class ProductCreatorComponent implements OnInit {
       summary: summary,
       detail: detail,
     });
-    console.log('[psz;p');
   }
 }

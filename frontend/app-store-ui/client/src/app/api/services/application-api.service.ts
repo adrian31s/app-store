@@ -9,16 +9,19 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { storeAddProductToBucketPost } from '../fn/application-api/store-add-product-to-bucket-post';
-import { StoreAddProductToBucketPost$Params } from '../fn/application-api/store-add-product-to-bucket-post';
-import { storeCreateOrderPost } from '../fn/application-api/store-create-order-post';
-import { StoreCreateOrderPost$Params } from '../fn/application-api/store-create-order-post';
-import { storeCreatePersonPost } from '../fn/application-api/store-create-person-post';
-import { StoreCreatePersonPost$Params } from '../fn/application-api/store-create-person-post';
-import { storeRemoveProductFromBucketPost } from '../fn/application-api/store-remove-product-from-bucket-post';
-import { StoreRemoveProductFromBucketPost$Params } from '../fn/application-api/store-remove-product-from-bucket-post';
-import { storeUpdatePersonAddressIdIdPatch } from '../fn/application-api/store-update-person-address-id-id-patch';
-import { StoreUpdatePersonAddressIdIdPatch$Params } from '../fn/application-api/store-update-person-address-id-id-patch';
+import { addProductToBucket } from '../fn/application-api/add-product-to-bucket';
+import { AddProductToBucket$Params } from '../fn/application-api/add-product-to-bucket';
+import { AddressDto } from '../models/address-dto';
+import { createOrder } from '../fn/application-api/create-order';
+import { CreateOrder$Params } from '../fn/application-api/create-order';
+import { createPerson } from '../fn/application-api/create-person';
+import { CreatePerson$Params } from '../fn/application-api/create-person';
+import { Date } from '../models/date';
+import { removeProductFromBucket } from '../fn/application-api/remove-product-from-bucket';
+import { RemoveProductFromBucket$Params } from '../fn/application-api/remove-product-from-bucket';
+import { Status } from '../models/status';
+import { updatePersonAddressById } from '../fn/application-api/update-person-address-by-id';
+import { UpdatePersonAddressById$Params } from '../fn/application-api/update-person-address-by-id';
 
 @Injectable({ providedIn: 'root' })
 export class ApplicationApiService extends BaseService {
@@ -26,128 +29,224 @@ export class ApplicationApiService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `storeAddProductToBucketPost()` */
-  static readonly StoreAddProductToBucketPostPath = '/store/addProductToBucket';
+  /** Path part for operation `addProductToBucket()` */
+  static readonly AddProductToBucketPath = '/store/addProductToBucket';
 
   /**
+   * add product to active bucket
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `storeAddProductToBucketPost()` instead.
+   * To access only the response body, use `addProductToBucket()` instead.
    *
    * This method doesn't expect any request body.
    */
-  storeAddProductToBucketPost$Response(params?: StoreAddProductToBucketPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return storeAddProductToBucketPost(this.http, this.rootUrl, params, context);
+  addProductToBucket$Response(params?: AddProductToBucket$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return addProductToBucket(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * add product to active bucket
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `storeAddProductToBucketPost$Response()` instead.
+   * To access the full response (for headers, for example), `addProductToBucket$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  storeAddProductToBucketPost(params?: StoreAddProductToBucketPost$Params, context?: HttpContext): Observable<void> {
-    return this.storeAddProductToBucketPost$Response(params, context).pipe(
+  addProductToBucket(params?: AddProductToBucket$Params, context?: HttpContext): Observable<void> {
+    return this.addProductToBucket$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /** Path part for operation `storeCreateOrderPost()` */
-  static readonly StoreCreateOrderPostPath = '/store/create/order';
+  /** Path part for operation `createOrder()` */
+  static readonly CreateOrderPath = '/store/create/order';
 
   /**
+   * create new order
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `storeCreateOrderPost()` instead.
+   * To access only the response body, use `createOrder()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  storeCreateOrderPost$Response(params?: StoreCreateOrderPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return storeCreateOrderPost(this.http, this.rootUrl, params, context);
+  createOrder$Response(params?: CreateOrder$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+'bid'?: number;
+'ordered'?: Date;
+'delivered'?: Date;
+'status'?: Status;
+'totalPrice'?: number;
+'bucketId'?: number;
+}>> {
+    return createOrder(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * create new order
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `storeCreateOrderPost$Response()` instead.
+   * To access the full response (for headers, for example), `createOrder$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  storeCreateOrderPost(params?: StoreCreateOrderPost$Params, context?: HttpContext): Observable<void> {
-    return this.storeCreateOrderPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  createOrder(params?: CreateOrder$Params, context?: HttpContext): Observable<{
+'bid'?: number;
+'ordered'?: Date;
+'delivered'?: Date;
+'status'?: Status;
+'totalPrice'?: number;
+'bucketId'?: number;
+}> {
+    return this.createOrder$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+'bid'?: number;
+'ordered'?: Date;
+'delivered'?: Date;
+'status'?: Status;
+'totalPrice'?: number;
+'bucketId'?: number;
+}>): {
+'bid'?: number;
+'ordered'?: Date;
+'delivered'?: Date;
+'status'?: Status;
+'totalPrice'?: number;
+'bucketId'?: number;
+} => r.body)
     );
   }
 
-  /** Path part for operation `storeCreatePersonPost()` */
-  static readonly StoreCreatePersonPostPath = '/store/create/person';
+  /** Path part for operation `createPerson()` */
+  static readonly CreatePersonPath = '/store/create/person';
 
   /**
+   * create new person
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `storeCreatePersonPost()` instead.
+   * To access only the response body, use `createPerson()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  storeCreatePersonPost$Response(params?: StoreCreatePersonPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return storeCreatePersonPost(this.http, this.rootUrl, params, context);
+  createPerson$Response(params?: CreatePerson$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+}>> {
+    return createPerson(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * create new person
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `storeCreatePersonPost$Response()` instead.
+   * To access the full response (for headers, for example), `createPerson$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  storeCreatePersonPost(params?: StoreCreatePersonPost$Params, context?: HttpContext): Observable<void> {
-    return this.storeCreatePersonPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  createPerson(params?: CreatePerson$Params, context?: HttpContext): Observable<{
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+}> {
+    return this.createPerson$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+}>): {
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+} => r.body)
     );
   }
 
-  /** Path part for operation `storeRemoveProductFromBucketPost()` */
-  static readonly StoreRemoveProductFromBucketPostPath = '/store/removeProductFromBucket';
+  /** Path part for operation `removeProductFromBucket()` */
+  static readonly RemoveProductFromBucketPath = '/store/removeProductFromBucket';
 
   /**
+   * remove product from bucket
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `storeRemoveProductFromBucketPost()` instead.
+   * To access only the response body, use `removeProductFromBucket()` instead.
    *
    * This method doesn't expect any request body.
    */
-  storeRemoveProductFromBucketPost$Response(params?: StoreRemoveProductFromBucketPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return storeRemoveProductFromBucketPost(this.http, this.rootUrl, params, context);
+  removeProductFromBucket$Response(params?: RemoveProductFromBucket$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return removeProductFromBucket(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * remove product from bucket
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `storeRemoveProductFromBucketPost$Response()` instead.
+   * To access the full response (for headers, for example), `removeProductFromBucket$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  storeRemoveProductFromBucketPost(params?: StoreRemoveProductFromBucketPost$Params, context?: HttpContext): Observable<void> {
-    return this.storeRemoveProductFromBucketPost$Response(params, context).pipe(
+  removeProductFromBucket(params?: RemoveProductFromBucket$Params, context?: HttpContext): Observable<void> {
+    return this.removeProductFromBucket$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /** Path part for operation `storeUpdatePersonAddressIdIdPatch()` */
-  static readonly StoreUpdatePersonAddressIdIdPatchPath = '/store/updatePersonAddress/id/{id}';
+  /** Path part for operation `updatePersonAddressById()` */
+  static readonly UpdatePersonAddressByIdPath = '/store/updatePersonAddressById/id/{id}';
 
   /**
+   * update person address by person id, if address not exists then create new one
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `storeUpdatePersonAddressIdIdPatch()` instead.
+   * To access only the response body, use `updatePersonAddressById()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  storeUpdatePersonAddressIdIdPatch$Response(params: StoreUpdatePersonAddressIdIdPatch$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return storeUpdatePersonAddressIdIdPatch(this.http, this.rootUrl, params, context);
+  updatePersonAddressById$Response(params: UpdatePersonAddressById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+}>> {
+    return updatePersonAddressById(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * update person address by person id, if address not exists then create new one
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `storeUpdatePersonAddressIdIdPatch$Response()` instead.
+   * To access the full response (for headers, for example), `updatePersonAddressById$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  storeUpdatePersonAddressIdIdPatch(params: StoreUpdatePersonAddressIdIdPatch$Params, context?: HttpContext): Observable<void> {
-    return this.storeUpdatePersonAddressIdIdPatch$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  updatePersonAddressById(params: UpdatePersonAddressById$Params, context?: HttpContext): Observable<{
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+}> {
+    return this.updatePersonAddressById$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+}>): {
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+} => r.body)
     );
   }
 

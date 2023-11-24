@@ -6,6 +6,7 @@ import app.product.model.ProductSearchCriteria;
 import app.product.service.ProductService;
 import app.product.service.mapper.ProductMapper;
 import app.product.service.mapper.ProductMapperImpl;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -29,9 +30,10 @@ public class ProductApi {
     @Path("/getById/id/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "getProductById", description = "get product by id")
     @APIResponse(
             responseCode = "200",
-            description = "get product by id",
+            description = "OK",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
                     schema = @Schema(type = SchemaType.OBJECT, implementation = Product.class)
@@ -45,9 +47,10 @@ public class ProductApi {
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "getProducts", description = "get all products")
     @APIResponse(
             responseCode = "200",
-            description = "get all products",
+            description = "OK",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
                     schema = @Schema(type = SchemaType.ARRAY, implementation = ProductDTO.class)
@@ -62,6 +65,15 @@ public class ProductApi {
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "createProduct", description = "create product")
+    @APIResponse(
+            responseCode = "202",
+            description = "ACCEPTED",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = ProductDTO.class)
+            )
+    )
     public Response createProduct(@RequestBody Product product){
         Product createdProduct = productService.createProduct(product);
         return Response.accepted(productMapper.mapToDTO(createdProduct)).build();
@@ -71,16 +83,34 @@ public class ProductApi {
     @Path("/updateBaseById/id/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "updateProductBaseById", description = "update product base attributes by id")
+    @APIResponse(
+            responseCode = "202",
+            description = "ACCEPTED",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = ProductDTO.class)
+            )
+    )
     public Response updateProductBaseById(@PathParam("id") Long id, @RequestBody ProductSearchCriteria searchCriteria){
-        return Response.ok(productService.updateProductById(id,searchCriteria)).build();
+        return Response.accepted(productService.updateProductById(id,searchCriteria)).build();
     }
 
     @PUT
     @Path("/updateProductWithDetails")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateProductById(@RequestBody Product product){
+    @Operation(operationId = "updateProductWithDetailsById", description = "update product with details by id")
+    @APIResponse(
+            responseCode = "202",
+            description = "ACCEPTED",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = ProductDTO.class)
+            )
+    )
+    public Response updateProductWithDetailsById(@RequestBody Product product){
         Product updatedProduct = productService.updateProductWithDetailsById(product);
-        return Response.ok(productMapper.mapToDTO(updatedProduct)).build();
+        return Response.accepted(productMapper.mapToDTO(updatedProduct)).build();
     }
 }
