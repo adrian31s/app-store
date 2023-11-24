@@ -102,7 +102,7 @@ public class Authorization {
             }
         }
 
-        @PermitAll
+        @RolesAllowed(value = {"USER"})
         @POST
         @Path("/testUserResource")
         @Produces(MediaType.APPLICATION_JSON)
