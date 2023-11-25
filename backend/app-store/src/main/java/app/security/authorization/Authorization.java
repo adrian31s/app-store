@@ -1,7 +1,5 @@
 package app.security.authorization;
 
-
-import antlr.Token;
 import app.address.model.AddressDTO;
 import app.person.model.Person;
 import app.person.service.PersonService;
@@ -75,7 +73,6 @@ public class Authorization {
         @Produces(MediaType.APPLICATION_JSON)
         @Operation(operationId = "login", description = "login")
         @APIResponses({@APIResponse(responseCode = "200", description = "OK", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(type = SchemaType.OBJECT, implementation = AuthResponse.class))), @APIResponse(responseCode = "401", description = "NOT AUTHORIZED")})
-
         public Response login(@RequestBody AuthRequest authRequest) {
             Person person = personService.findByUsernameAndPassword(authRequest.username, authRequest.password);
 
