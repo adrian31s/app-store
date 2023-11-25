@@ -5,7 +5,7 @@
     <div id="user">
       <div class="dropdown"> <img [src]="images[0]" class="filter-white" alt="Panel użytkownika" />
         <div class="dropdown-content">
-          <a>Zaloguj się</a>
+          <a (click)="openLoginDialog()">Zaloguj się</a>
           <br>
           Nie masz jeszcze konta?
           <a>Zarejestruj się</a>
@@ -33,8 +33,13 @@
 <a style="text-decoration:none" [routerLink]="'product'"><button>Podstrona produktu</button></a>
 
 <button (click)="showDialog()">Opcja dla administratora - dodaj produkt</button>
-<p-dialog header="Zarzadzanie produktami" [(visible)]="visible" [modal]="true" [style]="{width: '90%', height: '900px'}"
-  [draggable]="false" [resizable]="false">
+<p-dialog appendTo="body" header="Zarzadzanie produktami" [(visible)]="visible" [modal]="true"
+  [style]="{width: '90%', height: '900px'}" [draggable]="false" [resizable]="false">
   <app-product-updater></app-product-updater>
   <app-product-creator></app-product-creator>
+</p-dialog>
+
+
+<p-dialog header="Logowanie" [modal]="true" [(visible)]="loginDialogVisible" styleClass="abc" [draggable]="false">
+  <app-login></app-login>
 </p-dialog>

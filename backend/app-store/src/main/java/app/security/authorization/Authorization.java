@@ -1,6 +1,7 @@
 package app.security.authorization;
 
 
+import antlr.Token;
 import app.address.model.AddressDTO;
 import app.person.model.Person;
 import app.person.service.PersonService;
@@ -73,20 +74,7 @@ public class Authorization {
         @Path("/login")
         @Produces(MediaType.APPLICATION_JSON)
         @Operation(operationId = "login", description = "login")
-        @APIResponses({
-                @APIResponse(
-                        responseCode = "200",
-                        description = "OK",
-                        content = @Content(
-                                mediaType = MediaType.APPLICATION_JSON,
-                                schema = @Schema(type = SchemaType.OBJECT, implementation = AuthResponse.class)
-                        )
-                ),
-                @APIResponse(
-                        responseCode = "401",
-                        description = "NOT AUTHORIZED"
-                )
-        })
+        @APIResponses({@APIResponse(responseCode = "200", description = "OK", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(type = SchemaType.OBJECT, implementation = AuthResponse.class))), @APIResponse(responseCode = "401", description = "NOT AUTHORIZED")})
 
         public Response login(@RequestBody AuthRequest authRequest) {
             Person person = personService.findByUsernameAndPassword(authRequest.username, authRequest.password);
@@ -103,27 +91,14 @@ public class Authorization {
         }
 
         @RolesAllowed(value = {"USER"})
-        @POST
+        @GET
         @Path("/testUserResource")
         @Produces(MediaType.APPLICATION_JSON)
         @Operation(operationId = "testUserResource", description = "return sample text if authorized")
-        @APIResponses({
-                @APIResponse(
-                        responseCode = "200",
-                        description = "OK",
-                        content = @Content(
-                                mediaType = MediaType.APPLICATION_JSON,
-                                schema = @Schema(type = SchemaType.OBJECT, implementation = AuthResponse.class)
-                        )
-                ),
-                @APIResponse(
-                        responseCode = "401",
-                        description = "NOT AUTHORIZED"
-                )
-        })
+        @APIResponses({@APIResponse(responseCode = "200", description = "OK", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(type = SchemaType.OBJECT, implementation = AuthResponse.class))), @APIResponse(responseCode = "401", description = "NOT AUTHORIZED")})
 
-        public Response testUserResource(@RequestBody AuthRequest authRequest) {
-            return Response.ok(new AuthResponse("test")).build();
+        public Response testUserResource(@HeaderParam("Authorization") String token) {
+            return Response.ok(TokenUtils.encodeToken(token)).build();
         }
     }
 }
