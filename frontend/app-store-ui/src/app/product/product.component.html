@@ -1,46 +1,52 @@
-<div class="product">
-    <div class="top">
-        <div class="photo">
-            <app-product-photo></app-product-photo>
+<div *ngIf="product">
+    <div class="product">
+        <div class="top">
+            <div class="photo">
+                <app-product-photo [thumbnailUrl]="product.thumbnail"
+                    [imagesUrls]="product.pictures"></app-product-photo>
+            </div>
+            <div class="specs" *ngIf="productDetails">
+                <h1>{{ product['model'] }}</h1>
+                <span *ngFor="let productAttribute of productCommonFields">
+                    <span *ngIf="productAttribute['label']!=='price' && productAttribute['label']!=='name'">
+                        <br>{{ productAttribute['label_pl'] + ': ' +
+                        getProductAttribute(product,productAttribute['label']) }}
+                    </span>
+                </span>
+                <span *ngFor="let productDetailsAttribute of getSelectedProductLabels()">
+                    <span>
+                        <br>{{ productDetailsAttribute['label_pl'] + ': ' +
+                        getProductAttribute(productDetails,productDetailsAttribute['label']) }}
+                    </span>
+                </span>
+            </div>
         </div>
-        <div class="specs">
-            <h1>{{name}}</h1>
-            <br>
-            <br>
-            System operacyjny:
-            <br>Rozdzielczość: {{res}}
-            <br>Procesor: {{cpu}}
-            <br>Pamięć RAM: {{ram}}
-            <br>Dysk: {{disk}}
-            <br>Grafika: {{gpu}}
+        <div class="top-underspecs">
+            <div class="previous-product">
+                <a href="#" class="previous round"><img class="filter-white" [src]=images[0] /></a>
+            </div>
+            <div class="price">
+                <h2>{{ product.price + " ZŁ" }}</h2>
+                <button type="button" class="btn btn-danger">Dodaj do koszyka</button>
+            </div>
         </div>
     </div>
-    <div class="top-underspecs">
-        <div class="previous-product">
-            <a href="#" class="previous round"><img class="filter-white" [src]=images[0] /></a>
+    <hr>
+    <div class="product-bottom">
+        <div class="description">
+            <h1>Co jest w zestawie?</h1>
+            {{desc}}
         </div>
-        <div class="price">
-            <h2>CENA: {{price}} ZŁ</h2>
-            <button type="button" class="btn btn-danger">Dodaj do koszyka</button>
-        </div>
-    </div>
-</div>
-<hr>
-
-<div class="product-bottom">
-    <div class="description">
-        <h1>Co jest w zestawie?</h1>
-        {{desc}}
-    </div>
-    <br>
-    <br>
-    <div class="feed">
-        <div class="feed-top">
-            <h1>Opinie</h1>
-            <button type="button" class="btn btn-secondary">Dodaj opinię</button>
-        </div>
-        <div class="feed-bottom">
-            <app-feed></app-feed>
+        <br>
+        <br>
+        <div class="feed">
+            <div class="feed-top">
+                <h1>Opinie</h1>
+                <button type="button" class="btn btn-secondary">Dodaj opinię</button>
+            </div>
+            <div class="feed-bottom">
+                <app-feed></app-feed>
+            </div>
         </div>
     </div>
 </div>

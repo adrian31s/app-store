@@ -17,15 +17,17 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productApiService: ProductApiService,
     private objectReceiverService: ObjectReceiverService
-  ) {}
-  ngOnInit(): void {
+  ) {
     this.productApiService.getProducts().subscribe({
       next: (val) => {
         this.products = val;
         this.imagesUrlToBytes = new Array(this.products.length).fill('');
         this.getImagesSrc();
       },
-    });  }
+    });
+  }
+
+  ngOnInit(): void {}
 
   async getImagesSrc() {
     for (let i = 0; i < this.products.length; i++) {

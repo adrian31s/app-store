@@ -19,7 +19,7 @@ import {
 } from 'src/app/utils/ProductLabels';
 import PhotoUtil from 'src/app/utils/PhotoUtil';
 import { MessageService } from 'primeng/api';
-import { Console } from 'console';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-product-creator',
@@ -133,9 +133,10 @@ export class ProductCreatorComponent implements OnInit {
   fillObjects(obj: any, keys: any[]) {
     for (let key of keys) {
       if (key['type'] === 'text') {
-        obj[key['label']] = (<HTMLInputElement>(
-          document.getElementById(key['label'])
-        )).value;
+        let value = (<HTMLInputElement>document.getElementById(key['label']))
+          .value;
+        if (value !== '') obj[key['label']] = value;
+        else obj[key['label']] = 'brak danych';
       } else
         obj[key['label']] = Number(
           (<HTMLInputElement>document.getElementById(key['label'])).value
@@ -207,8 +208,8 @@ export class ProductCreatorComponent implements OnInit {
         .updateProductWithDetailsById({ body: product })
         .subscribe(
           (value) => {
-              let jsonString = JSON.stringify(value);
-              this.displayToastMessage('success', 'Zaaktualizowano', jsonString);
+            let jsonString = JSON.stringify(value);
+            this.displayToastMessage('success', 'Zaaktualizowano', jsonString);
           },
           (error) => {
             this.displayToastMessage('error', 'Blad', error.message);
@@ -217,8 +218,8 @@ export class ProductCreatorComponent implements OnInit {
     } else {
       this.productApiService.createProduct({ body: product }).subscribe(
         (value) => {
-            let jsonString = JSON.stringify(value);
-            this.displayToastMessage('success', 'Dodano', jsonString);          
+          let jsonString = JSON.stringify(value);
+          this.displayToastMessage('success', 'Dodano', jsonString);
         },
         (error) => {
           console.log(error);
