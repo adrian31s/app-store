@@ -8,13 +8,15 @@
             </div>
             <div class="flex-column">
                 <div class="productName">
-                    <h4>{{ product['name'] + " " + product['model'] }}</h4>
+                    <h4><a [routerLink]="['/product']" [queryParams]="{productId: product['bid']}">{{ product['name'] + " " + product['model'] }}</a></h4>
                 </div>
                 <div class="flex">
                     <div class="productAtribiutes">
                         <span *ngFor="let productAttribute of productCommonFields">
-                            <li class="text-xl">{{
-                                getProductAttribute(product,productAttribute['label']) }}</li>
+                            <div *ngIf="productAttribute['label']!=='price'">
+                                <li class="text-xl">{{ productAttribute['label_pl'] + ': ' +
+                                    getProductAttribute(product,productAttribute['label']) }}</li>
+                            </div>
                         </span>
                     </div>
                     <div class="priceAndBucket">

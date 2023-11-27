@@ -6,6 +6,7 @@ import {
   productCommonFieldsUtil,
   productTypesFieldsUtil,
 } from 'src/app/utils/ProductLabels';
+import ProductUtil from 'src/app/utils/ProductUtil';
 
 @Component({
   selector: 'app-product-updater',
@@ -61,32 +62,7 @@ export class ProductUpdaterComponent implements OnInit {
   }
 
   getProductDetailModel(productDTO: ProductDto): any {
-    switch (this.selectedProductCategory.category) {
-      case ProductCategory.Charger: {
-        return productDTO.charger;
-      }
-      case ProductCategory.Cooler: {
-        return productDTO.cooler;
-      }
-      case ProductCategory.DramMemory: {
-        return productDTO.dramMemory;
-      }
-      case ProductCategory.GraphicCard: {
-        return productDTO.graphicCard;
-      }
-      case ProductCategory.HardDrive: {
-        return productDTO.hardDrive;
-      }
-      case ProductCategory.Motherboard: {
-        return productDTO.motherboard;
-      }
-      case ProductCategory.PcCase: {
-        return productDTO.pcCase;
-      }
-      case ProductCategory.Processor: {
-        return productDTO.processor;
-      }
-    }
+    return ProductUtil.getProductDetailModel(productDTO);
   }
 
   isPropertyDefined(obj: any, prop: string): obj is { [key: string]: any } {
@@ -102,6 +78,8 @@ export class ProductUpdaterComponent implements OnInit {
 
   openEditProductDialog(product: ProductDto) {
     this.productToUpdate = product;
-    this.productDetailModel = this.getProductDetailModel(this.productToUpdate);
+    this.productDetailModel = ProductUtil.getProductDetailModel(
+      this.productToUpdate
+    );
   }
 }
