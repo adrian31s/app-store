@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductCategory, ProductDto } from 'client/src/app/api/models';
+import { ProductDto } from 'client/src/app/api/models';
 import { ProductApiService } from 'client/src/app/api/services';
 import {
   productCommonFieldsUtil,
   productTypesFieldsUtil,
 } from '../utils/ProductLabels';
 import { ObjectReceiverService } from '../s3/object-receiver.service';
+import ProductUtil from '../utils/ProductUtil';
 
 @Component({
   selector: 'app-product',
@@ -38,7 +39,7 @@ export class ProductComponent implements OnInit {
     this.productService.getProductById({ id: this.productId }).subscribe(
       (value) => {
         this.product = value;
-        this.productDetails = this.getProductDetailModel(this.product)
+        this.productDetails = ProductUtil.getProductDetailModel(this.product);
       },
       (error) => {
         console.log(error);
@@ -61,41 +62,11 @@ export class ProductComponent implements OnInit {
   getSelectedProductLabels(): any[] {
     if (this.product === undefined) return [];
     const selectedProductCategory = this.productTypes.find(
-      (productType) =>
-        productType.category === this.product.productCategory
+      (productType) => productType.category === this.product.productCategory
     );
 
     let labels = selectedProductCategory.labels;
     if (labels === undefined || labels.length === 0) return [];
     return labels;
-  }
-
-  getProductDetailModel(productDTO: ProductDto): any {
-    switch (this.product.productCategory) {
-      case ProductCategory.Charger: {
-        return productDTO.charger;
-      }
-      case ProductCategory.Cooler: {
-        return productDTO.cooler;
-      }
-      case ProductCategory.DramMemory: {
-        return productDTO.dramMemory;
-      }
-      case ProductCategory.GraphicCard: {
-        return productDTO.graphicCard;
-      }
-      case ProductCategory.HardDrive: {
-        return productDTO.hardDrive;
-      }
-      case ProductCategory.Motherboard: {
-        return productDTO.motherboard;
-      }
-      case ProductCategory.PcCase: {
-        return productDTO.pcCase;
-      }
-      case ProductCategory.Processor: {
-        return productDTO.processor;
-      }
-    }
   }
 }
