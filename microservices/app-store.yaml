@@ -8,7 +8,7 @@ spec:
   containers:
   - name: app-store
     image: adrian31s/app-store:1.0.2
-    imagePullPolicy: Never
+    imagePullPolicy: Always
     env:
       - name: DB_URL
         valueFrom:
