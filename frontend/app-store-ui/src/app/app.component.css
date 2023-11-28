@@ -40,6 +40,10 @@ strong:hover {
 }
 
 .dropdown-content {
+  /*  */
+  display: flex;
+  flex-direction: column;
+  /*  */
   margin-top: 1vh;
   margin-left: -1.8vh;
   /* display: none; */
@@ -61,7 +65,9 @@ strong:hover {
 }
 
 .dropdown:hover .dropdown-content {
-  display: block;
+  /* display: block; */
+  display: flex;
+  flex-direction: column;
 }
 
 .dropdown-content a:hover {
