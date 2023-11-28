@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { log } from 'console';
 import { AuthService } from './auth/service/auth.service';
 
@@ -6,6 +6,7 @@ import { AuthService } from './auth/service/auth.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class AppComponent implements OnInit {
   title = 'KUPSPRZECIK.PL';

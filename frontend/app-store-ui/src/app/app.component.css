@@ -81,44 +81,48 @@ strong:hover {
     brightness(106%) contrast(106%);
 }
 
-:host ::ng-deep {
-  .p-dialog {
-    width: 50% !important;
-  }
-  .p-dialog-header {
-    background-color: black !important;
-    border-color: gray;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 5px;
-    padding: 7px;
-  }
-  .p-dialog-title {
-    color: white !important;
-    font-size: 25px;
-    margin-left: 10px;
-  }
-  .p-dialog .p-dialog-content {
-    background: black !important;
-    border-color: gray;
-    border-style: solid;
-    border-top: none;
-    border-width: 1px;
-    border-radius: 5px;
-    color: white;
-  }
+::ng-deep .p-dialog {
+  width: 100% !important;
+  background-attachment: fixed;
+}
 
-  .p-dialog-header-icon {
-    background-color: white;
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: gray;
-    border-style: solid;
-    color: black;
-    width: 25px;
-    height: 25px;
-  }
-  /* button.p-ripple.p-element.p-dialog-header-icon.p-dialog-header-close { 
+::ng-deep .p-dialog {
+  width: 50% !important;
+}
+::ng-deep .p-dialog-header {
+  background-color: black !important;
+  border-color: gray;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 7px;
+}
+::ng-deep .p-dialog-title {
+  color: white !important;
+  font-size: 25px;
+  margin-left: 10px;
+}
+::ng-deep .p-dialog .p-dialog-content {
+  background: black !important;
+  border-color: gray;
+  border-style: solid;
+  border-top: none;
+  border-width: 1px;
+  border-radius: 5px;
+  color: white;
+}
+
+::ng-deep .p-dialog-header-icon {
+  background-color: white;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: gray;
+  border-style: solid;
+  color: black;
+  width: 25px;
+  height: 25px;
+}
+/* button.p-ripple.p-element.p-dialog-header-icon.p-dialog-header-close { 
         color: white !important; 
     } 
     .p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover { 
@@ -132,4 +136,3 @@ strong:hover {
     .p-button.p-button-text { 
         color: white !important; 
     }  */
-}
