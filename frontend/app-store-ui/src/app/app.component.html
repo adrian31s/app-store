@@ -3,15 +3,21 @@
           id="red-s">S</strong>PRZECIK.PL</strong></a></div>
   <div id="panel">
     <div id="user">
-      <div class="dropdown"> <img [src]="images[0]" class="filter-white" alt="Panel użytkownika" />
+      <div class="dropdown" *ngIf="!isUserLogged">
+        <img *ngIf="!isUserLogged" [src]="images[0]" class="filter-white" alt="Panel użytkownika" />
         <div class="dropdown-content">
           <a (click)="openLoginDialog()">Zaloguj się</a>
-          <br>
-          Nie masz jeszcze konta?
+          <span class="text-red-500"> Nie masz jeszcze konta? </span>
           <a>Zarejestruj się</a>
+        </div>
+      </div>
+      <div class="dropdown" *ngIf="isUserLogged">
+        <img *ngIf="isUserLogged" [src]="images[2]" alt="Panel użytkownika" />
+        <div class="dropdown-content">
           <a>Konto</a>
           <a>Zamówienia</a>
           <a>Opinie</a>
+          <a (click)="logout()">Wyloguj się</a>
         </div>
       </div>
     </div>
@@ -41,5 +47,7 @@
 
 
 <p-dialog header="Logowanie" [modal]="true" [(visible)]="loginDialogVisible" styleClass="abc" [draggable]="false">
-  <app-login></app-login>
+  <app-login
+  (isLogged)="setIsUserLogged($event)"
+  ></app-login>
 </p-dialog>

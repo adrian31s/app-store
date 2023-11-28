@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AuthRequest } from 'client/src/app/api/models';
 import { LoginService } from 'client/src/app/api/services';
 import { MessageService } from 'primeng/api';
@@ -9,37 +9,29 @@ import { MessageService } from 'primeng/api';
 export class AuthService {
   token: string = '';
 
-  constructor(private loginService: LoginService,
-    private messageService:MessageService
-    ) {}
+  constructor(private messageService: MessageService) {
+    let localToken = localStorage.getItem('token');
+    if (localToken === null) this.token = '';
+    else this.token = localToken;  }
 
-  loginUser(request: AuthRequest) : boolean {
-    this.loginService.login({ body: request }).subscribe(
-      (value) => {
-        if (value.token !== undefined) {
-          this.token = value.token;
-          this.displayToastMessage('success', 'Sukces', "Zalogowany");
-        }
-      },
-      (error) => {
-        console.log('unauthorized');
-        console.error(error);
-        this.token = '';
-        this.displayToastMessage('error', 'Blad', "Bledne dane");
-        return false;
-      }
-    );
-    return true;
+  setToken(token: string) {
+    this.token = token;
+    localStorage.setItem('token', token);
   }
 
-  sendNotificationToEmail(){ //need to be implemented later
-    this.displayToastMessage('success', 'Sukces', "Wyslano wiadomosc email");
+  sendNotificationToEmail() {
+    //need to be implemented later
+    this.displayToastMessage('success', 'Sukces', 'Wyslano wiadomosc email');
   }
 
   getToken(): string {
     return this.token;
   }
 
+  logout(){
+    this.token='';
+    localStorage.setItem("token",'')
+  }
 
   private displayToastMessage(
     severity: string,
