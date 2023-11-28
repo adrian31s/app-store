@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { ProductPhotoComponent } from "./product-photo/product-photo.component";
 import { FeedComponent } from './feed/feed.component';
+import { RegisterPanelComponent } from "./register-panel/register-panel.component";
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { FeedComponent } from './feed/feed.component';
         NgbModule,
         ProductPhotoComponent,
         FeedComponent,
+        RegisterPanelComponent,
     ]
 })
 export class AppModule { }

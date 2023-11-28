@@ -1,0 +1,58 @@
+<ng-template #content let-modal>
+<div class="modal-any">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Rejestracja</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-content">
+        <div class ="modal-info">
+            <label>Mając konto zyskujesz:</label>
+            <div>
+                Indywidualne ustawienia
+            </div>
+            <div>
+                Możliwość sprzedaży starego sprzętu
+            </div>
+            <div>
+                Szybsze zamówienia
+            </div>
+            <div>
+                Wystawianie opinii
+            </div>
+        </div>
+        <div class="modal-body">
+            <form>
+                <label>Załóż konto</label>
+                <div class="mb-3">
+                    <input id="username" class="form-control" placeholder="Login*" name="username" />
+                </div>
+                <div class="mb-3">
+                    <input type="password" id="password" class="form-control" placeholder="Hasło*" name="password" />
+                </div>
+                <div class="mb-3">
+                    <input type="email" id="email" class="form-control" placeholder="e-mail*" name="email" />
+                </div>
+                <div class="mb-3">
+                    <input id="firstName" class="form-control" placeholder="Imię*" name="firstName" />
+                </div>
+                <div class="mb-3">
+                    <input id="lastName" class="form-control" placeholder="Nazwisko*" name="lastName" />
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="termsCheckbox" name="termsCheckbox" />
+                    <label class="form-check-label" for="termsCheckbox">Akceptuję regulamin sklepu
+                        KUPSPRZECIK.PL*</label>
+                </div>
+                <label>*pola wymagane</label>
+            </form>
+            <button type="button" class="btn btn-outline-dark">ZAREJESTRUJ SIĘ</button>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <label>Chętnie udzielimy odpowiedzi na Twoje pytania</label>
+        <button><img [src]="" /></button>
+    </div>
+</div>
+</ng-template>
+
+<button class="in-homecomponent-button" (click)="open(content)">Zarejestruj się</button>

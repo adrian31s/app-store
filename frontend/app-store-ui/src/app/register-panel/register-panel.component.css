@@ -1,0 +1,50 @@
+
+.modal-header {
+    background-color: black;
+    width: 40vw;
+}
+
+ .modal-content {
+     display: flex;
+     flex-direction: row;
+     width: 40vw;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     overflow: hidden;
+ }
+
+ .modal-info, .modal-body {
+     flex: 1;
+     padding: 10px;
+ }
+
+ .modal-info {
+     background-color: black;
+ }
+
+ .modal-body {
+     background-color: black;
+ }
+
+ .modal-footer {
+    background-color: black;
+    width: 40vw;
+}
+
+.mb-3 {
+    width: 15vw;
+}
+
+.in-homecomponent-button {
+    background-color: #2c393d;
+    border-radius: 0px;
+    border: 0px;
+    color: white;
+}
+
+.in-homecomponent-button:hover {
+    background-color: #2c393d;
+    border-radius: 25px;
+    border: 2px solid #59888a;
+    color: white;
+}
