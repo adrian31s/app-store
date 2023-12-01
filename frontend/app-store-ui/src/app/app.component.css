@@ -14,7 +14,13 @@ strong {
 }
 
 strong:hover {
+    transition: 0.2s;
     color: grey;
+}
+
+strong:hover #red-s {
+    transition: 0.2s;
+    color: rgb(102, 0, 0);
 }
 
 #red-s {
@@ -73,6 +79,7 @@ strong:hover {
 
 .dropdown-content a {
     width: 90%;
+    color: white;
 }
   
 .dropdown-content a:hover {

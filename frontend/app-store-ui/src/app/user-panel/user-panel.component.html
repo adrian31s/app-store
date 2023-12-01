@@ -1,0 +1,13 @@
+<div id="main-label">Twoje konto</div><br>
+<div class="whole-user-panel">
+    <div class="type-of-data">
+        <div class="choose-data-pseudobutton"><img class="filter-white" [src]="images[0]" />Dane konta</div>
+        <div class="choose-data-pseudobutton"><img class="filter-white" [src]="images[1]" />Zamówienia</div>
+        <div class="choose-data-pseudobutton"><img class="filter-white" [src]="images[2]" />Opinie</div>
+        <div class="choose-data-pseudobutton"><img class="filter-white" [src]="images[3]" />Twoja sprzedaż</div>
+        <div class="choose-data-pseudobutton"><img class="filter-white" [src]="images[4]" />Ustawienia</div>
+        <div class="logout"><button>Wyloguj</button></div>
+    </div>
+    <app-user-data></app-user-data>
+</div>
+<router-outlet></router-outlet>

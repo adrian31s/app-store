@@ -11,11 +11,11 @@
         <div class="dropdown-content">
             <input type="range" class="form-range" id="customRange1">
             <label for="customRange1" class="form-label">Cena</label>
-            <div class="dropdown-inner">{{choose}}
+            <div class="dropdown-inner"><div>{{ selectedCategory?.label || 'Wybierz przeznaczenie'}}</div>
                 <div class="dropdown-content-inner">
-                    <a>Do gier</a><br>
-                    <a>Biurowy</a><br>
-                    <a>Do zadań specjalnych</a>
+                    <a (click)="onCategorySelected({ value: 'gaming', label: 'Do gier' })">Do gier</a><br>
+                    <a (click)="onCategorySelected({ value: 'office', label: 'Biurowy' })">Biurowy</a><br>
+                    <a (click)="onCategorySelected({ value: 'special', label: 'Do zadań specjalnych'})">Do zadań specjalnych</a>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="dropdown-content">
           <input type="range" class="form-range" id="customRange1">
           <label for="customRange1" class="form-label">Cena</label>
-          <div class="dropdown-inner">{{ selectedCategory?.label }}
+          <div class="dropdown-inner">{{ selectedCategory?.label || 'Wybierz przeznaczenie'}}
             <div class="dropdown-content-inner">
               <a (click)="onCategorySelected({ value: 'gaming', label: 'Do gier' })">Do gier</a><br>
               <a (click)="onCategorySelected({ value: 'office', label: 'Biurowy' })">Biurowy</a><br>
@@ -41,7 +41,7 @@
         <div class="category">Akcesoria</div>
         <div class="dropdown-content">
           <div class="dropdown-inner">
-            {{ selectedCategory?.label }}
+            {{ selectedCategory?.label || 'Wybierz akcesorium'}}
             <div class="dropdown-content-inner">
               <a (click)="onCategorySelected({ value: 'keyboards', label: 'Klawiatury' })">Klawiatury</a><br>
               <a (click)="onCategorySelected({ value: 'mice', label: 'Myszki' })">Myszki</a><br>
@@ -50,7 +50,7 @@
           <input type="range" class="form-range" id="customRange1">
           <label for="customRange1" class="form-label">Cena</label>
           <div class="dropdown-inner">
-            {{ selectedCategory?.label }}
+            {{ selectedCategory?.label || 'Wybierz przeznaczenie' }}
             <div class="dropdown-content-inner">
               <a (click)="onCategorySelected({ value: 'gaming', label: 'Do gier' })">Do gier</a><br>
               <a (click)="onCategorySelected({ value: 'office', label: 'Biurowe' })">Biurowe</a><br>
@@ -63,11 +63,11 @@
         <div class="dropdown-content">
             <input type="range" class="form-range" id="customRange1">
             <label for="customRange1" class="form-label">Cena</label>
-            <div class="dropdown-inner">{{choose}}
+            <div class="dropdown-inner">{{ selectedCategory?.label || 'Wybierz przeznaczenie' }}
               <div class="dropdown-content-inner">
-                <a>Do gier</a><br>
-                <a>Biurowy</a><br>
-                <a>Do zadań specjalnych</a>
+                <a (click)="onCategorySelected({ value: 'gaming', label: 'Do gier' })">Do gier</a><br>
+                <a (click)="onCategorySelected({ value: 'office', label: 'Biurowe' })">Biurowy</a><br>
+                <a (click)="onCategorySelected({ value: 'office', label: 'Do zadań specjalnych' })">Do zadań specjalnych</a>
               </div>
             </div>
         </div>

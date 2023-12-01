@@ -11,8 +11,8 @@ interface Category {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  choose = 'Do grania';
-  images = ['../assets/images/svg/search.svg', '../assets/images/svg/pc.svg', '../assets/images/svg/laptop.svg', '../assets/images/svg/mouse.svg', '../assets/images/svg/pc-display.svg', ''];
+  choose = '';
+  images = ['../assets/images/svg/search.svg', '../assets/images/svg/pc.svg', '../assets/images/svg/laptop.svg', '../assets/images/svg/mouse.svg', '../assets/images/svg/pc-display.svg', '../assets/images/svg/message-square-chat-svgrepo-com.svg'];
 
   /*do wyświetlania z menu wyboru*/
   selectedCategory: Category | null = null;

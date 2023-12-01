@@ -10,6 +10,8 @@ import { ProductComponent } from './product/product.component';
 import { ProductPhotoComponent } from "./product-photo/product-photo.component";
 import { FeedComponent } from './feed/feed.component';
 import { RegisterPanelComponent } from "./register-panel/register-panel.component";
+import { UserPanelComponent } from './user-panel/user-panel.component';
+import { UserDataComponent } from './user-panel/user-data/user-data.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +19,7 @@ import { RegisterPanelComponent } from "./register-panel/register-panel.componen
         ProductsComponent,
         HomeComponent,
         ProductComponent,
+        UserPanelComponent,
     ],
     providers: [],
     bootstrap: [AppComponent, HomeComponent, ProductComponent],
@@ -27,6 +30,7 @@ import { RegisterPanelComponent } from "./register-panel/register-panel.componen
         ProductPhotoComponent,
         FeedComponent,
         RegisterPanelComponent,
+        UserDataComponent,
     ]
 })
 export class AppModule { }

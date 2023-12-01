@@ -9,7 +9,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './register-panel.component.html',
   styleUrls: ['./register-panel.component.css']
 })
+
 export class RegisterPanelComponent {
+  images = ['../../assets/images/svg/chat-square.svg', '../../assets/images/svg/search-page-svgrepo-com.svg', '../../assets/images/svg/hand-money-svgrepo-com.svg', '../../assets/images/svg/fast-delivery-svgrepo-com.svg', '../../assets/images/svg/rate-svgrepo-com.svg'];
+
   private modalService: NgbModal;
 
   constructor(modalServiceArg: NgbModal) {
