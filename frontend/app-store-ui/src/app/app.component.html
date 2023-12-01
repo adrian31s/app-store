@@ -1,6 +1,5 @@
 <header>
-  <div id="title"><a style="text-decoration:none" [routerLink]="'home'"><strong>KUP<strong
-          id="red-s">S</strong>PRZECIK.PL</strong></a></div>
+  <div id="title"><a style="text-decoration:none" [routerLink]="'home'"><strong>KUP<strong id="red-s">S</strong>PRZECIK.PL</strong></a></div>
   <div id="panel">
     <div id="user">
       <div class="dropdown" *ngIf="!isUserLogged">
@@ -8,14 +7,16 @@
         <div class="dropdown-content">
           <a (click)="openLoginDialog()">Zaloguj się</a>
           <span class="text-red-500"> Nie masz jeszcze konta? </span>
-          <a>Zarejestruj się</a>
+          <app-register-panel></app-register-panel>
         </div>
       </div>
       <div class="dropdown" *ngIf="isUserLogged">
         <img *ngIf="isUserLogged" [src]="images[2]" alt="Panel użytkownika" />
         <div class="dropdown-content">
-          <a>Konto</a>
+          <a style="text-decoration:none" [routerLink]="'user-panel'">Konto</a>
+          <br>
           <a>Zamówienia</a>
+          <br>
           <a>Opinie</a>
           <a (click)="logout()">Wyloguj się</a>
         </div>
