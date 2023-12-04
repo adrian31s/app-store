@@ -26,6 +26,9 @@ import { AuthInterceptor } from './auth/AuthInterceptor';
 import { LoginComponent } from './user/login/login.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StyleClassModule } from 'primeng/styleclass';
+import { RegisterPanelComponent } from "./register-panel/register-panel.component";
+import { UserPanelComponent } from './user-panel/user-panel.component';
+import { UserDataComponent } from './user-panel/user-data/user-data.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { StyleClassModule } from 'primeng/styleclass';
     ProductCreatorComponent,
     ProductUpdaterComponent,
     LoginComponent,
+    UserPanelComponent,
   ],
   providers: [
     {
@@ -64,6 +68,8 @@ import { StyleClassModule } from 'primeng/styleclass';
     TableModule,
     ToastModule,
     StyleClassModule,
+    RegisterPanelComponent,
+    UserDataComponent,
   ],
 })
 export class AppModule {}

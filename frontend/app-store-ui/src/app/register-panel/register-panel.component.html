@@ -1,0 +1,55 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Rejestracja</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-content-interior">
+        <div class ="modal-info">
+            <label>Mając konto zyskujesz:</label><br><br>
+            <div>
+                <img [src]="images[1]" class="filter-white" /><div>Indywidualne ustawienia</div>
+            </div>
+            <div>
+                <img [src]="images[2]" class="filter-white" /><div>Możliwość sprzedaży starego sprzętu</div>
+            </div>
+            <div>
+                <img [src]="images[3]" class="filter-white" /><div>Szybsze zamówienia</div>
+            </div>
+            <div>
+                <img [src]="images[4]" class="filter-white" /><div>Wystawianie opinii</div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div id="label-for-register">Załóż konto</div>
+                <div class="mb-3">
+                    <input id="username" class="form-control" placeholder="login*" name="username" />
+                </div>
+                <div class="mb-3">
+                    <input type="password" id="password" class="form-control" placeholder="hasło*" name="password" />
+                </div>
+                <div class="mb-3">
+                    <input type="email" id="email" class="form-control" placeholder="e-mail*" name="email" />
+                </div>
+                <div class="mb-3">
+                    <input id="firstName" class="form-control" placeholder="imię*" name="firstName" />
+                </div>
+                <div class="mb-3">
+                    <input id="lastName" class="form-control" placeholder="nazwisko*" name="lastName" />
+                </div>
+                <div id="checkbox" class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="termsCheckbox" name="termsCheckbox" />
+                    <label class="form-check-label" for="termsCheckbox">Akceptuję regulamin sklepu KUPSPRZECIK.PL*</label>
+                </div>
+                <label>*pola wymagane</label>
+            </form>
+            <button type="button" class="btn btn-outline-dark">Zarejestruj się</button>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div id="label-for-questions">Chętnie udzielimy odpowiedzi na Twoje pytania</div>
+        <div><img [src]="images[0]" class="filter-white" /></div>
+    </div>
+</ng-template>
+
+<button class="in-homecomponent-button" (click)="open(content)">Zarejestruj się</button>
