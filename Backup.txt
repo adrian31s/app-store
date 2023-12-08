@@ -1,0 +1,16 @@
+Polecenia backup i restore bazy.
+
+Podajemy ścieżke zainstalowanego PostgreSQL i katalogu  bin:
+
+cd C:\Program Files\PostgreSQL\16\bin   
+
+
+Tworzymy kopie o nazwie mydb_export.backup:
+
+.\pg_dump.exe -Fc "host=localhost port=30200  dbname=appstore user=store-user password=store-password" > mydb_export.backup
+
+
+Polecenie przywrócenia kopii haslo to "store-password":
+
+
+.\pg_restore.exe -U store-user -h localhost -p 30200 -d appstore -W < mydb_export.backup
