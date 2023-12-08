@@ -10,26 +10,34 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { Charger } from '../models/charger';
+import { ChargerDto } from '../models/charger-dto';
 import { Cooler } from '../models/cooler';
+import { CoolerDto } from '../models/cooler-dto';
+import { createProduct } from '../fn/product-api/create-product';
+import { CreateProduct$Params } from '../fn/product-api/create-product';
 import { DramMemory } from '../models/dram-memory';
+import { DramMemoryDto } from '../models/dram-memory-dto';
+import { getProductById } from '../fn/product-api/get-product-by-id';
+import { GetProductById$Params } from '../fn/product-api/get-product-by-id';
+import { getProducts } from '../fn/product-api/get-products';
+import { GetProducts$Params } from '../fn/product-api/get-products';
 import { GraphicCard } from '../models/graphic-card';
+import { GraphicCardDto } from '../models/graphic-card-dto';
 import { HardDrive } from '../models/hard-drive';
+import { HardDriveDto } from '../models/hard-drive-dto';
 import { Motherboard } from '../models/motherboard';
+import { MotherboardDto } from '../models/motherboard-dto';
 import { PcCase } from '../models/pc-case';
+import { PcCaseDto } from '../models/pc-case-dto';
 import { Processor } from '../models/processor';
+import { ProcessorDto } from '../models/processor-dto';
 import { ProductCategory } from '../models/product-category';
-import { productCreatePost } from '../fn/product-api/product-create-post';
-import { ProductCreatePost$Params } from '../fn/product-api/product-create-post';
 import { ProductDto } from '../models/product-dto';
-import { productGetAllGet } from '../fn/product-api/product-get-all-get';
-import { ProductGetAllGet$Params } from '../fn/product-api/product-get-all-get';
-import { productGetByIdIdIdGet } from '../fn/product-api/product-get-by-id-id-id-get';
-import { ProductGetByIdIdIdGet$Params } from '../fn/product-api/product-get-by-id-id-id-get';
 import { ProductOrder } from '../models/product-order';
-import { productUpdateBaseByIdIdIdPut } from '../fn/product-api/product-update-base-by-id-id-id-put';
-import { ProductUpdateBaseByIdIdIdPut$Params } from '../fn/product-api/product-update-base-by-id-id-id-put';
-import { productUpdateProductWithDetailsPut } from '../fn/product-api/product-update-product-with-details-put';
-import { ProductUpdateProductWithDetailsPut$Params } from '../fn/product-api/product-update-product-with-details-put';
+import { updateProductBaseById } from '../fn/product-api/update-product-base-by-id';
+import { UpdateProductBaseById$Params } from '../fn/product-api/update-product-base-by-id';
+import { updateProductWithDetailsById } from '../fn/product-api/update-product-with-details-by-id';
+import { UpdateProductWithDetailsById$Params } from '../fn/product-api/update-product-with-details-by-id';
 
 @Injectable({ providedIn: 'root' })
 export class ProductApiService extends BaseService {
@@ -37,66 +45,152 @@ export class ProductApiService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `productCreatePost()` */
-  static readonly ProductCreatePostPath = '/product/create';
+  /** Path part for operation `createProduct()` */
+  static readonly CreateProductPath = '/product/create';
 
   /**
+   * create product
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `productCreatePost()` instead.
+   * To access only the response body, use `createProduct()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  productCreatePost$Response(params?: ProductCreatePost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return productCreatePost(this.http, this.rootUrl, params, context);
+  createProduct$Response(params?: CreateProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+}>> {
+    return createProduct(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * create product
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `productCreatePost$Response()` instead.
+   * To access the full response (for headers, for example), `createProduct$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  productCreatePost(params?: ProductCreatePost$Params, context?: HttpContext): Observable<void> {
-    return this.productCreatePost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  createProduct(params?: CreateProduct$Params, context?: HttpContext): Observable<{
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+}> {
+    return this.createProduct$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+}>): {
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+} => r.body)
     );
   }
 
-  /** Path part for operation `productGetAllGet()` */
-  static readonly ProductGetAllGetPath = '/product/getAll';
+  /** Path part for operation `getProducts()` */
+  static readonly GetProductsPath = '/product/getAll';
 
   /**
+   * get all products
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `productGetAllGet()` instead.
+   * To access only the response body, use `getProducts()` instead.
    *
    * This method doesn't expect any request body.
    */
-  productGetAllGet$Response(params?: ProductGetAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ProductDto>>> {
-    return productGetAllGet(this.http, this.rootUrl, params, context);
+  getProducts$Response(params?: GetProducts$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ProductDto>>> {
+    return getProducts(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * get all products
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `productGetAllGet$Response()` instead.
+   * To access the full response (for headers, for example), `getProducts$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  productGetAllGet(params?: ProductGetAllGet$Params, context?: HttpContext): Observable<Array<ProductDto>> {
-    return this.productGetAllGet$Response(params, context).pipe(
+  getProducts(params?: GetProducts$Params, context?: HttpContext): Observable<Array<ProductDto>> {
+    return this.getProducts$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<ProductDto>>): Array<ProductDto> => r.body)
     );
   }
 
-  /** Path part for operation `productGetByIdIdIdGet()` */
-  static readonly ProductGetByIdIdIdGetPath = '/product/getById/id/{id}';
+  /** Path part for operation `getProductById()` */
+  static readonly GetProductByIdPath = '/product/getById/id/{id}';
 
   /**
+   * get product by id
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `productGetByIdIdIdGet()` instead.
+   * To access only the response body, use `getProductById()` instead.
    *
    * This method doesn't expect any request body.
    */
-  productGetByIdIdIdGet$Response(params: ProductGetByIdIdIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+  getProductById$Response(params: GetProductById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'thumbnail'?: string;
 'pictures'?: string;
@@ -119,16 +213,18 @@ export class ProductApiService extends BaseService {
 'thumbnailAsByte'?: string;
 'picturesAsBytes'?: string;
 }>> {
-    return productGetByIdIdIdGet(this.http, this.rootUrl, params, context);
+    return getProductById(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * get product by id
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `productGetByIdIdIdGet$Response()` instead.
+   * To access the full response (for headers, for example), `getProductById$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  productGetByIdIdIdGet(params: ProductGetByIdIdIdGet$Params, context?: HttpContext): Observable<{
+  getProductById(params: GetProductById$Params, context?: HttpContext): Observable<{
 'bid'?: number;
 'thumbnail'?: string;
 'pictures'?: string;
@@ -151,7 +247,7 @@ export class ProductApiService extends BaseService {
 'thumbnailAsByte'?: string;
 'picturesAsBytes'?: string;
 }> {
-    return this.productGetByIdIdIdGet$Response(params, context).pipe(
+    return this.getProductById$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 'bid'?: number;
 'thumbnail'?: string;
@@ -200,53 +296,213 @@ export class ProductApiService extends BaseService {
     );
   }
 
-  /** Path part for operation `productUpdateBaseByIdIdIdPut()` */
-  static readonly ProductUpdateBaseByIdIdIdPutPath = '/product/updateBaseById/id/{id}';
+  /** Path part for operation `updateProductBaseById()` */
+  static readonly UpdateProductBaseByIdPath = '/product/updateBaseById/id/{id}';
 
   /**
+   * update product base attributes by id
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `productUpdateBaseByIdIdIdPut()` instead.
+   * To access only the response body, use `updateProductBaseById()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  productUpdateBaseByIdIdIdPut$Response(params: ProductUpdateBaseByIdIdIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return productUpdateBaseByIdIdIdPut(this.http, this.rootUrl, params, context);
+  updateProductBaseById$Response(params: UpdateProductBaseById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+}>> {
+    return updateProductBaseById(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * update product base attributes by id
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `productUpdateBaseByIdIdIdPut$Response()` instead.
+   * To access the full response (for headers, for example), `updateProductBaseById$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  productUpdateBaseByIdIdIdPut(params: ProductUpdateBaseByIdIdIdPut$Params, context?: HttpContext): Observable<void> {
-    return this.productUpdateBaseByIdIdIdPut$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  updateProductBaseById(params: UpdateProductBaseById$Params, context?: HttpContext): Observable<{
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+}> {
+    return this.updateProductBaseById$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+}>): {
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+} => r.body)
     );
   }
 
-  /** Path part for operation `productUpdateProductWithDetailsPut()` */
-  static readonly ProductUpdateProductWithDetailsPutPath = '/product/updateProductWithDetails';
+  /** Path part for operation `updateProductWithDetailsById()` */
+  static readonly UpdateProductWithDetailsByIdPath = '/product/updateProductWithDetails';
 
   /**
+   * update product with details by id
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `productUpdateProductWithDetailsPut()` instead.
+   * To access only the response body, use `updateProductWithDetailsById()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  productUpdateProductWithDetailsPut$Response(params?: ProductUpdateProductWithDetailsPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return productUpdateProductWithDetailsPut(this.http, this.rootUrl, params, context);
+  updateProductWithDetailsById$Response(params?: UpdateProductWithDetailsById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+}>> {
+    return updateProductWithDetailsById(this.http, this.rootUrl, params, context);
   }
 
   /**
+   * update product with details by id
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `productUpdateProductWithDetailsPut$Response()` instead.
+   * To access the full response (for headers, for example), `updateProductWithDetailsById$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  productUpdateProductWithDetailsPut(params?: ProductUpdateProductWithDetailsPut$Params, context?: HttpContext): Observable<void> {
-    return this.productUpdateProductWithDetailsPut$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  updateProductWithDetailsById(params?: UpdateProductWithDetailsById$Params, context?: HttpContext): Observable<{
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+}> {
+    return this.updateProductWithDetailsById$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+}>): {
+'bid'?: number;
+'thumbnail'?: string;
+'pictures'?: string;
+'productCategory'?: ProductCategory;
+'name'?: string;
+'producer'?: string;
+'guarantee'?: string;
+'model'?: string;
+'price'?: number;
+'quantity'?: number;
+'charger'?: ChargerDto;
+'cooler'?: CoolerDto;
+'dramMemory'?: DramMemoryDto;
+'graphicCard'?: GraphicCardDto;
+'hardDrive'?: HardDriveDto;
+'motherboard'?: MotherboardDto;
+'pcCase'?: PcCaseDto;
+'processor'?: ProcessorDto;
+} => r.body)
     );
   }
 

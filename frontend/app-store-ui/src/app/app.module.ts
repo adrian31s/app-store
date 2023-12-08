@@ -22,6 +22,13 @@ import { ProductUpdaterComponent } from './admin/product-updater/product-updater
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { AuthInterceptor } from './auth/AuthInterceptor';
+import { LoginComponent } from './user/login/login.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StyleClassModule } from 'primeng/styleclass';
+import { RegisterPanelComponent } from "./register-panel/register-panel.component";
+import { UserPanelComponent } from './user-panel/user-panel.component';
+import { UserDataComponent } from './user-panel/user-data/user-data.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +38,17 @@ import { MessageService } from 'primeng/api';
     ProductComponent,
     ProductCreatorComponent,
     ProductUpdaterComponent,
+    LoginComponent,
+    UserPanelComponent,
   ],
-  providers: [MessageService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    MessageService,
+  ],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
@@ -50,8 +66,10 @@ import { MessageService } from 'primeng/api';
     KeyFilterModule,
     FileUploadModule,
     TableModule,
-    ToastModule
-    
+    ToastModule,
+    StyleClassModule,
+    RegisterPanelComponent,
+    UserDataComponent,
   ],
 })
 export class AppModule {}

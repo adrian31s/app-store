@@ -2,12 +2,11 @@ package app.person.service;
 
 import app.address.dao.AddressDao;
 import app.address.model.Address;
-import app.address.service.AddressService;
-import app.bucket.model.Bucket;
 import app.person.dao.PersonDao;
 import app.person.model.Person;
 import app.person.model.PersonSearchCriteria;
 import io.netty.util.internal.StringUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -15,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 
+@Slf4j
 @ApplicationScoped
 public class PersonService {
     @Inject
@@ -37,6 +37,16 @@ public class PersonService {
 
     public int updateById(Long id, PersonSearchCriteria searchCriteria) {
         return dao.updateEntitiesFieldsById(id, getPredicates(searchCriteria));
+    }
+
+    public List<Person> findBySearchCriteria(PersonSearchCriteria searchCriteria){
+       return dao.getEntitiesByMultipleFields(getPredicates(searchCriteria));
+    }
+
+    public Person findByUsernameAndPassword(String username, String password){
+        var person = dao.findByUsernameAndPerson(username,password);
+        log.info(person.toString());
+        return person;
     }
 
     @Transactional(Transactional.TxType.REQUIRED)

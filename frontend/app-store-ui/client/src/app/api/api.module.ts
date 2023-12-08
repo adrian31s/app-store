@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AddressApiService } from './services/address-api.service';
+import { LoginService } from './services/login.service';
 import { BucketApiService } from './services/bucket-api.service';
 import { PersonApiService } from './services/person-api.service';
 import { ProductApiService } from './services/product-api.service';
@@ -19,6 +20,7 @@ import { ApplicationApiService } from './services/application-api.service';
   declarations: [],
   providers: [
     AddressApiService,
+    LoginService,
     BucketApiService,
     PersonApiService,
     ProductApiService,

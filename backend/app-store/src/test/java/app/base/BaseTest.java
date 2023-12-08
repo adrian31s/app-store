@@ -5,6 +5,7 @@ import app.bucket.dao.BucketDao;
 import app.order.dao.OrderDao;
 import app.person.dao.PersonDao;
 import app.product.dao.ProductDao;
+import app.product.types.charger.dao.ChargerDao;
 import app.single_product_order.dao.ProductOrderDao;
 
 import javax.inject.Inject;
@@ -23,11 +24,14 @@ public abstract class BaseTest {
     protected ProductDao productDao;
     @Inject
     protected ProductOrderDao productOrderDao;
+    @Inject
+    protected ChargerDao chargerDao;
 
 
     protected void cleanUp(){
         productOrderDao.deleteAll();
         productDao.deleteAll();
+        chargerDao.deleteAll();
         orderDao.deleteAll();
         bucketDao.deleteAll();
         personDao.deleteAll();

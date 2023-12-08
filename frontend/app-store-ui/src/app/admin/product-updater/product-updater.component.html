@@ -21,15 +21,12 @@
                 <tr>
                     <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
                     <th *ngFor="let commonFields of productCommonFields" [pSortableColumn]="commonFields.label"
-                        style="min-width:10rem">
-                        {{ commonFields.label }}
-                        <p-sortIcon [field]="commonFields.label"></p-sortIcon>
+                        style="min-width:10rem"> {{ commonFields.label }} <p-sortIcon
+                            [field]="commonFields.label"></p-sortIcon>
                     </th>
                     <th *ngFor="let productDetails of getSelectedProductLabels()"
                         [pSortableColumn]="productDetails.label" style="min-width:10rem">
-                        {{
-                        productDetails.label
-                        }}
+                        {{ productDetails.label }}
                         <p-sortIcon [field]="productDetails.label"></p-sortIcon>
                     </th>
                     <th>Actions</th>
@@ -47,8 +44,8 @@
                         {{ getProductDetailModel(product)[productDetails.label] }}
                     </td>
                     <td>
-                        <button class="editButton" (click)="openEditProductDialog(product)"><i class="pi pi-search"></i></button>
-                        <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button> -->
+                        <button class="editButton" (click)="openEditProductDialog(product)"><i
+                                class="pi pi-search"></i></button>
                     </td>
                 </tr>
             </ng-template>
@@ -61,8 +58,5 @@
     </div>
 </div>
 
-<app-product-creator
-*ngIf="productToUpdate"
-[productToUpdate]="productToUpdate"
-[productDetailsToUpdate]="productDetailModel"
-></app-product-creator>
+<app-product-creator *ngIf="productToUpdate" [productToUpdate]="productToUpdate"
+    [productDetailsToUpdate]="productDetailModel"></app-product-creator>

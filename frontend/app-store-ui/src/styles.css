@@ -11,6 +11,12 @@ body {
     font-family: "TT Octosquares Trial Light";
 }
 
+/* div{
+    border-style: solid;
+    border-width: 1px;
+    border-color: red;
+} */
+
 @import '../node_modules/primeng/resources/themes/arya-blue/theme.css';
 @import '../node_modules/primeng/resources/primeng.css';
 @import '../node_modules/primeflex/primeflex.css';

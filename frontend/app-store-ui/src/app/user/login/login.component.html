@@ -1,0 +1,39 @@
+<p-toast [life]="1500"></p-toast>
+<div>
+    <div class="main">
+        <div class="login">
+            <h3>Mam konto</h3>
+            <input type="text" [(ngModel)]="loginEmail" class="input" placeholder="Login lub e-mail" id="loginEmail" />
+            <input type="password" [(ngModel)]="password" class="input" placeholder="Haslo" id="password" />
+            <span (click)="openTypeEmailDialog()">nie pamietam hasla</span>
+            <button (click)="login()">Zaloguj sie</button>
+        </div>
+        <div class="register">
+            <h3>Nie mam konta</h3>
+            <button>Zarejestruj sie</button>
+            <span class="uppercase">dlaczego warto miec konto</span>
+            <div>
+                <div>
+                    <i class="pi pi-check" style="font-size: 1rem"></i>
+                    <span class="description">Szybsze i latwiejsze zakupy</span>
+                </div>
+                <div>
+                    <i class="pi pi-check" style="font-size: 1rem"></i>
+                    <span class="description">Dostosowanie strony do wlasnych potrzeb</span>
+                </div>
+                <div>
+                    <i class="pi pi-check" style="font-size: 1rem"></i>
+                    <span class="description">Mozliwosc sprzedazy swojego sprzetu</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-center flex-column align-items-center" *ngIf="forgotedPasswordDialog">
+        <input type="text" [(ngModel)]="forgotedPasswordEmail" class="input" placeholder="Email" id="forgotedPasswordEmail" />
+        <button (click)="sendNotificationToEmail()">Przeslij</button>
+    </div>    
+</div>
+<footer>
+    <span class="w-5 text-center text-xs">Administratorem twoich danych osobowych jest Kupsprzecik.pl sp. z o.o. z
+        siedziba w Opolu (45-867), przy ul. Ulicznej 123.</span>
+</footer>

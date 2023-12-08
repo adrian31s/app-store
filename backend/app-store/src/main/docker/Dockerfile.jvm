@@ -7,7 +7,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.jvm -t adrian31s/app-store:1.0.0-SNAPSHOT .
+# docker build -f src/main/docker/Dockerfile.jvm -t adrian31s/app-store:1.0.1 .
 #
 # Then run the container using:
 #
