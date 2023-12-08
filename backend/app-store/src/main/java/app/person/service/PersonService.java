@@ -6,22 +6,22 @@ import app.person.dao.PersonDao;
 import app.person.model.Person;
 import app.person.model.PersonSearchCriteria;
 import io.netty.util.internal.StringUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
 @ApplicationScoped
+@RequiredArgsConstructor
 public class PersonService {
-    @Inject
-    PersonDao dao;
-
-    @Inject
-    AddressDao addressDao;
+    private final PersonDao dao;
+    private final AddressDao addressDao;
 
     public List<Person> getAll() {
         return dao.getAllEntities();
@@ -39,12 +39,12 @@ public class PersonService {
         return dao.updateEntitiesFieldsById(id, getPredicates(searchCriteria));
     }
 
-    public List<Person> findBySearchCriteria(PersonSearchCriteria searchCriteria){
-       return dao.getEntitiesByMultipleFields(getPredicates(searchCriteria));
+    public List<Person> findBySearchCriteria(PersonSearchCriteria searchCriteria) {
+        return dao.getEntitiesByMultipleFields(getPredicates(searchCriteria));
     }
 
-    public Person findByUsernameAndPassword(String username, String password){
-        var person = dao.findByUsernameAndPerson(username,password);
+    public Person findByUsernameAndPassword(String username, String password) {
+        var person = dao.findByUsernameAndPerson(username, password);
         log.info(person.toString());
         return person;
     }

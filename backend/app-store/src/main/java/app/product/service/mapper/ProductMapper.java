@@ -1,5 +1,6 @@
 package app.product.service.mapper;
 
+import app.opinion.rs.v1.dto.OpinionMapper;
 import app.product.model.Product;
 import app.product.model.ProductDTO;
 import app.product.model.ProductSearchCriteria;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         uses = {ChargerMapper.class, CoolerMapper.class, DRAMMemoryMapper.class, GraphicCardMapper.class,
-                HardDriveMapper.class, MotherboardMapper.class, PcCaseMapper.class, ProcessorMapper.class})
+                HardDriveMapper.class, MotherboardMapper.class, PcCaseMapper.class, ProcessorMapper.class, OpinionMapper.class})
 public interface ProductMapper {
     Product mapToProduct (ProductSearchCriteria searchCriteria);
     ProductSearchCriteria mapToSearchCriteria (Product product);

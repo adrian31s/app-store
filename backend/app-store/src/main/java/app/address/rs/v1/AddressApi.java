@@ -13,6 +13,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,6 +26,8 @@ public class AddressApi {
     AddressService service;
 
     private final AddressMapper addressMapper = new AddressMapperImpl();
+
+    @RolesAllowed(value = {"ADMIN"})
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
@@ -42,6 +45,7 @@ public class AddressApi {
         return Response.ok(addressMapper.mapToListDTO(addresses)).build();
     }
 
+    @RolesAllowed(value = {"ADMIN"})
     @GET
     @Path("getAddressById/id/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -60,6 +64,7 @@ public class AddressApi {
         return Response.ok(addressMapper.mapToDTO(address)).build();
     }
 
+    @RolesAllowed(value = {"USER", "ADMIN"})
     @PATCH
     @Path("/updateAddressById/id/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -69,8 +74,9 @@ public class AddressApi {
             responseCode = "204",
             description = "NO CONTENT"
     )
-    public Response updateAddressById(@PathParam("id") Long id, @RequestBody AddressSearchCriteria searchCriteria) {
-        int affectedRecords = service.updateById(id, searchCriteria);
+    public Response updateAddressById(@PathParam("id") Long id, @RequestBody Address address) {
+        AddressSearchCriteria addressSearchCriteria = addressMapper.toSearchCriteria(address);
+        int affectedRecords = service.updateById(id, addressSearchCriteria);
         if (affectedRecords == 0) {
             return Response.accepted().build();
         }

@@ -26,8 +26,19 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "ADMIN" ]
+        }, {
+          "SecurityScheme" : [ "ADMIN" ]
+        } ]
       }
     },
     "/address/getAddressById/id/{id}" : {
@@ -76,8 +87,19 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "ADMIN" ]
+        }, {
+          "SecurityScheme" : [ "ADMIN" ]
+        } ]
       }
     },
     "/address/updateAddressById/id/{id}" : {
@@ -98,7 +120,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AddressSearchCriteria"
+                "$ref" : "#/components/schemas/Address"
               }
             }
           }
@@ -106,8 +128,19 @@
         "responses" : {
           "204" : {
             "description" : "NO CONTENT"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER", "ADMIN" ]
+        }, {
+          "SecurityScheme" : [ "USER", "ADMIN" ]
+        } ]
       }
     },
     "/auth/login" : {
@@ -147,19 +180,10 @@
       }
     },
     "/auth/testUserResource" : {
-      "post" : {
+      "get" : {
         "tags" : [ "Login" ],
         "description" : "return sample text if authorized",
         "operationId" : "testUserResource",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/AuthRequest"
-              }
-            }
-          }
-        },
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -178,24 +202,23 @@
           },
           "401" : {
             "description" : "NOT AUTHORIZED"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
       }
     },
-    "/bucket/getActiveBucketAssignedToPersonById/id/{id}" : {
+    "/bucket/getActiveBucketAssignedToPerson" : {
       "get" : {
         "tags" : [ "Bucket Api" ],
         "description" : "get active bucket which can be modified assigned to person",
-        "operationId" : "getActiveBucketAssignedToPersonById",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "format" : "int64",
-            "type" : "integer"
-          }
-        } ],
+        "operationId" : "getActiveBucketAssignedToPerson",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -229,8 +252,19 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
       }
     },
     "/person/getAll" : {
@@ -251,24 +285,26 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "ADMIN" ]
+        }, {
+          "SecurityScheme" : [ "ADMIN" ]
+        } ]
       }
     },
-    "/person/getById/id/{id}" : {
+    "/person/getById" : {
       "get" : {
         "tags" : [ "Person Api" ],
-        "description" : "get person by id",
-        "operationId" : "getPersonById",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "format" : "int64",
-            "type" : "integer"
-          }
-        } ],
+        "description" : "get person",
+        "operationId" : "getPerson",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -300,15 +336,26 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
       }
     },
     "/person/update" : {
       "patch" : {
         "tags" : [ "Person Api" ],
-        "description" : "update person by id",
-        "operationId" : "updatePersonById",
+        "description" : "update person",
+        "operationId" : "updatePerson",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -349,8 +396,19 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
       }
     },
     "/product/create" : {
@@ -408,6 +466,10 @@
                       "format" : "int32",
                       "type" : "integer"
                     },
+                    "rate" : {
+                      "format" : "float",
+                      "type" : "number"
+                    },
                     "charger" : {
                       "$ref" : "#/components/schemas/ChargerDTO"
                     },
@@ -431,6 +493,12 @@
                     },
                     "processor" : {
                       "$ref" : "#/components/schemas/ProcessorDTO"
+                    },
+                    "opinions" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/OpinionDto"
+                      }
                     }
                   }
                 }
@@ -548,6 +616,10 @@
                     "processor" : {
                       "$ref" : "#/components/schemas/Processor"
                     },
+                    "rate" : {
+                      "format" : "float",
+                      "type" : "number"
+                    },
                     "thumbnailAsByte" : {
                       "type" : "string"
                     },
@@ -626,6 +698,10 @@
                       "format" : "int32",
                       "type" : "integer"
                     },
+                    "rate" : {
+                      "format" : "float",
+                      "type" : "number"
+                    },
                     "charger" : {
                       "$ref" : "#/components/schemas/ChargerDTO"
                     },
@@ -649,6 +725,12 @@
                     },
                     "processor" : {
                       "$ref" : "#/components/schemas/ProcessorDTO"
+                    },
+                    "opinions" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/OpinionDto"
+                      }
                     }
                   }
                 }
@@ -713,6 +795,10 @@
                       "format" : "int32",
                       "type" : "integer"
                     },
+                    "rate" : {
+                      "format" : "float",
+                      "type" : "number"
+                    },
                     "charger" : {
                       "$ref" : "#/components/schemas/ChargerDTO"
                     },
@@ -736,6 +822,12 @@
                     },
                     "processor" : {
                       "$ref" : "#/components/schemas/ProcessorDTO"
+                    },
+                    "opinions" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/OpinionDto"
+                      }
                     }
                   }
                 }
@@ -745,19 +837,56 @@
         }
       }
     },
-    "/store/addProductToBucket" : {
+    "/store/addOpinion" : {
       "post" : {
         "tags" : [ "Application Api" ],
-        "description" : "add product to active bucket",
-        "operationId" : "addProductToBucket",
+        "description" : "add opinion to product",
+        "operationId" : "addOpinion",
         "parameters" : [ {
-          "name" : "personId",
+          "name" : "opinion",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "productId",
           "in" : "query",
           "schema" : {
             "format" : "int64",
             "type" : "integer"
           }
         }, {
+          "name" : "rate",
+          "in" : "query",
+          "schema" : {
+            "format" : "float",
+            "type" : "number"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "NO CONTENT"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
+      }
+    },
+    "/store/addProductToBucket" : {
+      "post" : {
+        "tags" : [ "Application Api" ],
+        "description" : "add product to active bucket",
+        "operationId" : "addProductToBucket",
+        "parameters" : [ {
           "name" : "productId",
           "in" : "query",
           "schema" : {
@@ -778,8 +907,19 @@
           },
           "304" : {
             "description" : "NOT MODIFIED"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
       }
     },
     "/store/create/order" : {
@@ -787,15 +927,6 @@
         "tags" : [ "Application Api" ],
         "description" : "create new order",
         "operationId" : "createOrder",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Person"
-              }
-            }
-          }
-        },
         "responses" : {
           "202" : {
             "description" : "ACCEPTED",
@@ -829,8 +960,19 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
       }
     },
     "/store/create/person" : {
@@ -882,19 +1024,43 @@
         }
       }
     },
+    "/store/removeOpinion" : {
+      "post" : {
+        "tags" : [ "Application Api" ],
+        "description" : "remove opinion from product",
+        "operationId" : "removeOpinion",
+        "parameters" : [ {
+          "name" : "opinionId",
+          "in" : "query",
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "NO CONTENT"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
+      }
+    },
     "/store/removeProductFromBucket" : {
       "post" : {
         "tags" : [ "Application Api" ],
         "description" : "remove product from bucket",
         "operationId" : "removeProductFromBucket",
         "parameters" : [ {
-          "name" : "personId",
-          "in" : "query",
-          "schema" : {
-            "format" : "int64",
-            "type" : "integer"
-          }
-        }, {
           "name" : "productId",
           "in" : "query",
           "schema" : {
@@ -905,29 +1071,31 @@
         "responses" : {
           "204" : {
             "description" : "NO CONTENT"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
       }
     },
-    "/store/updatePersonAddressById/id/{id}" : {
+    "/store/updatePersonAddress" : {
       "patch" : {
         "tags" : [ "Application Api" ],
         "description" : "update person address by person id, if address not exists then create new one",
         "operationId" : "updatePersonAddressById",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "format" : "int64",
-            "type" : "integer"
-          }
-        } ],
         "requestBody" : {
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AddressSearchCriteria"
+                "$ref" : "#/components/schemas/Address"
               }
             }
           }
@@ -963,8 +1131,19 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
-        }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "USER" ]
+        }, {
+          "SecurityScheme" : [ "USER" ]
+        } ]
       }
     }
   },
@@ -1002,27 +1181,6 @@
             "format" : "int64",
             "type" : "integer"
           },
-          "province" : {
-            "type" : "string"
-          },
-          "zipCode" : {
-            "type" : "string"
-          },
-          "streetName" : {
-            "type" : "string"
-          },
-          "buildingNumber" : {
-            "type" : "string"
-          },
-          "apartmentNumber" : {
-            "format" : "int32",
-            "type" : "integer"
-          }
-        }
-      },
-      "AddressSearchCriteria" : {
-        "type" : "object",
-        "properties" : {
           "province" : {
             "type" : "string"
           },
@@ -1331,6 +1489,25 @@
           }
         }
       },
+      "OpinionDto" : {
+        "type" : "object",
+        "properties" : {
+          "comment" : {
+            "type" : "string"
+          },
+          "rate" : {
+            "format" : "float",
+            "type" : "number"
+          },
+          "username" : {
+            "type" : "string"
+          },
+          "productId" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        }
+      },
       "PcCase" : {
         "type" : "object",
         "properties" : {
@@ -1544,6 +1721,10 @@
           "processor" : {
             "$ref" : "#/components/schemas/Processor"
           },
+          "rate" : {
+            "format" : "float",
+            "type" : "number"
+          },
           "thumbnailAsByte" : {
             "type" : "string"
           },
@@ -1592,6 +1773,10 @@
             "format" : "int32",
             "type" : "integer"
           },
+          "rate" : {
+            "format" : "float",
+            "type" : "number"
+          },
           "charger" : {
             "$ref" : "#/components/schemas/ChargerDTO"
           },
@@ -1615,6 +1800,12 @@
           },
           "processor" : {
             "$ref" : "#/components/schemas/ProcessorDTO"
+          },
+          "opinions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/OpinionDto"
+            }
           }
         }
       },

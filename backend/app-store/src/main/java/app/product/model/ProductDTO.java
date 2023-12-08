@@ -1,5 +1,6 @@
 package app.product.model;
 
+import app.opinion.rs.v1.dto.OpinionDto;
 import app.product.model.utill.ProductCategory;
 import app.product.types.charger.model.ChargerDTO;
 import app.product.types.cooler.model.CoolerDTO;
@@ -11,6 +12,8 @@ import app.product.types.pc_case.model.PcCaseDTO;
 import app.product.types.processor.model.ProcessorDTO;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +28,7 @@ public class ProductDTO {
     private String model;
     private Double price;
     private int quantity;
+    private Float rate;
 
     private ChargerDTO charger;
     private CoolerDTO cooler;
@@ -34,4 +38,5 @@ public class ProductDTO {
     private MotherboardDTO motherboard;
     private PcCaseDTO pcCase;
     private ProcessorDTO processor;
+    private List<OpinionDto> opinions;
 }

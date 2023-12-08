@@ -10,6 +10,7 @@ public class PersonFactory {
     public static Person createRandomPerson(){
         Person person = new Person();
         person.setUsername("username" + random.nextInt());
+        person.setEmail("email" + random.nextInt());
         return person;
     }
 }
