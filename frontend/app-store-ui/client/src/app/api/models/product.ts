@@ -30,6 +30,7 @@ export interface Product {
   productCategory?: ProductCategory;
   productOrders?: Array<ProductOrder>;
   quantity?: number;
+  rate?: number;
   thumbnail?: string;
   thumbnailAsByte?: string;
 }

@@ -6,18 +6,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Address } from '../../models/address';
 
-export interface UpdateAddressById$Params {
-  id: number;
-      body?: Address
+export interface RemoveOpinion$Params {
+  opinionId?: number;
 }
 
-export function updateAddressById(http: HttpClient, rootUrl: string, params: UpdateAddressById$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, updateAddressById.PATH, 'patch');
+export function removeOpinion(http: HttpClient, rootUrl: string, params?: RemoveOpinion$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, removeOpinion.PATH, 'post');
   if (params) {
-    rb.path('id', params.id, {});
-    rb.body(params.body, 'application/json');
+    rb.query('opinionId', params.opinionId, {});
   }
 
   return http.request(
@@ -30,4 +27,4 @@ export function updateAddressById(http: HttpClient, rootUrl: string, params: Upd
   );
 }
 
-updateAddressById.PATH = '/address/updateAddressById/id/{id}';
+removeOpinion.PATH = '/store/removeOpinion';

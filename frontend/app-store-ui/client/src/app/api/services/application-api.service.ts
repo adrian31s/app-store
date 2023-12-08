@@ -9,6 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { addOpinion } from '../fn/application-api/add-opinion';
+import { AddOpinion$Params } from '../fn/application-api/add-opinion';
 import { addProductToBucket } from '../fn/application-api/add-product-to-bucket';
 import { AddProductToBucket$Params } from '../fn/application-api/add-product-to-bucket';
 import { AddressDto } from '../models/address-dto';
@@ -17,6 +19,8 @@ import { CreateOrder$Params } from '../fn/application-api/create-order';
 import { createPerson } from '../fn/application-api/create-person';
 import { CreatePerson$Params } from '../fn/application-api/create-person';
 import { Date } from '../models/date';
+import { removeOpinion } from '../fn/application-api/remove-opinion';
+import { RemoveOpinion$Params } from '../fn/application-api/remove-opinion';
 import { removeProductFromBucket } from '../fn/application-api/remove-product-from-bucket';
 import { RemoveProductFromBucket$Params } from '../fn/application-api/remove-product-from-bucket';
 import { Status } from '../models/status';
@@ -27,6 +31,35 @@ import { UpdatePersonAddressById$Params } from '../fn/application-api/update-per
 export class ApplicationApiService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `addOpinion()` */
+  static readonly AddOpinionPath = '/store/addOpinion';
+
+  /**
+   * add opinion to product
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addOpinion()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  addOpinion$Response(params?: AddOpinion$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return addOpinion(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * add opinion to product
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addOpinion$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  addOpinion(params?: AddOpinion$Params, context?: HttpContext): Observable<void> {
+    return this.addOpinion$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
   }
 
   /** Path part for operation `addProductToBucket()` */
@@ -67,7 +100,7 @@ export class ApplicationApiService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `createOrder()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
   createOrder$Response(params?: CreateOrder$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
@@ -86,7 +119,7 @@ export class ApplicationApiService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `createOrder$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
   createOrder(params?: CreateOrder$Params, context?: HttpContext): Observable<{
 'bid'?: number;
@@ -168,6 +201,35 @@ export class ApplicationApiService extends BaseService {
     );
   }
 
+  /** Path part for operation `removeOpinion()` */
+  static readonly RemoveOpinionPath = '/store/removeOpinion';
+
+  /**
+   * remove opinion from product
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeOpinion()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeOpinion$Response(params?: RemoveOpinion$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return removeOpinion(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * remove opinion from product
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `removeOpinion$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeOpinion(params?: RemoveOpinion$Params, context?: HttpContext): Observable<void> {
+    return this.removeOpinion$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
   /** Path part for operation `removeProductFromBucket()` */
   static readonly RemoveProductFromBucketPath = '/store/removeProductFromBucket';
 
@@ -198,7 +260,7 @@ export class ApplicationApiService extends BaseService {
   }
 
   /** Path part for operation `updatePersonAddressById()` */
-  static readonly UpdatePersonAddressByIdPath = '/store/updatePersonAddressById/id/{id}';
+  static readonly UpdatePersonAddressByIdPath = '/store/updatePersonAddress';
 
   /**
    * update person address by person id, if address not exists then create new one
@@ -208,7 +270,7 @@ export class ApplicationApiService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  updatePersonAddressById$Response(params: UpdatePersonAddressById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+  updatePersonAddressById$Response(params?: UpdatePersonAddressById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'username'?: string;
 'name'?: string;
@@ -226,7 +288,7 @@ export class ApplicationApiService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  updatePersonAddressById(params: UpdatePersonAddressById$Params, context?: HttpContext): Observable<{
+  updatePersonAddressById(params?: UpdatePersonAddressById$Params, context?: HttpContext): Observable<{
 'bid'?: number;
 'username'?: string;
 'name'?: string;

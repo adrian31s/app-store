@@ -7,11 +7,9 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { Date } from '../../models/date';
-import { Person } from '../../models/person';
 import { Status } from '../../models/status';
 
 export interface CreateOrder$Params {
-      body?: Person
 }
 
 export function createOrder(http: HttpClient, rootUrl: string, params?: CreateOrder$Params, context?: HttpContext): Observable<StrictHttpResponse<{
@@ -24,7 +22,6 @@ export function createOrder(http: HttpClient, rootUrl: string, params?: CreateOr
 }>> {
   const rb = new RequestBuilder(rootUrl, createOrder.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(

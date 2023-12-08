@@ -8,20 +8,18 @@ import { RequestBuilder } from '../../request-builder';
 
 import { AddressDto } from '../../models/address-dto';
 
-export interface GetPersonById$Params {
-  id: number;
+export interface GetPerson$Params {
 }
 
-export function getPersonById(http: HttpClient, rootUrl: string, params: GetPersonById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+export function getPerson(http: HttpClient, rootUrl: string, params?: GetPerson$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'username'?: string;
 'name'?: string;
 'lastName'?: string;
 'addresses'?: Array<AddressDto>;
 }>> {
-  const rb = new RequestBuilder(rootUrl, getPersonById.PATH, 'get');
+  const rb = new RequestBuilder(rootUrl, getPerson.PATH, 'get');
   if (params) {
-    rb.path('id', params.id, {});
   }
 
   return http.request(
@@ -40,4 +38,4 @@ export function getPersonById(http: HttpClient, rootUrl: string, params: GetPers
   );
 }
 
-getPersonById.PATH = '/person/getById/id/{id}';
+getPerson.PATH = '/person/getById';

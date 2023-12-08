@@ -6,18 +6,19 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Address } from '../../models/address';
 
-export interface UpdateAddressById$Params {
-  id: number;
-      body?: Address
+export interface AddOpinion$Params {
+  opinion?: string;
+  productId?: number;
+  rate?: number;
 }
 
-export function updateAddressById(http: HttpClient, rootUrl: string, params: UpdateAddressById$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, updateAddressById.PATH, 'patch');
+export function addOpinion(http: HttpClient, rootUrl: string, params?: AddOpinion$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, addOpinion.PATH, 'post');
   if (params) {
-    rb.path('id', params.id, {});
-    rb.body(params.body, 'application/json');
+    rb.query('opinion', params.opinion, {});
+    rb.query('productId', params.productId, {});
+    rb.query('rate', params.rate, {});
   }
 
   return http.request(
@@ -30,4 +31,4 @@ export function updateAddressById(http: HttpClient, rootUrl: string, params: Upd
   );
 }
 
-updateAddressById.PATH = '/address/updateAddressById/id/{id}';
+addOpinion.PATH = '/store/addOpinion';

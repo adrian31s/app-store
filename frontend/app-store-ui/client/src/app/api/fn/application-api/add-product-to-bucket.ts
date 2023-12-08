@@ -8,7 +8,6 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface AddProductToBucket$Params {
-  personId?: number;
   productId?: number;
   quantity?: number;
 }
@@ -16,7 +15,6 @@ export interface AddProductToBucket$Params {
 export function addProductToBucket(http: HttpClient, rootUrl: string, params?: AddProductToBucket$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, addProductToBucket.PATH, 'post');
   if (params) {
-    rb.query('personId', params.personId, {});
     rb.query('productId', params.productId, {});
     rb.query('quantity', params.quantity, {});
   }

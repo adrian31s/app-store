@@ -9,18 +9,18 @@ import { RequestBuilder } from '../../request-builder';
 import { AddressDto } from '../../models/address-dto';
 import { Person } from '../../models/person';
 
-export interface UpdatePersonById$Params {
+export interface UpdatePerson$Params {
       body?: Person
 }
 
-export function updatePersonById(http: HttpClient, rootUrl: string, params?: UpdatePersonById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+export function updatePerson(http: HttpClient, rootUrl: string, params?: UpdatePerson$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'username'?: string;
 'name'?: string;
 'lastName'?: string;
 'addresses'?: Array<AddressDto>;
 }>> {
-  const rb = new RequestBuilder(rootUrl, updatePersonById.PATH, 'patch');
+  const rb = new RequestBuilder(rootUrl, updatePerson.PATH, 'patch');
   if (params) {
     rb.body(params.body, 'application/json');
   }
@@ -41,4 +41,4 @@ export function updatePersonById(http: HttpClient, rootUrl: string, params?: Upd
   );
 }
 
-updatePersonById.PATH = '/person/update';
+updatePerson.PATH = '/person/update';

@@ -27,6 +27,7 @@ import { HardDrive } from '../models/hard-drive';
 import { HardDriveDto } from '../models/hard-drive-dto';
 import { Motherboard } from '../models/motherboard';
 import { MotherboardDto } from '../models/motherboard-dto';
+import { OpinionDto } from '../models/opinion-dto';
 import { PcCase } from '../models/pc-case';
 import { PcCaseDto } from '../models/pc-case-dto';
 import { Processor } from '../models/processor';
@@ -67,6 +68,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -75,6 +77,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }>> {
     return createProduct(this.http, this.rootUrl, params, context);
   }
@@ -98,6 +101,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -106,6 +110,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }> {
     return this.createProduct$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -119,6 +124,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -127,6 +133,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }>): {
 'bid'?: number;
 'thumbnail'?: string;
@@ -138,6 +145,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -146,6 +154,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 } => r.body)
     );
   }
@@ -210,6 +219,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: Motherboard;
 'pcCase'?: PcCase;
 'processor'?: Processor;
+'rate'?: number;
 'thumbnailAsByte'?: string;
 'picturesAsBytes'?: string;
 }>> {
@@ -244,6 +254,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: Motherboard;
 'pcCase'?: PcCase;
 'processor'?: Processor;
+'rate'?: number;
 'thumbnailAsByte'?: string;
 'picturesAsBytes'?: string;
 }> {
@@ -268,6 +279,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: Motherboard;
 'pcCase'?: PcCase;
 'processor'?: Processor;
+'rate'?: number;
 'thumbnailAsByte'?: string;
 'picturesAsBytes'?: string;
 }>): {
@@ -290,6 +302,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: Motherboard;
 'pcCase'?: PcCase;
 'processor'?: Processor;
+'rate'?: number;
 'thumbnailAsByte'?: string;
 'picturesAsBytes'?: string;
 } => r.body)
@@ -318,6 +331,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -326,6 +340,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }>> {
     return updateProductBaseById(this.http, this.rootUrl, params, context);
   }
@@ -349,6 +364,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -357,6 +373,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }> {
     return this.updateProductBaseById$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -370,6 +387,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -378,6 +396,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }>): {
 'bid'?: number;
 'thumbnail'?: string;
@@ -389,6 +408,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -397,6 +417,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 } => r.body)
     );
   }
@@ -423,6 +444,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -431,6 +453,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }>> {
     return updateProductWithDetailsById(this.http, this.rootUrl, params, context);
   }
@@ -454,6 +477,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -462,6 +486,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }> {
     return this.updateProductWithDetailsById$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -475,6 +500,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -483,6 +509,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }>): {
 'bid'?: number;
 'thumbnail'?: string;
@@ -494,6 +521,7 @@ export class ProductApiService extends BaseService {
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -502,6 +530,7 @@ export class ProductApiService extends BaseService {
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 } => r.body)
     );
   }

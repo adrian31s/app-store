@@ -9,8 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { getActiveBucketAssignedToPersonById } from '../fn/bucket-api/get-active-bucket-assigned-to-person-by-id';
-import { GetActiveBucketAssignedToPersonById$Params } from '../fn/bucket-api/get-active-bucket-assigned-to-person-by-id';
+import { getActiveBucketAssignedToPerson } from '../fn/bucket-api/get-active-bucket-assigned-to-person';
+import { GetActiveBucketAssignedToPerson$Params } from '../fn/bucket-api/get-active-bucket-assigned-to-person';
 import { ProductOrderDto } from '../models/product-order-dto';
 
 @Injectable({ providedIn: 'root' })
@@ -19,43 +19,43 @@ export class BucketApiService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `getActiveBucketAssignedToPersonById()` */
-  static readonly GetActiveBucketAssignedToPersonByIdPath = '/bucket/getActiveBucketAssignedToPersonById/id/{id}';
+  /** Path part for operation `getActiveBucketAssignedToPerson()` */
+  static readonly GetActiveBucketAssignedToPersonPath = '/bucket/getActiveBucketAssignedToPerson';
 
   /**
    * get active bucket which can be modified assigned to person
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getActiveBucketAssignedToPersonById()` instead.
+   * To access only the response body, use `getActiveBucketAssignedToPerson()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getActiveBucketAssignedToPersonById$Response(params: GetActiveBucketAssignedToPersonById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+  getActiveBucketAssignedToPerson$Response(params?: GetActiveBucketAssignedToPerson$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'archived'?: boolean;
 'productOrders'?: Array<ProductOrderDto>;
 'personId'?: number;
 'orderId'?: number;
 }>> {
-    return getActiveBucketAssignedToPersonById(this.http, this.rootUrl, params, context);
+    return getActiveBucketAssignedToPerson(this.http, this.rootUrl, params, context);
   }
 
   /**
    * get active bucket which can be modified assigned to person
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getActiveBucketAssignedToPersonById$Response()` instead.
+   * To access the full response (for headers, for example), `getActiveBucketAssignedToPerson$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getActiveBucketAssignedToPersonById(params: GetActiveBucketAssignedToPersonById$Params, context?: HttpContext): Observable<{
+  getActiveBucketAssignedToPerson(params?: GetActiveBucketAssignedToPerson$Params, context?: HttpContext): Observable<{
 'bid'?: number;
 'archived'?: boolean;
 'productOrders'?: Array<ProductOrderDto>;
 'personId'?: number;
 'orderId'?: number;
 }> {
-    return this.getActiveBucketAssignedToPersonById$Response(params, context).pipe(
+    return this.getActiveBucketAssignedToPerson$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 'bid'?: number;
 'archived'?: boolean;

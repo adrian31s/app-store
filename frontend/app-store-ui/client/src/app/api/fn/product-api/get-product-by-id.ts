@@ -41,6 +41,7 @@ export function getProductById(http: HttpClient, rootUrl: string, params: GetPro
 'motherboard'?: Motherboard;
 'pcCase'?: PcCase;
 'processor'?: Processor;
+'rate'?: number;
 'thumbnailAsByte'?: string;
 'picturesAsBytes'?: string;
 }>> {
@@ -74,6 +75,7 @@ export function getProductById(http: HttpClient, rootUrl: string, params: GetPro
       'motherboard'?: Motherboard;
       'pcCase'?: PcCase;
       'processor'?: Processor;
+      'rate'?: number;
       'thumbnailAsByte'?: string;
       'picturesAsBytes'?: string;
       }>;

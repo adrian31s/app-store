@@ -12,11 +12,11 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { AddressDto } from '../models/address-dto';
 import { getAllPeople } from '../fn/person-api/get-all-people';
 import { GetAllPeople$Params } from '../fn/person-api/get-all-people';
-import { getPersonById } from '../fn/person-api/get-person-by-id';
-import { GetPersonById$Params } from '../fn/person-api/get-person-by-id';
+import { getPerson } from '../fn/person-api/get-person';
+import { GetPerson$Params } from '../fn/person-api/get-person';
 import { PersonDto } from '../models/person-dto';
-import { updatePersonById } from '../fn/person-api/update-person-by-id';
-import { UpdatePersonById$Params } from '../fn/person-api/update-person-by-id';
+import { updatePerson } from '../fn/person-api/update-person';
+import { UpdatePerson$Params } from '../fn/person-api/update-person';
 
 @Injectable({ providedIn: 'root' })
 export class PersonApiService extends BaseService {
@@ -53,43 +53,43 @@ export class PersonApiService extends BaseService {
     );
   }
 
-  /** Path part for operation `getPersonById()` */
-  static readonly GetPersonByIdPath = '/person/getById/id/{id}';
+  /** Path part for operation `getPerson()` */
+  static readonly GetPersonPath = '/person/getById';
 
   /**
-   * get person by id
+   * get person
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getPersonById()` instead.
+   * To access only the response body, use `getPerson()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getPersonById$Response(params: GetPersonById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+  getPerson$Response(params?: GetPerson$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'username'?: string;
 'name'?: string;
 'lastName'?: string;
 'addresses'?: Array<AddressDto>;
 }>> {
-    return getPersonById(this.http, this.rootUrl, params, context);
+    return getPerson(this.http, this.rootUrl, params, context);
   }
 
   /**
-   * get person by id
+   * get person
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getPersonById$Response()` instead.
+   * To access the full response (for headers, for example), `getPerson$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getPersonById(params: GetPersonById$Params, context?: HttpContext): Observable<{
+  getPerson(params?: GetPerson$Params, context?: HttpContext): Observable<{
 'bid'?: number;
 'username'?: string;
 'name'?: string;
 'lastName'?: string;
 'addresses'?: Array<AddressDto>;
 }> {
-    return this.getPersonById$Response(params, context).pipe(
+    return this.getPerson$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 'bid'?: number;
 'username'?: string;
@@ -106,43 +106,43 @@ export class PersonApiService extends BaseService {
     );
   }
 
-  /** Path part for operation `updatePersonById()` */
-  static readonly UpdatePersonByIdPath = '/person/update';
+  /** Path part for operation `updatePerson()` */
+  static readonly UpdatePersonPath = '/person/update';
 
   /**
-   * update person by id
+   * update person
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `updatePersonById()` instead.
+   * To access only the response body, use `updatePerson()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  updatePersonById$Response(params?: UpdatePersonById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+  updatePerson$Response(params?: UpdatePerson$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'username'?: string;
 'name'?: string;
 'lastName'?: string;
 'addresses'?: Array<AddressDto>;
 }>> {
-    return updatePersonById(this.http, this.rootUrl, params, context);
+    return updatePerson(this.http, this.rootUrl, params, context);
   }
 
   /**
-   * update person by id
+   * update person
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `updatePersonById$Response()` instead.
+   * To access the full response (for headers, for example), `updatePerson$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  updatePersonById(params?: UpdatePersonById$Params, context?: HttpContext): Observable<{
+  updatePerson(params?: UpdatePerson$Params, context?: HttpContext): Observable<{
 'bid'?: number;
 'username'?: string;
 'name'?: string;
 'lastName'?: string;
 'addresses'?: Array<AddressDto>;
 }> {
-    return this.updatePersonById$Response(params, context).pipe(
+    return this.updatePerson$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 'bid'?: number;
 'username'?: string;

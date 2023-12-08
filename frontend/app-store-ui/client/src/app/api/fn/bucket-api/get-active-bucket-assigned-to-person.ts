@@ -8,20 +8,18 @@ import { RequestBuilder } from '../../request-builder';
 
 import { ProductOrderDto } from '../../models/product-order-dto';
 
-export interface GetActiveBucketAssignedToPersonById$Params {
-  id: number;
+export interface GetActiveBucketAssignedToPerson$Params {
 }
 
-export function getActiveBucketAssignedToPersonById(http: HttpClient, rootUrl: string, params: GetActiveBucketAssignedToPersonById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+export function getActiveBucketAssignedToPerson(http: HttpClient, rootUrl: string, params?: GetActiveBucketAssignedToPerson$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'archived'?: boolean;
 'productOrders'?: Array<ProductOrderDto>;
 'personId'?: number;
 'orderId'?: number;
 }>> {
-  const rb = new RequestBuilder(rootUrl, getActiveBucketAssignedToPersonById.PATH, 'get');
+  const rb = new RequestBuilder(rootUrl, getActiveBucketAssignedToPerson.PATH, 'get');
   if (params) {
-    rb.path('id', params.id, {});
   }
 
   return http.request(
@@ -40,4 +38,4 @@ export function getActiveBucketAssignedToPersonById(http: HttpClient, rootUrl: s
   );
 }
 
-getActiveBucketAssignedToPersonById.PATH = '/bucket/getActiveBucketAssignedToPersonById/id/{id}';
+getActiveBucketAssignedToPerson.PATH = '/bucket/getActiveBucketAssignedToPerson';

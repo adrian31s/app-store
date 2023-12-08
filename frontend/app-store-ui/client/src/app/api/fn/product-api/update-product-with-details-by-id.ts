@@ -12,6 +12,7 @@ import { DramMemoryDto } from '../../models/dram-memory-dto';
 import { GraphicCardDto } from '../../models/graphic-card-dto';
 import { HardDriveDto } from '../../models/hard-drive-dto';
 import { MotherboardDto } from '../../models/motherboard-dto';
+import { OpinionDto } from '../../models/opinion-dto';
 import { PcCaseDto } from '../../models/pc-case-dto';
 import { ProcessorDto } from '../../models/processor-dto';
 import { Product } from '../../models/product';
@@ -32,6 +33,7 @@ export function updateProductWithDetailsById(http: HttpClient, rootUrl: string, 
 'model'?: string;
 'price'?: number;
 'quantity'?: number;
+'rate'?: number;
 'charger'?: ChargerDto;
 'cooler'?: CoolerDto;
 'dramMemory'?: DramMemoryDto;
@@ -40,6 +42,7 @@ export function updateProductWithDetailsById(http: HttpClient, rootUrl: string, 
 'motherboard'?: MotherboardDto;
 'pcCase'?: PcCaseDto;
 'processor'?: ProcessorDto;
+'opinions'?: Array<OpinionDto>;
 }>> {
   const rb = new RequestBuilder(rootUrl, updateProductWithDetailsById.PATH, 'put');
   if (params) {
@@ -62,6 +65,7 @@ export function updateProductWithDetailsById(http: HttpClient, rootUrl: string, 
       'model'?: string;
       'price'?: number;
       'quantity'?: number;
+      'rate'?: number;
       'charger'?: ChargerDto;
       'cooler'?: CoolerDto;
       'dramMemory'?: DramMemoryDto;
@@ -70,6 +74,7 @@ export function updateProductWithDetailsById(http: HttpClient, rootUrl: string, 
       'motherboard'?: MotherboardDto;
       'pcCase'?: PcCaseDto;
       'processor'?: ProcessorDto;
+      'opinions'?: Array<OpinionDto>;
       }>;
     })
   );

@@ -8,14 +8,12 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface RemoveProductFromBucket$Params {
-  personId?: number;
   productId?: number;
 }
 
 export function removeProductFromBucket(http: HttpClient, rootUrl: string, params?: RemoveProductFromBucket$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, removeProductFromBucket.PATH, 'post');
   if (params) {
-    rb.query('personId', params.personId, {});
     rb.query('productId', params.productId, {});
   }
 

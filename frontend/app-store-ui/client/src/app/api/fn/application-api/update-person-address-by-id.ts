@@ -6,15 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { Address } from '../../models/address';
 import { AddressDto } from '../../models/address-dto';
-import { AddressSearchCriteria } from '../../models/address-search-criteria';
 
 export interface UpdatePersonAddressById$Params {
-  id: number;
-      body?: AddressSearchCriteria
+      body?: Address
 }
 
-export function updatePersonAddressById(http: HttpClient, rootUrl: string, params: UpdatePersonAddressById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+export function updatePersonAddressById(http: HttpClient, rootUrl: string, params?: UpdatePersonAddressById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'bid'?: number;
 'username'?: string;
 'name'?: string;
@@ -23,7 +22,6 @@ export function updatePersonAddressById(http: HttpClient, rootUrl: string, param
 }>> {
   const rb = new RequestBuilder(rootUrl, updatePersonAddressById.PATH, 'patch');
   if (params) {
-    rb.path('id', params.id, {});
     rb.body(params.body, 'application/json');
   }
 
@@ -43,4 +41,4 @@ export function updatePersonAddressById(http: HttpClient, rootUrl: string, param
   );
 }
 
-updatePersonAddressById.PATH = '/store/updatePersonAddressById/id/{id}';
+updatePersonAddressById.PATH = '/store/updatePersonAddress';

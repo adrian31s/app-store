@@ -2,7 +2,6 @@
 /* eslint-disable */
 export { Address } from './models/address';
 export { AddressDto } from './models/address-dto';
-export { AddressSearchCriteria } from './models/address-search-criteria';
 export { AuthRequest } from './models/auth-request';
 export { Charger } from './models/charger';
 export { ChargerDto } from './models/charger-dto';
@@ -17,6 +16,7 @@ export { HardDrive } from './models/hard-drive';
 export { HardDriveDto } from './models/hard-drive-dto';
 export { Motherboard } from './models/motherboard';
 export { MotherboardDto } from './models/motherboard-dto';
+export { OpinionDto } from './models/opinion-dto';
 export { PcCase } from './models/pc-case';
 export { PcCaseDto } from './models/pc-case-dto';
 export { Person } from './models/person';

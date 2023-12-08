@@ -6,18 +6,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AuthRequest } from '../../models/auth-request';
 
 export interface TestUserResource$Params {
-      body?: AuthRequest
 }
 
 export function testUserResource(http: HttpClient, rootUrl: string, params?: TestUserResource$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 'token'?: string;
 }>> {
-  const rb = new RequestBuilder(rootUrl, testUserResource.PATH, 'post');
+  const rb = new RequestBuilder(rootUrl, testUserResource.PATH, 'get');
   if (params) {
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(
