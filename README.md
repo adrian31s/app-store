@@ -46,8 +46,5 @@ docker run -d -p 30002:80 --network app-store-network adrian31s/app-store-ui:1.0
 # hosts:
 frontend: http://localhost:30002
 backend: http://localhost:30001
-swaggerUi: http://locdocker pull adrian31s/app-store-ui:1.0.2
-docker pull adrian31s/app-store:1.0.2
-docker pull postgres:latest
-alhost:30001/q/swagger-ui/
+swaggerUi: http://localhost:30001/q/swagger-ui/
 
