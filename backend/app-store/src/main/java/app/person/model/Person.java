@@ -22,13 +22,13 @@ import java.util.Set;
 public class Person extends BaseEntity {
     public static final String TABLE = "PERSON";
 
-    @Column(name = "USERNAME")
+    @Column(name = "USERNAME", unique = true)
     private String username;
 
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
     @Column(name = "ROLE")

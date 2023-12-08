@@ -1,5 +1,6 @@
 package app.product.service;
 
+import app.opinion.model.Opinion;
 import app.product.dao.ProductDao;
 import app.product.model.Product;
 import app.product.model.ProductSearchCriteria;
@@ -86,7 +87,7 @@ public class ProductService {
         return productDao.getEntitiesByMultipleFields(getPredicates(searchCriteria));
     }
 
-    @Transactional(Transactional.TxType.SUPPORTS)
+    @Transactional(Transactional.TxType.REQUIRED) // for post load
     public Product getProductById(Long id) {
         return productDao.getById(id);
     }

@@ -113,4 +113,21 @@ public class ProductApi {
         Product updatedProduct = productService.updateProductWithDetailsById(product);
         return Response.accepted(productMapper.mapToDTO(updatedProduct)).build();
     }
+
+    @GET
+    @Path("/getBySearchCriteria")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "getProductsBySearchCriteria", description = "get products by search criteria")
+    @APIResponse(
+            responseCode = "200",
+            description = "OK",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = ProductDTO.class)
+            )
+    )
+    public Response getProductsBySearchCriteria(){
+        List<Product> products = productService.getAllProducts();
+        return Response.ok(productMapper.mapToListDTO(products)).build();
+    }
 }

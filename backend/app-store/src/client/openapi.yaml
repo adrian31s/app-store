@@ -21,6 +21,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AddressDTO'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - ADMIN
+      - SecurityScheme:
+        - ADMIN
   /address/getAddressById/id/{id}:
     get:
       tags:
@@ -56,6 +65,15 @@ paths:
                   apartmentNumber:
                     format: int32
                     type: integer
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - ADMIN
+      - SecurityScheme:
+        - ADMIN
   /address/updateAddressById/id/{id}:
     patch:
       tags:
@@ -73,10 +91,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddressSearchCriteria'
+              $ref: '#/components/schemas/Address'
       responses:
         "204":
           description: NO CONTENT
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+        - ADMIN
+      - SecurityScheme:
+        - USER
+        - ADMIN
   /auth/login:
     post:
       tags:
@@ -101,16 +130,11 @@ paths:
         "401":
           description: NOT AUTHORIZED
   /auth/testUserResource:
-    post:
+    get:
       tags:
       - Login
       description: return sample text if authorized
       operationId: testUserResource
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AuthRequest'
       responses:
         "200":
           description: OK
@@ -123,19 +147,19 @@ paths:
                     type: string
         "401":
           description: NOT AUTHORIZED
-  /bucket/getActiveBucketAssignedToPersonById/id/{id}:
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
+  /bucket/getActiveBucketAssignedToPerson:
     get:
       tags:
       - Bucket Api
       description: get active bucket which can be modified assigned to person
-      operationId: getActiveBucketAssignedToPersonById
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          format: int64
-          type: integer
+      operationId: getActiveBucketAssignedToPerson
       responses:
         "200":
           description: OK
@@ -159,6 +183,15 @@ paths:
                   orderId:
                     format: int64
                     type: integer
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /person/getAll:
     get:
       tags:
@@ -174,19 +207,21 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PersonDTO'
-  /person/getById/id/{id}:
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - ADMIN
+      - SecurityScheme:
+        - ADMIN
+  /person/getById:
     get:
       tags:
       - Person Api
-      description: get person by id
-      operationId: getPersonById
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          format: int64
-          type: integer
+      description: get person
+      operationId: getPerson
       responses:
         "200":
           description: OK
@@ -208,12 +243,21 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AddressDTO'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /person/update:
     patch:
       tags:
       - Person Api
-      description: update person by id
-      operationId: updatePersonById
+      description: update person
+      operationId: updatePerson
       requestBody:
         content:
           application/json:
@@ -240,6 +284,15 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AddressDTO'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /product/create:
     post:
       tags:
@@ -282,6 +335,9 @@ paths:
                   quantity:
                     format: int32
                     type: integer
+                  rate:
+                    format: float
+                    type: number
                   charger:
                     $ref: '#/components/schemas/ChargerDTO'
                   cooler:
@@ -298,6 +354,10 @@ paths:
                     $ref: '#/components/schemas/PcCaseDTO'
                   processor:
                     $ref: '#/components/schemas/ProcessorDTO'
+                  opinions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OpinionDto'
   /product/getAll:
     get:
       tags:
@@ -378,6 +438,9 @@ paths:
                     $ref: '#/components/schemas/PcCase'
                   processor:
                     $ref: '#/components/schemas/Processor'
+                  rate:
+                    format: float
+                    type: number
                   thumbnailAsByte:
                     type: string
                   picturesAsBytes:
@@ -431,6 +494,9 @@ paths:
                   quantity:
                     format: int32
                     type: integer
+                  rate:
+                    format: float
+                    type: number
                   charger:
                     $ref: '#/components/schemas/ChargerDTO'
                   cooler:
@@ -447,6 +513,10 @@ paths:
                     $ref: '#/components/schemas/PcCaseDTO'
                   processor:
                     $ref: '#/components/schemas/ProcessorDTO'
+                  opinions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OpinionDto'
   /product/updateProductWithDetails:
     put:
       tags:
@@ -489,6 +559,9 @@ paths:
                   quantity:
                     format: int32
                     type: integer
+                  rate:
+                    format: float
+                    type: number
                   charger:
                     $ref: '#/components/schemas/ChargerDTO'
                   cooler:
@@ -505,6 +578,43 @@ paths:
                     $ref: '#/components/schemas/PcCaseDTO'
                   processor:
                     $ref: '#/components/schemas/ProcessorDTO'
+                  opinions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OpinionDto'
+  /store/addOpinion:
+    post:
+      tags:
+      - Application Api
+      description: add opinion to product
+      operationId: addOpinion
+      parameters:
+      - name: opinion
+        in: query
+        schema:
+          type: string
+      - name: productId
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: rate
+        in: query
+        schema:
+          format: float
+          type: number
+      responses:
+        "204":
+          description: NO CONTENT
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /store/addProductToBucket:
     post:
       tags:
@@ -512,11 +622,6 @@ paths:
       description: add product to active bucket
       operationId: addProductToBucket
       parameters:
-      - name: personId
-        in: query
-        schema:
-          format: int64
-          type: integer
       - name: productId
         in: query
         schema:
@@ -532,17 +637,21 @@ paths:
           description: NO CONTENT
         "304":
           description: NOT MODIFIED
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /store/create/order:
     post:
       tags:
       - Application Api
       description: create new order
       operationId: createOrder
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Person'
       responses:
         "202":
           description: ACCEPTED
@@ -566,6 +675,15 @@ paths:
                   bucketId:
                     format: int64
                     type: integer
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /store/create/person:
     post:
       tags:
@@ -598,6 +716,30 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AddressDTO'
+  /store/removeOpinion:
+    post:
+      tags:
+      - Application Api
+      description: remove opinion from product
+      operationId: removeOpinion
+      parameters:
+      - name: opinionId
+        in: query
+        schema:
+          format: int64
+          type: integer
+      responses:
+        "204":
+          description: NO CONTENT
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /store/removeProductFromBucket:
     post:
       tags:
@@ -605,11 +747,6 @@ paths:
       description: remove product from bucket
       operationId: removeProductFromBucket
       parameters:
-      - name: personId
-        in: query
-        schema:
-          format: int64
-          type: integer
       - name: productId
         in: query
         schema:
@@ -618,25 +755,27 @@ paths:
       responses:
         "204":
           description: NO CONTENT
-  /store/updatePersonAddressById/id/{id}:
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
+  /store/updatePersonAddress:
     patch:
       tags:
       - Application Api
       description: "update person address by person id, if address not exists then\
         \ create new one"
       operationId: updatePersonAddressById
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          format: int64
-          type: integer
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddressSearchCriteria'
+              $ref: '#/components/schemas/Address'
       responses:
         "202":
           description: ACCEPTED
@@ -658,6 +797,15 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AddressDTO'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
 components:
   schemas:
     Address:
@@ -683,20 +831,6 @@ components:
         bid:
           format: int64
           type: integer
-        province:
-          type: string
-        zipCode:
-          type: string
-        streetName:
-          type: string
-        buildingNumber:
-          type: string
-        apartmentNumber:
-          format: int32
-          type: integer
-    AddressSearchCriteria:
-      type: object
-      properties:
         province:
           type: string
         zipCode:
@@ -907,6 +1041,19 @@ components:
         maxMemory:
           format: int32
           type: integer
+    OpinionDto:
+      type: object
+      properties:
+        comment:
+          type: string
+        rate:
+          format: float
+          type: number
+        username:
+          type: string
+        productId:
+          format: int64
+          type: integer
     PcCase:
       type: object
       properties:
@@ -1055,6 +1202,9 @@ components:
           $ref: '#/components/schemas/PcCase'
         processor:
           $ref: '#/components/schemas/Processor'
+        rate:
+          format: float
+          type: number
         thumbnailAsByte:
           type: string
         picturesAsBytes:
@@ -1096,6 +1246,9 @@ components:
         quantity:
           format: int32
           type: integer
+        rate:
+          format: float
+          type: number
         charger:
           $ref: '#/components/schemas/ChargerDTO'
         cooler:
@@ -1112,6 +1265,10 @@ components:
           $ref: '#/components/schemas/PcCaseDTO'
         processor:
           $ref: '#/components/schemas/ProcessorDTO'
+        opinions:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpinionDto'
     ProductOrder:
       type: object
       properties:

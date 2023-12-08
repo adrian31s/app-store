@@ -1,6 +1,7 @@
 package app.product.model;
 
 import adi.jpa.crud.model.BaseEntity;
+import app.opinion.model.Opinion;
 import app.product.model.utill.ProductCategory;
 import app.product.types.charger.model.Charger;
 import app.product.types.cooler.model.Cooler;
@@ -11,9 +12,11 @@ import app.product.types.motherboard.model.Motherboard;
 import app.product.types.pc_case.model.PcCase;
 import app.product.types.processor.model.Processor;
 import app.single_product_order.model.ProductOrder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -87,9 +90,27 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "processor_id", referencedColumnName = "BID")
     private Processor processor;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Opinion> opinions = new HashSet<>();
+
+    @Transient
+    private Float rate;
+
     @Transient
     private String thumbnailAsByte;
 
     @Transient
     private String picturesAsBytes;
+
+    @PostLoad
+    public void calculateRate(){
+        int opinionsSize = this.getOpinions().size();
+
+        if (opinionsSize != 0) {
+            Float rate = (float) (this.getOpinions().stream().mapToDouble(Opinion::getRate).sum() / opinionsSize);
+            this.setRate(rate);
+        } else this.setRate(0F);
+    }
 }
