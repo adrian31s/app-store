@@ -2,6 +2,7 @@ package app.product.service;
 
 import app.base.BaseTest;
 import app.product.model.Product;
+import app.product.model.ProductEnhancedSearchCriteria;
 import app.product.model.ProductSearchCriteria;
 import app.product.model.utill.ProductCategory;
 import app.product.types.charger.dao.ChargerDao;
@@ -26,7 +27,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @QuarkusTest
 public class ProductServiceTest extends BaseTest {
@@ -138,5 +141,32 @@ public class ProductServiceTest extends BaseTest {
         product7.setProductCategory(ProductCategory.PROCESSOR);
         product7.setProcessor(new Processor());
         productService.createProduct(product7);
+    }
+
+//    @Test
+    void shouldFindOneChargerBySearchCriteria(){
+        Charger charger = new Charger();
+        charger.setDepth(123);
+        Product product5 = new Product();
+        product5.setName("123abc");
+        product5.setProductCategory(ProductCategory.CHARGER);
+        product5.setCharger(charger);
+        productDao.createEntity(product5);
+
+        Charger charger2 = new Charger();
+        charger2.setDepth(321);
+        Product product1 = new Product();
+        product1.setProductCategory(ProductCategory.CHARGER);
+        product1.setCharger(charger2);
+        productDao.createEntity(product1);
+
+        ProductEnhancedSearchCriteria searchCriteria = new ProductEnhancedSearchCriteria().withName("like;%abc").withDepth("123").withProductCategoryProperty("charger");
+
+        //when
+        var chargers =  productService.getProductsBySearchCriteria(searchCriteria);
+
+        //
+        Assertions.assertEquals(1,chargers);
+        Assertions.assertEquals(1,chargers);
     }
 }

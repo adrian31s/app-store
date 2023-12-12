@@ -21,6 +21,8 @@ import { getProductById } from '../fn/product-api/get-product-by-id';
 import { GetProductById$Params } from '../fn/product-api/get-product-by-id';
 import { getProducts } from '../fn/product-api/get-products';
 import { GetProducts$Params } from '../fn/product-api/get-products';
+import { getProductsBySearchCriteria } from '../fn/product-api/get-products-by-search-criteria';
+import { GetProductsBySearchCriteria$Params } from '../fn/product-api/get-products-by-search-criteria';
 import { GraphicCard } from '../models/graphic-card';
 import { GraphicCardDto } from '../models/graphic-card-dto';
 import { HardDrive } from '../models/hard-drive';
@@ -306,6 +308,35 @@ export class ProductApiService extends BaseService {
 'thumbnailAsByte'?: string;
 'picturesAsBytes'?: string;
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `getProductsBySearchCriteria()` */
+  static readonly GetProductsBySearchCriteriaPath = '/product/getBySearchCriteria';
+
+  /**
+   * get products by search criteria
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getProductsBySearchCriteria()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  getProductsBySearchCriteria$Response(params?: GetProductsBySearchCriteria$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Array<ProductDto>>>> {
+    return getProductsBySearchCriteria(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * get products by search criteria
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getProductsBySearchCriteria$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  getProductsBySearchCriteria(params?: GetProductsBySearchCriteria$Params, context?: HttpContext): Observable<Array<Array<ProductDto>>> {
+    return this.getProductsBySearchCriteria$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Array<ProductDto>>>): Array<Array<ProductDto>> => r.body)
     );
   }
 
