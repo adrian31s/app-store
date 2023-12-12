@@ -403,6 +403,28 @@ paths:
                     type: string
                   picturesAsBytes:
                     type: string
+  /product/getBySearchCriteria:
+    get:
+      tags:
+      - Product Api
+      description: get products by search criteria
+      operationId: getProductsBySearchCriteria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductEnhancedSearchCriteria'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ProductDTO'
   /product/updateBaseById/id/{id}:
     put:
       tags:
@@ -1197,6 +1219,75 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OpinionDto'
+    ProductEnhancedSearchCriteria:
+      type: object
+      properties:
+        bid:
+          type: string
+        productCategoryProperty:
+          type: string
+        name:
+          type: string
+        producer:
+          type: string
+        guarantee:
+          type: string
+        model:
+          type: string
+        price:
+          type: string
+        quantity:
+          type: string
+        rate:
+          type: string
+        power:
+          type: string
+        standard:
+          type: string
+        coolingType:
+          type: string
+        noise:
+          type: string
+        width:
+          type: string
+        height:
+          type: string
+        depth:
+          type: string
+        type:
+          type: string
+        maxRotationSpeed:
+          type: string
+        maxVolume:
+          type: string
+        supplyVoltage:
+          type: string
+        coolerType:
+          type: string
+        latencyCycle:
+          type: string
+        memoryType:
+          type: string
+        frequency:
+          type: string
+        memory:
+          type: string
+        memoryChipset:
+          type: string
+        connectorType:
+          type: string
+        memoryClocking:
+          type: string
+        memoryInterface:
+          type: string
+        motherboardStandard:
+          type: string
+        processorSocket:
+          type: string
+        maxMemory:
+          type: string
+        length:
+          type: string
     ProductOrder:
       type: object
       properties:
