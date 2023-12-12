@@ -26,6 +26,7 @@ export { ProcessorDto } from './models/processor-dto';
 export { Product } from './models/product';
 export { ProductCategory } from './models/product-category';
 export { ProductDto } from './models/product-dto';
+export { ProductEnhancedSearchCriteria } from './models/product-enhanced-search-criteria';
 export { ProductOrder } from './models/product-order';
 export { ProductOrderDto } from './models/product-order-dto';
 export { ProductSearchCriteria } from './models/product-search-criteria';
