@@ -39,9 +39,10 @@ export class LoginComponent {
       (value) => {
         if (value.token !== undefined) {
           this.authService.setToken(value.token);
+          this.authService.setUsername(this.loginEmail)
           this.displayToastMessage('success', 'Sukces', 'Zalogowany');
           this.isLogged.emit(true);
-
+          window.location.reload();
         }
         return false;
       },

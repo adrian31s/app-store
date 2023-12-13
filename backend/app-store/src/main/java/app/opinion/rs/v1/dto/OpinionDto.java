@@ -4,5 +4,6 @@ public record OpinionDto (
         String comment,
         Float rate,
         String username,
-        Long productId
+        Long productId,
+        Long bid
 ){}

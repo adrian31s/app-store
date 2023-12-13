@@ -30,6 +30,7 @@
 .price {
     display: flex;
     margin-left: 85vh;
+    align-items: center;
 }
 
 .price button {
@@ -72,4 +73,20 @@
 .feed-top button {
     margin-left: 5vh;
     font-size: 3vh;
+}
+
+.deleteOpinion:hover {
+    color: rgb(153, 76, 17);
+}
+
+.deleteOpinion:active {
+    color: red;
+}
+
+.addOpinion:active{
+    color: green;
+}
+
+.addOpinion:hover {
+    color: rgb(29, 81, 16);
 }

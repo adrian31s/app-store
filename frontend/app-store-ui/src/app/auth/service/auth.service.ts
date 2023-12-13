@@ -1,6 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
-import { AuthRequest } from 'client/src/app/api/models';
-import { LoginService } from 'client/src/app/api/services';
+import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
@@ -8,20 +6,37 @@ import { MessageService } from 'primeng/api';
 })
 export class AuthService {
   token: string = '';
+  username: string = '';
 
   constructor(private messageService: MessageService) {
     let localToken = localStorage.getItem('token');
-    if (localToken === null) this.token = '';
-    else this.token = localToken;  }
+    let localUsername = localStorage.getItem('username');
+    if (localToken === null || localUsername ===null){
+      this.token = '';
+      this.username = '';
+    } 
+    else {
+      this.token = localToken;
+      this.username = localUsername;
+    }  }
 
   setToken(token: string) {
     this.token = token;
     localStorage.setItem('token', token);
   }
 
+  setUsername(username: string){
+    this.username = username;
+    localStorage.setItem('username', username);
+  }
+
   sendNotificationToEmail() {
     //need to be implemented later
     this.displayToastMessage('success', 'Sukces', 'Wyslano wiadomosc email');
+  }
+
+  getUsername(): string {
+    return this.username;
   }
 
   getToken(): string {
@@ -30,7 +45,10 @@ export class AuthService {
 
   logout(){
     this.token='';
+    this.username='';
     localStorage.setItem("token",'')
+    localStorage.setItem("username",'')
+    window.location.reload();
   }
 
   private displayToastMessage(

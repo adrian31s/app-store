@@ -2,6 +2,7 @@ package app.base;
 
 import app.address.dao.AddressDao;
 import app.bucket.dao.BucketDao;
+import app.opinion.dao.OpinionDao;
 import app.order.dao.OrderDao;
 import app.person.dao.PersonDao;
 import app.product.dao.ProductDao;
@@ -26,9 +27,12 @@ public abstract class BaseTest {
     protected ProductOrderDao productOrderDao;
     @Inject
     protected ChargerDao chargerDao;
+    @Inject
+    protected OpinionDao opinionDao;
 
 
     protected void cleanUp(){
+        opinionDao.deleteAll();
         productOrderDao.deleteAll();
         productDao.deleteAll();
         chargerDao.deleteAll();

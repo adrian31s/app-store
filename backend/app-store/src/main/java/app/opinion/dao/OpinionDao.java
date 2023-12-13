@@ -30,4 +30,9 @@ public class OpinionDao extends BaseDao<Opinion> {
     public Class<Opinion> getClazz() {
         return Opinion.class;
     }
+
+    @Transactional
+    public void deleteAll(){
+        getEntityManager().createQuery("DELETE FROM Opinion").executeUpdate();
+    }
 }

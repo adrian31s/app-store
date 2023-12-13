@@ -1,3 +1,4 @@
+<p-toast [life]="1500" [preventOpenDuplicates]="true"></p-toast>
 <div *ngIf="product">
     <div class="product">
         <div class="top">
@@ -7,16 +8,19 @@
             </div>
             <div class="specs" *ngIf="productDetails">
                 <h1>{{ product['model'] }}</h1>
+                <p-rating [(ngModel)]="product.rate" [readonly]="true"  [disabled]="true" [cancel]="false"></p-rating>
                 <span *ngFor="let productAttribute of productCommonFields">
                     <span *ngIf="productAttribute['label']!=='price' && productAttribute['label']!=='name'">
-                        <br>{{ productAttribute['label_pl'] + ': ' +
-                        getProductAttribute(product,productAttribute['label']) }}
+                        <br>
+                        <span class="text-indigo-400">{{ productAttribute['label_pl'] + ': '}}</span>
+                        <span>{{getProductAttribute(product,productAttribute['label']) }}</span>
                     </span>
                 </span>
                 <span *ngFor="let productDetailsAttribute of getSelectedProductLabels()">
                     <span>
-                        <br>{{ productDetailsAttribute['label_pl'] + ': ' +
-                        getProductAttribute(productDetails,productDetailsAttribute['label']) }}
+                        <br>
+                        <span class="text-indigo-400">{{ productDetailsAttribute['label_pl'] + ': ' }} </span>
+                        <span>{{getProductAttribute(productDetails,productDetailsAttribute['label']) }} </span>
                     </span>
                 </span>
             </div>
@@ -33,19 +37,37 @@
     </div>
     <hr>
     <div class="product-bottom">
-        <div class="description">
-            <h1>Co jest w zestawie?</h1>
-            {{desc}}
-        </div>
-        <br>
-        <br>
-        <div class="feed">
+        <div class="feed flex flex-column gap-7">
             <div class="feed-top">
-                <h1>Opinie</h1>
-                <button type="button" class="btn btn-secondary">Dodaj opinię</button>
+                <h1>{{"Opinie (" + opinions?.length + ")"}} </h1>
+                <button *ngIf="username!==''" type="button" class="btn btn-secondary"
+                    (click)="this.addOpinionActive=true">Dodaj opinię</button>
             </div>
-            <div class="feed-bottom">
-                <app-feed></app-feed>
+            <div class="flex flex-column gap-7">
+                <div *ngIf="addOpinionActive">
+                    <div class="flex gap-4 align-items-center">
+                        <b>{{username}}</b>
+                        <p-rating [(ngModel)]="customOpinionRate" [readonly]="false" [cancel]="false"></p-rating>
+                        <i class="addOpinion pi pi-plus-circle" style="font-size: 2.5rem" (click)="addOpinion()"></i>
+                    </div>
+                    <div class="font-italic text-2xl w-9">
+                        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="customOpinionComment"></textarea>
+                    </div>
+                </div>
+                <div *ngFor="let opinion of opinions">
+                    <div class="flex flex-column gap-4">
+                        <div class="flex gap-4 align-items-center">
+                            <b>{{opinion.username}}</b>
+                            <p-rating [(ngModel)]="opinion.rate" [readonly]="true" [cancel]="false"
+                                [disabled]="true"></p-rating>
+                            <i class="deleteOpinion pi pi-trash" style="font-size: 1.5rem"
+                                *ngIf="opinion.username===username" (click)="removeOpinion(opinion.bid)"></i>
+                        </div>
+                        <div class="font-italic text-2xl w-9">
+                            {{ opinion.comment }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

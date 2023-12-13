@@ -29,6 +29,10 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { RegisterPanelComponent } from "./register-panel/register-panel.component";
 import { UserPanelComponent } from './user-panel/user-panel.component';
 import { UserDataComponent } from './user-panel/user-data/user-data.component';
+import { RatingModule } from 'primeng/rating';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+
+
 
 @NgModule({
   declarations: [
@@ -70,6 +74,8 @@ import { UserDataComponent } from './user-panel/user-data/user-data.component';
     StyleClassModule,
     RegisterPanelComponent,
     UserDataComponent,
+    RatingModule,
+    InputTextModule
   ],
 })
 export class AppModule {}

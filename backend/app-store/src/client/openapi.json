@@ -1539,6 +1539,10 @@
           "productId" : {
             "format" : "int64",
             "type" : "integer"
+          },
+          "bid" : {
+            "format" : "int64",
+            "type" : "integer"
           }
         }
       },

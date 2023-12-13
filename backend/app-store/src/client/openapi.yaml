@@ -25,6 +25,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - ADMIN
+      - SecurityScheme:
+        - ADMIN
   /address/getAddressById/id/{id}:
     get:
       tags:
@@ -64,6 +69,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - ADMIN
+      - SecurityScheme:
+        - ADMIN
   /address/updateAddressById/id/{id}:
     patch:
       tags:
@@ -89,6 +99,13 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+        - ADMIN
+      - SecurityScheme:
+        - USER
+        - ADMIN
   /auth/login:
     post:
       tags:
@@ -132,6 +149,11 @@ paths:
           description: NOT AUTHORIZED
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /bucket/getActiveBucketAssignedToPerson:
     get:
       tags:
@@ -165,6 +187,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /person/getAll:
     get:
       tags:
@@ -184,6 +211,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - ADMIN
+      - SecurityScheme:
+        - ADMIN
   /person/getById:
     get:
       tags:
@@ -215,6 +247,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /person/update:
     patch:
       tags:
@@ -251,6 +288,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /product/create:
     post:
       tags:
@@ -590,6 +632,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /store/addProductToBucket:
     post:
       tags:
@@ -616,6 +663,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /store/create/order:
     post:
       tags:
@@ -649,6 +701,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /store/create/person:
     post:
       tags:
@@ -700,6 +757,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /store/removeProductFromBucket:
     post:
       tags:
@@ -719,6 +781,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
   /store/updatePersonAddress:
     patch:
       tags:
@@ -756,6 +823,11 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
+      security:
+      - SecurityScheme:
+        - USER
+      - SecurityScheme:
+        - USER
 components:
   schemas:
     Address:
@@ -1002,6 +1074,9 @@ components:
         username:
           type: string
         productId:
+          format: int64
+          type: integer
+        bid:
           format: int64
           type: integer
     PcCase:

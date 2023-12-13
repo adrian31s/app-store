@@ -43,6 +43,9 @@ public class ExampleResourceTest {
 
     @BeforeEach
     public void setup() {
+        personDao.deleteAll();
+        addressDao.deleteAll();
+
         personId = personDao.createEntity(PersonFactory.createRandomPerson()).getBid();
         person1Id = personDao.createEntity(PersonFactory.createRandomPerson()).getBid();
         person2Id = personDao.createEntity(PersonFactory.createRandomPerson()).getBid();
@@ -54,13 +57,6 @@ public class ExampleResourceTest {
         addPeopleToAddress(addressId, personId);
         addPeopleToAddress(address1Id, personId, person1Id, person2Id);
         addPeopleToAddress(address2Id, person2Id);
-    }
-
-    @AfterEach
-    public void cleanUp() {
-        personDao.deleteAll();
-        addressDao.deleteAll();
-
     }
 
     @Test
