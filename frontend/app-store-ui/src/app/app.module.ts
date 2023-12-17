@@ -31,8 +31,8 @@ import { UserPanelComponent } from './user-panel/user-panel.component';
 import { UserDataComponent } from './user-panel/user-data/user-data.component';
 import { RatingModule } from 'primeng/rating';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
-
+import { CheckboxModule } from 'primeng/checkbox';
+import { FilterComponent } from './products/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +44,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     ProductUpdaterComponent,
     LoginComponent,
     UserPanelComponent,
+    FilterComponent
   ],
   providers: [
     {
@@ -75,7 +76,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     RegisterPanelComponent,
     UserDataComponent,
     RatingModule,
-    InputTextModule
+    InputTextModule,
+    CheckboxModule
   ],
 })
 export class AppModule {}

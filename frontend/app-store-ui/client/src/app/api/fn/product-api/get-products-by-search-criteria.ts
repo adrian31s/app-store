@@ -14,7 +14,7 @@ export interface GetProductsBySearchCriteria$Params {
 }
 
 export function getProductsBySearchCriteria(http: HttpClient, rootUrl: string, params?: GetProductsBySearchCriteria$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Array<ProductDto>>>> {
-  const rb = new RequestBuilder(rootUrl, getProductsBySearchCriteria.PATH, 'get');
+  const rb = new RequestBuilder(rootUrl, getProductsBySearchCriteria.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
