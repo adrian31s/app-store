@@ -18,26 +18,25 @@ import { error } from 'console';
 export class FilterComponent {
   productCategories = Object.keys(ProductCategory);
   selectedCategory?: ProductCategory;
-  selectedCategoryAsString!:string;
+  selectedCategoryAsString!: string;
   selectedProductLabels?: any[];
   filterValues = new Map<string, any>();
 
   productCommonFields = productCommonFieldsUtil;
   productTypesFieldsUtil = productTypesFieldsUtil;
 
-  constructor(private productApi:ProductApiService){
-  }
-
+  constructor(private productApi: ProductApiService) {}
 
   setSelectedCategory(selectedCategoryAsString: string) {
     this.selectedCategory =
       ProductCategory[selectedCategoryAsString as keyof typeof ProductCategory];
-    this.selectedCategoryAsString=selectedCategoryAsString;
+    this.selectedCategoryAsString = selectedCategoryAsString;
     this.selectedProductLabels = this.getSelectedProductLabels();
     this.createPlaceHolderForFilterValues();
   }
 
   createPlaceHolderForFilterValues() {
+    this.filterValues.clear();
     for (let productCommonField of this.productCommonFields) {
       if (
         productCommonField['filtering'] === true ||
@@ -68,21 +67,29 @@ export class FilterComponent {
 
   display() {
     let searchCriteria: ProductEnhancedSearchCriteria = {};
-    this.productApi.getProductsBySearchCriteria({body:searchCriteria}).subscribe(
-      (value) =>{
-        console.log(value);
-      },
-      (error)=>{
-        console.error(error);
-      }
-    )
+
     this.fillFilterFields(this.productCommonFields, searchCriteria);
-    if (this.selectedProductLabels !== undefined){
+    if (this.selectedProductLabels !== undefined) {
       this.fillFilterFields(this.selectedProductLabels, searchCriteria);
-      searchCriteria.productCategoryProperty=this.selectedCategoryAsString;
-      
+
+      let modifiedWord: string =
+        this.selectedCategoryAsString.charAt(0).toLowerCase() +
+        this.selectedCategoryAsString.slice(1);
+      searchCriteria.productCategoryProperty = modifiedWord;
+
+      this.productApi
+        .getProductsBySearchCriteria({ body: searchCriteria })
+        .subscribe(
+          (value) => {
+            console.log('finished');
+            console.log(value);
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      console.log(searchCriteria);
     }
-    console.log(searchCriteria);
   }
 
   private fillFilterFields(

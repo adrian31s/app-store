@@ -1,4 +1,4 @@
-<div class="flex">
+<div class="flex mt-4">
     <app-filter></app-filter>
     <div class="mainView">
         <h2>Lista produktów odpowiadająca twoim wymaganiom:</h2>
@@ -18,10 +18,15 @@
                         <div class="productAtribiutes">
                             <span *ngFor="let productAttribute of productCommonFields">
                                 <div *ngIf="productAttribute['label']!=='price'">
-                                    <li class="text-xl">{{ productAttribute['label_pl'] + ': ' +
-                                        getProductAttribute(product,productAttribute['label']) }}</li>
+                                    <li class="text-xl">
+                                        <span class="text-indigo-400">{{ productAttribute['label_pl'] + ': ' }} </span>
+                                        <span>{{ getProductAttribute(product,productAttribute['label']) }} </span>
+                                    </li>
                                 </div>
                             </span>
+                            <li class="text-xl"> <span class="text-indigo-400">Kategoria produktu: </span>
+                                <span>{{ product.productCategory }} </span>
+                            </li>
                         </div>
                         <div class="priceAndBucket">
                             <h2 class="text-green-300">{{ "Cena: " + product['price'] + "Zł"}}</h2>
