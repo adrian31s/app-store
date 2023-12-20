@@ -1,5 +1,6 @@
 <div class="input-group mb-3">
-  <div class="input-container">  <input type="text" class="form-control" placeholder="Wyszukaj wśród produktów" aria-label="Search" aria-describedby="basic-addon1"><img class="search" [src]="images[0]" /></div>
+  <div class="input-container"> <input type="text" class="form-control" placeholder="Wyszukaj wśród produktów"
+      aria-label="Search" aria-describedby="basic-addon1"><img class="search" [src]="images[0]" /></div>
 </div>
 
 <div id="main-text"><strong>Podaj jedynie kwotę oraz przeznaczenie, resztą zajmiemy się za Ciebie</strong></div>
@@ -7,8 +8,9 @@
 <br>
 
 <div id="choose">
-    <div class="dropdown"><img class="filter-white" [src]="images[1]" /><div class="category">Komputery</div>
-        <div class="dropdown-content">
+  <div class="dropdown"><img class="filter-white" [src]="images[1]" />
+    <div class="category">Komputery</div>
+    <!-- <div class="dropdown-content">
             <input type="range" class="form-range" id="customRange1">
             <label for="customRange1" class="form-label">Cena</label>
             <div class="dropdown-inner"><div>{{ selectedCategory?.label || 'Wybierz przeznaczenie'}}</div>
@@ -18,12 +20,12 @@
                     <a (click)="onCategorySelected({ value: 'special', label: 'Do zadań specjalnych'})">Do zadań specjalnych</a>
                 </div>
             </div>
-        </div>
-      </div>
+        </div> -->
+  </div>
 
-      <div class="dropdown"><img class="filter-white" [src]="images[2]" />
-        <div class="category">Laptopy</div>
-        <div class="dropdown-content">
+  <div class="dropdown"><img class="filter-white" [src]="images[2]" />
+    <div class="category">Laptopy</div>
+    <!-- <div class="dropdown-content">
           <input type="range" class="form-range" id="customRange1">
           <label for="customRange1" class="form-label">Cena</label>
           <div class="dropdown-inner">{{ selectedCategory?.label || 'Wybierz przeznaczenie'}}
@@ -33,13 +35,14 @@
               <a (click)="onCategorySelected({ value: 'special', label: 'Do zadań specjalnych'})">Do zadań specjalnych</a>
             </div>
           </div>
-        </div>
-      </div>
+        </div> -->
+  </div>
 
-      <div class="dropdown">
-        <img class="filter-white" [src]="images[3]" />
-        <div class="category">Akcesoria</div>
-        <div class="dropdown-content">
+  <a (click)="redirectToProducts()">
+    <div class="dropdown">
+      <img class="filter-white" [src]="images[3]" />
+      <div class="category">Akcesoria</div>
+      <!-- <div class="dropdown-content">
           <div class="dropdown-inner">
             {{ selectedCategory?.label || 'Wybierz akcesorium'}}
             <div class="dropdown-content-inner">
@@ -56,11 +59,13 @@
               <a (click)="onCategorySelected({ value: 'office', label: 'Biurowe' })">Biurowe</a><br>
             </div>
           </div>
-        </div>
-      </div>      
+        </div> -->
+    </div>
+  </a>
 
-      <div class="dropdown"><img class="filter-white" [src]="images[4]" /><div class="category">Gotowe zestawy</div>
-        <div class="dropdown-content">
+  <div class="dropdown"><img class="filter-white" [src]="images[4]" />
+    <div class="category">Gotowe zestawy</div>
+    <!-- <div class="dropdown-content">
             <input type="range" class="form-range" id="customRange1">
             <label for="customRange1" class="form-label">Cena</label>
             <div class="dropdown-inner">{{ selectedCategory?.label || 'Wybierz przeznaczenie' }}
@@ -70,11 +75,12 @@
                 <a (click)="onCategorySelected({ value: 'office', label: 'Do zadań specjalnych' })">Do zadań specjalnych</a>
               </div>
             </div>
-        </div>
-      </div>
+        </div> -->
+  </div>
 
-      <div class="dropdown"><img class="filter-white" [src]="images[5]" /><div class="category">Kontakt</div>
-      </div>
+  <div class="dropdown"><img class="filter-white" [src]="images[5]" />
+    <div class="category">Kontakt</div>
+  </div>
 </div>
 
 <router-outlet></router-outlet>

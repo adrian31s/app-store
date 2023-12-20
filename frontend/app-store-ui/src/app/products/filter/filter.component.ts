@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {
   ProductCategory,
+  ProductDto,
   ProductEnhancedSearchCriteria,
 } from 'client/src/app/api/models';
 import {
@@ -8,7 +9,7 @@ import {
   productTypesFieldsUtil,
 } from '../../utils/ProductLabels';
 import { ProductApiService } from 'client/src/app/api/services';
-import { error } from 'console';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-filter',
@@ -16,16 +17,21 @@ import { error } from 'console';
   styleUrls: ['./filter.component.css'],
 })
 export class FilterComponent {
+  @Output() filteredProductsEmitter = new EventEmitter<ProductDto[]>();
+
   productCategories = Object.keys(ProductCategory);
   selectedCategory?: ProductCategory;
   selectedCategoryAsString!: string;
-  selectedProductLabels?: any[];
+  selectedProductLabels: any[] = [];
   filterValues = new Map<string, any>();
 
   productCommonFields = productCommonFieldsUtil;
   productTypesFieldsUtil = productTypesFieldsUtil;
 
-  constructor(private productApi: ProductApiService) {}
+  constructor(
+    private productApi: ProductApiService,
+    private messageService: MessageService
+  ) {}
 
   setSelectedCategory(selectedCategoryAsString: string) {
     this.selectedCategory =
@@ -65,31 +71,40 @@ export class FilterComponent {
     return labels;
   }
 
-  display() {
-    let searchCriteria: ProductEnhancedSearchCriteria = {};
-
-    this.fillFilterFields(this.productCommonFields, searchCriteria);
-    if (this.selectedProductLabels !== undefined) {
-      this.fillFilterFields(this.selectedProductLabels, searchCriteria);
-
-      let modifiedWord: string =
-        this.selectedCategoryAsString.charAt(0).toLowerCase() +
-        this.selectedCategoryAsString.slice(1);
-      searchCriteria.productCategoryProperty = modifiedWord;
-
-      this.productApi
-        .getProductsBySearchCriteria({ body: searchCriteria })
-        .subscribe(
-          (value) => {
-            console.log('finished');
-            console.log(value);
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
-      console.log(searchCriteria);
+  filter() {
+    if (this.selectedProductLabels === undefined) {
+      return;
     }
+
+    let searchCriteria: ProductEnhancedSearchCriteria = {};
+    this.fillFilterFields(this.productCommonFields, searchCriteria);
+    this.fillFilterFields(this.selectedProductLabels, searchCriteria);
+
+    //to fit product property which starts with small letter
+    searchCriteria.productCategoryProperty =
+      this.selectedCategoryAsString.charAt(0).toLowerCase() +
+      this.selectedCategoryAsString.slice(1);
+
+    this.productApi
+      .getProductsBySearchCriteria({ body: searchCriteria })
+      .subscribe(
+        (value) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'wyszukiwanie zakonczone',
+            detail: 'znaleziono: ' + value.length,
+          });
+          this.emitFilteredProducts(value);
+        },
+        (error) => {
+          console.error(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'blad wyszukiwania',
+            detail: '',
+          });
+        }
+      );
   }
 
   private fillFilterFields(
@@ -124,5 +139,9 @@ export class FilterComponent {
 
   private fillObjects(obj: any, key: any, values: string) {
     obj[key] = values;
+  }
+
+  private emitFilteredProducts(productDtos: ProductDto[]) {
+    this.filteredProductsEmitter.emit(productDtos);
   }
 }

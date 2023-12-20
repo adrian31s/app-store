@@ -7,6 +7,7 @@ import app.product.model.ProductSearchCriteria;
 import app.product.service.ProductService;
 import app.product.service.mapper.ProductMapper;
 import app.product.service.mapper.ProductMapperImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -15,13 +16,13 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import javax.inject.Inject;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("product")
+@Slf4j
 public class ProductApi {
     @Inject
     ProductService productService;
@@ -116,7 +117,7 @@ public class ProductApi {
         return Response.accepted(productMapper.mapToDTO(updatedProduct)).build();
     }
 
-    @GET
+    @POST
     @Path("/getBySearchCriteria")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -126,10 +127,11 @@ public class ProductApi {
             description = "OK",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.ARRAY, implementation = ProductDTO[].class)
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = ProductDTO.class)
             )
     )
     public Response getProductsBySearchCriteria(@RequestBody ProductEnhancedSearchCriteria searchCriteria){
+        log.info("searchCriteria:{}",searchCriteria);
         List<Product> products = productService.getProductsBySearchCriteria(searchCriteria);
         return Response.ok(productMapper.mapToListDTO(products)).build();
     }

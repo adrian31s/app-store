@@ -13,7 +13,7 @@ export interface GetProductsBySearchCriteria$Params {
       body?: ProductEnhancedSearchCriteria
 }
 
-export function getProductsBySearchCriteria(http: HttpClient, rootUrl: string, params?: GetProductsBySearchCriteria$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Array<ProductDto>>>> {
+export function getProductsBySearchCriteria(http: HttpClient, rootUrl: string, params?: GetProductsBySearchCriteria$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ProductDto>>> {
   const rb = new RequestBuilder(rootUrl, getProductsBySearchCriteria.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -24,7 +24,7 @@ export function getProductsBySearchCriteria(http: HttpClient, rootUrl: string, p
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<Array<ProductDto>>>;
+      return r as StrictHttpResponse<Array<ProductDto>>;
     })
   );
 }

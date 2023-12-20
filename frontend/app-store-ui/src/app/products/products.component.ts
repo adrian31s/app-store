@@ -16,10 +16,11 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private productApiService: ProductApiService,
-    private objectReceiverService: ObjectReceiverService
+    private objectReceiverService: ObjectReceiverService,
   ) {
     this.productApiService.getProducts().subscribe({
       next: (val) => {
+        console.log(val)
         this.products = val;
         this.imagesUrlToBytes = new Array(this.products.length).fill('');
         this.getImagesSrc();
@@ -49,5 +50,9 @@ export class ProductsComponent implements OnInit {
 
   getImageSrc(imageId?: string) {
     return this.objectReceiverService.getS3ImageSrcByImageName(imageId);
+  }
+
+  setFilteredProducts(productDtos :ProductDto[]){
+    this.products=productDtos;
   }
 }

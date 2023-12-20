@@ -1,5 +1,6 @@
 <div class="flex mt-4">
-    <app-filter></app-filter>
+    <app-filter (filteredProductsEmitter)="setFilteredProducts($event)">
+    </app-filter>
     <div class="mainView">
         <h2>Lista produktów odpowiadająca twoim wymaganiom:</h2>
         <div class="productList">
@@ -38,3 +39,4 @@
         </div>
     </div>
 </div>
+<p-toast></p-toast>

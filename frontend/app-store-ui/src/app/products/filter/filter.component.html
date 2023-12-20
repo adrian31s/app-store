@@ -1,14 +1,11 @@
-
 <div class="flex justify-content-center">
     <h1>Kategorie</h1>
 </div>
-<div>
-    <ul>
-        <button *ngFor="let productCategory of productCategories" (click)="setSelectedCategory(productCategory)">{{
+<div class="flex gap-2">
+        <button class="button-12" *ngFor="let productCategory of productCategories" (click)="setSelectedCategory(productCategory)">{{
             productCategory }}</button>
-    </ul>
 </div>
-<div *ngIf="selectedCategory">
+<div class="mt-4" *ngIf="selectedCategory">
     <h1 class="flex justify-content-center">Filtry</h1>
     <div *ngFor="let productCommonField of productCommonFields" class="flex ml-5">
         <div *ngIf="productCommonField['filtering']==true">
@@ -42,6 +39,6 @@
         </div>
     </div>
     <div class="flex justify-content-center mt-4 h-6rem">
-        <button class="filtrButton" (click)="display()">Filtruj</button>
+        <button class="filtrButton" (click)="filter()">Filtruj</button>
     </div>
 </div>
