@@ -322,7 +322,7 @@ export class ProductApiService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  getProductsBySearchCriteria$Response(params?: GetProductsBySearchCriteria$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Array<ProductDto>>>> {
+  getProductsBySearchCriteria$Response(params?: GetProductsBySearchCriteria$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ProductDto>>> {
     return getProductsBySearchCriteria(this.http, this.rootUrl, params, context);
   }
 
@@ -334,9 +334,9 @@ export class ProductApiService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  getProductsBySearchCriteria(params?: GetProductsBySearchCriteria$Params, context?: HttpContext): Observable<Array<Array<ProductDto>>> {
+  getProductsBySearchCriteria(params?: GetProductsBySearchCriteria$Params, context?: HttpContext): Observable<Array<ProductDto>> {
     return this.getProductsBySearchCriteria$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<Array<ProductDto>>>): Array<Array<ProductDto>> => r.body)
+      map((r: StrictHttpResponse<Array<ProductDto>>): Array<ProductDto> => r.body)
     );
   }
 

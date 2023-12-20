@@ -635,7 +635,7 @@
       }
     },
     "/product/getBySearchCriteria" : {
-      "get" : {
+      "post" : {
         "tags" : [ "Product Api" ],
         "description" : "get products by search criteria",
         "operationId" : "getProductsBySearchCriteria",
@@ -656,10 +656,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/ProductDTO"
-                    }
+                    "$ref" : "#/components/schemas/ProductDTO"
                   }
                 }
               }

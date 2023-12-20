@@ -404,7 +404,7 @@ paths:
                   picturesAsBytes:
                     type: string
   /product/getBySearchCriteria:
-    get:
+    post:
       tags:
       - Product Api
       description: get products by search criteria
@@ -422,9 +422,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ProductDTO'
+                  $ref: '#/components/schemas/ProductDTO'
   /product/updateBaseById/id/{id}:
     put:
       tags:
@@ -1006,7 +1004,7 @@ components:
           type: integer
         bid:
           format: int64
-          type: integer  
+          type: integer
     PcCase:
       type: object
       properties:

@@ -1,0 +1,44 @@
+<div class="flex justify-content-center">
+    <h1>Kategorie</h1>
+</div>
+<div class="flex gap-2">
+        <button class="button-12" *ngFor="let productCategory of productCategories" (click)="setSelectedCategory(productCategory)">{{
+            productCategory }}</button>
+</div>
+<div class="mt-4" *ngIf="selectedCategory">
+    <h1 class="flex justify-content-center">Filtry</h1>
+    <div *ngFor="let productCommonField of productCommonFields" class="flex ml-5">
+        <div *ngIf="productCommonField['filtering']==true">
+            <input [type]="productCommonField['type']" class="input" [id]="productCommonField['label']"
+                [ngModel]="filterValues.get(productCommonField['label'])"
+                (ngModelChange)="filterValues.set(productCommonField['label'], $event)" />
+            <label [for]="productCommonField['label']" class="ml-3">
+                <h3>{{ productCommonField['label_pl'] }}</h3>
+            </label>
+        </div>
+    </div>
+    <div *ngFor="let productLabel of selectedProductLabels" class="flex ml-5">
+        <div>
+            <div *ngIf="productLabel['filtering']==true">
+                <input [type]="productLabel['type']" class="input" [id]="productLabel['label']"
+                    [ngModel]="filterValues.get(productLabel['label'])"
+                    (ngModelChange)="filterValues.set(productLabel['label'], $event)" />
+                <label [for]="productLabel['label']" class="ml-3">
+                    <h3>{{ productLabel['label_pl'] }}</h3>
+                </label>
+            </div>
+            <div *ngIf="productLabel['selecting']==true">
+                <h2>{{ productLabel['label_pl'] }}</h2>
+                <div *ngFor="let selectOption of productLabel['selectOptions']" class="field-checkbox ml-3">
+                    <p-checkbox [label]="selectOption" name="group" [value]="selectOption"
+                        [inputId]="productLabel['label'] + '_' + selectOption"
+                        [ngModel]="filterValues.get(productLabel['label'])"
+                        (ngModelChange)="filterValues.set(productLabel['label'], $event)"></p-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-center mt-4 h-6rem">
+        <button class="filtrButton" (click)="filter()">Filtruj</button>
+    </div>
+</div>

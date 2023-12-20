@@ -6,9 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +15,13 @@ import java.util.Map;
 public class ProductDao extends BaseDao<Product> {
 
     public List<Product> getProductBySearchCriteria(Map<String, String> productFieldsValue, Map<String, String> productDetailsFieldsValue, String productDetails) {
+        if(productDetailsFieldsValue.isEmpty() && productFieldsValue.isEmpty()){
+            return this.getAllEntities();
+        }
+
         StringBuilder sb = new StringBuilder("SELECT p FROM Product p");
 
-        if(productDetails!=null){
+        if (productDetails != null) {
             sb.append("\nJOIN p.");
             sb.append(productDetails);
             sb.append(" x");
@@ -42,7 +43,11 @@ public class ProductDao extends BaseDao<Product> {
             sb.append(" \nAND ");
         }
 
+
         String stringQuery = sb.substring(0, sb.length() - 5);
+        log.info("created SQL:{}", stringQuery);
+        log.info("productsFieldsValue:{}",productFieldsValue);
+        log.info("detailsFieldsValue:{}",productDetailsFieldsValue);
         TypedQuery<Product> query = getEntityManager().createQuery(stringQuery, Product.class);
         return query.getResultList();
     }

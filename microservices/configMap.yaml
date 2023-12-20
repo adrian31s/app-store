@@ -17,4 +17,4 @@ data:
   DB_PASSWORD: store-password
   DB_USER: store-user
   HIBERNATE_GENERATION: drop-and-create
-  QUARKUS_LOG_LEVEL: debug
+  QUARKUS_LOG_LEVEL: info

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { log } from 'console';
 import { AuthService } from './auth/service/auth.service';
 
 @Component({
