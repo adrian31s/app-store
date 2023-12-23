@@ -59,15 +59,16 @@ export class LoginComponent {
     this.forgotedPasswordDialog = true;
   }
 
+
   sendNotificationToEmail() {
     this.applicationService.forgotPassword({email:this.forgottenPasswordUserEmail}).subscribe(
       (value)=>{
         this.displayToastMessage('success', 'Sukces', 'Wyslano wiadomosc email');
       });
-  }
-  
+
   closeAndOpenRegisterDialog(){
     this.openRegisterDialog.emit();
+
   }
 
   private displayToastMessage(
