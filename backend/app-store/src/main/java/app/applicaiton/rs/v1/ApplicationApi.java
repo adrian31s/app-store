@@ -34,7 +34,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
-import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -46,7 +45,6 @@ import java.util.UUID;
 
 @Path("store")
 @Slf4j
-@SecurityRequirement(name = "user", scopes = {})
 public class ApplicationApi {
     private final AddressService addressService;
     private final PersonService personService;

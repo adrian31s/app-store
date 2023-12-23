@@ -19,6 +19,8 @@ import { CreateOrder$Params } from '../fn/application-api/create-order';
 import { createPerson } from '../fn/application-api/create-person';
 import { CreatePerson$Params } from '../fn/application-api/create-person';
 import { Date } from '../models/date';
+import { forgotPassword } from '../fn/application-api/forgot-password';
+import { ForgotPassword$Params } from '../fn/application-api/forgot-password';
 import { removeOpinion } from '../fn/application-api/remove-opinion';
 import { RemoveOpinion$Params } from '../fn/application-api/remove-opinion';
 import { removeProductFromBucket } from '../fn/application-api/remove-product-from-bucket';
@@ -185,6 +187,59 @@ export class ApplicationApiService extends BaseService {
 'addresses'?: Array<AddressDto>;
 }> {
     return this.createPerson$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+}>): {
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `forgotPassword()` */
+  static readonly ForgotPasswordPath = '/store/forgotPassword';
+
+  /**
+   * send email to forgotten password account
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `forgotPassword()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  forgotPassword$Response(params?: ForgotPassword$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+}>> {
+    return forgotPassword(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * send email to forgotten password account
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `forgotPassword$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  forgotPassword(params?: ForgotPassword$Params, context?: HttpContext): Observable<{
+'bid'?: number;
+'username'?: string;
+'name'?: string;
+'lastName'?: string;
+'addresses'?: Array<AddressDto>;
+}> {
+    return this.forgotPassword$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 'bid'?: number;
 'username'?: string;

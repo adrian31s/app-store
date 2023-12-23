@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthRequest } from 'client/src/app/api/models';
-import { LoginService } from 'client/src/app/api/services';
+import { ApplicationApiService, LoginService } from 'client/src/app/api/services';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Output, EventEmitter } from '@angular/core';
 import { MessageService } from 'primeng/api';
@@ -16,13 +16,14 @@ export class LoginComponent {
   loginEmail: string = '';
   password: string = '';
 
-  forgotedPasswordEmail?: string;
+  forgottenPasswordUserEmail: string='';
   forgotedPasswordDialog: boolean = false;
 
   constructor(
     private authService: AuthService,
     private loginService: LoginService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private applicationService: ApplicationApiService
   ) {}
 
   login() {
@@ -64,10 +65,12 @@ export class LoginComponent {
     this.forgotedPasswordDialog = true;
   }
 
+
   sendNotificationToEmail() {
-    this.authService.sendNotificationToEmail();
-    this.forgotedPasswordDialog = false;
-    this.forgotedPasswordEmail = undefined;
+    this.applicationService.forgotPassword({email:this.forgottenPasswordUserEmail}).subscribe(
+      (value)=>{
+        this.displayToastMessage('success', 'Sukces', 'Wyslano wiadomosc email');
+      });
   }
 
   private displayToastMessage(

@@ -21,10 +21,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AddressDTO'
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /address/getAddressById/id/{id}:
     get:
       tags:
@@ -60,10 +56,6 @@ paths:
                   apartmentNumber:
                     format: int32
                     type: integer
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /address/updateAddressById/id/{id}:
     patch:
       tags:
@@ -85,10 +77,6 @@ paths:
       responses:
         "204":
           description: NO CONTENT
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /auth/login:
     post:
       tags:
@@ -130,8 +118,6 @@ paths:
                     type: string
         "401":
           description: NOT AUTHORIZED
-        "403":
-          description: Not Allowed
   /bucket/getActiveBucketAssignedToPerson:
     get:
       tags:
@@ -161,10 +147,6 @@ paths:
                   orderId:
                     format: int64
                     type: integer
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /person/getAll:
     get:
       tags:
@@ -180,10 +162,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PersonDTO'
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /person/getById:
     get:
       tags:
@@ -211,10 +189,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AddressDTO'
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /person/update:
     patch:
       tags:
@@ -247,10 +221,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AddressDTO'
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /product/create:
     post:
       tags:
@@ -584,10 +554,6 @@ paths:
       responses:
         "204":
           description: NO CONTENT
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /store/addProductToBucket:
     post:
       tags:
@@ -610,10 +576,6 @@ paths:
           description: NO CONTENT
         "304":
           description: NOT MODIFIED
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /store/create/order:
     post:
       tags:
@@ -643,10 +605,6 @@ paths:
                   bucketId:
                     format: int64
                     type: integer
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /store/create/person:
     post:
       tags:
@@ -658,6 +616,38 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Person'
+      responses:
+        "202":
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  username:
+                    type: string
+                  name:
+                    type: string
+                  lastName:
+                    type: string
+                  addresses:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddressDTO'
+  /store/forgotPassword:
+    patch:
+      tags:
+      - Application Api
+      description: send email to forgotten password account
+      operationId: forgotPassword
+      parameters:
+      - name: email
+        in: query
+        schema:
+          type: string
       responses:
         "202":
           description: ACCEPTED
@@ -694,10 +684,6 @@ paths:
       responses:
         "204":
           description: NO CONTENT
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /store/removeProductFromBucket:
     post:
       tags:
@@ -713,10 +699,6 @@ paths:
       responses:
         "204":
           description: NO CONTENT
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
   /store/updatePersonAddress:
     patch:
       tags:
@@ -750,10 +732,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AddressDTO'
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
 components:
   schemas:
     Address:
