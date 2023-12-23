@@ -10,6 +10,8 @@ import { AuthService } from './auth/service/auth.service';
 export class AppComponent implements OnInit {
   title = 'KUPSPRZECIK.PL';
   loginDialogVisible: boolean = false;
+  registerDialogVisible: boolean = false;
+
   isUserLogged: boolean = false;
   visible: boolean = false;
 
@@ -35,8 +37,17 @@ export class AppComponent implements OnInit {
     this.loginDialogVisible = true;
   }
 
-  setIsUserLogged(logged: boolean) {
-    this.isUserLogged = logged;
+  openRegisterDialog(visible:boolean) {
+    this.registerDialogVisible = visible;
+  }
+
+  closeLoginAndOpenRegister(){
+    this.registerDialogVisible = true;
+    this.loginDialogVisible = false;
+  }
+
+  setIsUserLogged() {
+    this.isUserLogged = true;
     this.loginDialogVisible = false;
   }
 

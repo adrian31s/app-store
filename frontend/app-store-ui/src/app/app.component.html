@@ -1,5 +1,6 @@
 <header>
-  <div id="title"><a style="text-decoration:none" [routerLink]="'home'"><strong>KUP<strong id="red-s">S</strong>PRZECIK.PL</strong></a></div>
+  <div id="title"><a style="text-decoration:none" [routerLink]="'home'"><strong>KUP<strong
+          id="red-s">S</strong>PRZECIK.PL</strong></a></div>
   <div id="panel">
     <div id="user">
       <div class="dropdown" *ngIf="!isUserLogged">
@@ -7,7 +8,7 @@
         <div class="dropdown-content">
           <a (click)="openLoginDialog()">Zaloguj się</a>
           <span class="text-red-500"> Nie masz jeszcze konta? </span>
-          <app-register-panel></app-register-panel>
+          <a (click)="openRegisterDialog(true)">Zarejestruj się</a>
         </div>
       </div>
       <div class="dropdown" *ngIf="isUserLogged">
@@ -41,20 +42,24 @@
   <a style="text-decoration:none" [routerLink]="'home'"><button>Strona główna</button></a>
   <a style="text-decoration:none" [routerLink]="'products'"><button>Wykaz produktów</button></a>
   <a style="text-decoration:none" [routerLink]="'product'"><button>Podstrona produktu</button></a>
-  
+
   <button (click)="showDialog()">Opcja dla administratora - dodaj produkt</button>
   <p-dialog appendTo="body" header="Zarzadzanie produktami" [(visible)]="visible" [modal]="true"
     [style]="{width: '90%', height: '900px'}" [draggable]="false" [resizable]="false">
     <app-product-updater></app-product-updater>
     <app-product-creator></app-product-creator>
   </p-dialog>
-  
-  
-  <p-dialog header="Logowanie" [modal]="true" [(visible)]="loginDialogVisible" styleClass="abc" [draggable]="false">
-    <app-login
-    (isLogged)="setIsUserLogged($event)"
+
+
+  <p-dialog header="Logowanie" [modal]="true" [(visible)]="loginDialogVisible" [draggable]="false">
+    <app-login 
+    (isLogged)="setIsUserLogged()"
+    (openRegisterDialog)="closeLoginAndOpenRegister()"
     ></app-login>
   </p-dialog>
 </div>
 
-
+<app-register-panel 
+[openDialog]="registerDialogVisible"
+(closeDialog)="openRegisterDialog(false)">
+</app-register-panel>

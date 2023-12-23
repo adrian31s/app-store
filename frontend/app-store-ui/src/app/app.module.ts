@@ -44,7 +44,8 @@ import { FilterComponent } from './products/filter/filter.component';
     ProductUpdaterComponent,
     LoginComponent,
     UserPanelComponent,
-    FilterComponent
+    FilterComponent,
+    RegisterPanelComponent
   ],
   providers: [
     {
@@ -73,7 +74,6 @@ import { FilterComponent } from './products/filter/filter.component';
     TableModule,
     ToastModule,
     StyleClassModule,
-    RegisterPanelComponent,
     UserDataComponent,
     RatingModule,
     InputTextModule,
