@@ -10,7 +10,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +40,7 @@ public class Person extends BaseEntity {
     private String lastName;
 
 
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "person_to_address",
             joinColumns = @JoinColumn(name = "person_id"),

@@ -13,5 +13,6 @@ public interface ProductOrderMapper {
     @Mapping(source = "product.bid", target = "productId")
     @Mapping(source = "bucket.bid", target = "bucketId")
     ProductOrderDTO mapToDTO(ProductOrder productOrder);
+
     List<ProductOrderDTO> mapListToDTO(Set<ProductOrder> productOrders);
 }

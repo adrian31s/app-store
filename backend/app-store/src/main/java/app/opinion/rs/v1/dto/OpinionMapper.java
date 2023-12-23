@@ -11,5 +11,6 @@ import java.util.List;
 public interface OpinionMapper {
     @Mapping(source = "opinion.product.bid", target = "productId")
     OpinionDto mapToDTO(Opinion opinion);
+
     List<OpinionDto> mapList(List<Opinion> opinions);
 }

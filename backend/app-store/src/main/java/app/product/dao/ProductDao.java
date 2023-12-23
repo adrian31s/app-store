@@ -15,7 +15,7 @@ import java.util.Map;
 public class ProductDao extends BaseDao<Product> {
 
     public List<Product> getProductBySearchCriteria(Map<String, String> productFieldsValue, Map<String, String> productDetailsFieldsValue, String productDetails) {
-        if(productDetailsFieldsValue.isEmpty() && productFieldsValue.isEmpty()){
+        if (productDetailsFieldsValue.isEmpty() && productFieldsValue.isEmpty()) {
             return this.getAllEntities();
         }
 
@@ -46,8 +46,6 @@ public class ProductDao extends BaseDao<Product> {
 
         String stringQuery = sb.substring(0, sb.length() - 5);
         log.info("created SQL:{}", stringQuery);
-        log.info("productsFieldsValue:{}",productFieldsValue);
-        log.info("detailsFieldsValue:{}",productDetailsFieldsValue);
         TypedQuery<Product> query = getEntityManager().createQuery(stringQuery, Product.class);
         return query.getResultList();
     }

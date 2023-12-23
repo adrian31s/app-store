@@ -1,6 +1,6 @@
 package app.s3.service;
 
-import com.amazonaws.auth.*;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -10,7 +10,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import javax.enterprise.context.ApplicationScoped;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.file.Files;
 
 @ApplicationScoped

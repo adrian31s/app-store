@@ -5,7 +5,6 @@ import app.bucket.model.BucketDTO;
 import app.bucket.service.BucketMapper;
 import app.bucket.service.BucketMapperImpl;
 import app.bucket.service.BucketService;
-import app.product.model.ProductDTO;
 import app.security.authorization.TokenUtils;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -15,7 +14,10 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -39,7 +41,7 @@ public class BucketApi {
                     schema = @Schema(type = SchemaType.OBJECT, implementation = BucketDTO.class)
             )
     )
-    public Response getActiveBucketAssignedToPersonById(@HeaderParam("Authorization") String token){
+    public Response getActiveBucketAssignedToPersonById(@HeaderParam("Authorization") String token) {
         Bucket activeBucket = bucketService.getActiveBucketByPersonId(TokenUtils.encodeToken(token));
         return Response.ok(bucketMapper.mapToDTO(activeBucket)).build();
     }

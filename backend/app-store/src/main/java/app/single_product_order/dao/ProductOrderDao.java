@@ -14,13 +14,13 @@ import javax.transaction.Transactional;
 public class ProductOrderDao extends BaseDao<ProductOrder> {
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public int deleteProductOrderById(Long bucketId, Long productId){
+    public int deleteProductOrderById(Long bucketId, Long productId) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaDelete<ProductOrder> cd = cb.createCriteriaDelete(ProductOrder.class);
         Root<ProductOrder> root = cd.from(ProductOrder.class);
         cd.where(cb.and(
-                cb.equal(root.get(ProductOrder_.BUCKET),bucketId),
-                cb.equal(root.get(ProductOrder_.PRODUCT),productId)
+                cb.equal(root.get(ProductOrder_.BUCKET), bucketId),
+                cb.equal(root.get(ProductOrder_.PRODUCT), productId)
         ));
         return getEntityManager().createQuery(cd).executeUpdate();
     }

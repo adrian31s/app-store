@@ -12,6 +12,8 @@ import java.util.List;
 @Mapper(uses = AddressMapper.class, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface PersonMapper {
     PersonDTO mapToDTO(Person person);
+
     List<PersonDTO> mapToListDTO(List<Person> people);
+
     PersonSearchCriteria mapToSearchCriteria(Person person);
 }

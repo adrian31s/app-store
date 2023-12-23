@@ -42,9 +42,9 @@ public class ProductApi {
                     schema = @Schema(type = SchemaType.OBJECT, implementation = Product.class)
             )
     )
-    public Response getProductById(@PathParam("id") Long id){
+    public Response getProductById(@PathParam("id") Long id) {
         Product product = productService.getProductById(id);
-       return Response.ok(productMapper.mapToDTO(product)).build();
+        return Response.ok(productMapper.mapToDTO(product)).build();
     }
 
     @GET
@@ -59,7 +59,7 @@ public class ProductApi {
                     schema = @Schema(type = SchemaType.ARRAY, implementation = ProductDTO.class)
             )
     )
-    public Response getProducts(){
+    public Response getProducts() {
         List<Product> products = productService.getAllProducts();
         return Response.ok(productMapper.mapToListDTO(products)).build();
     }
@@ -77,7 +77,7 @@ public class ProductApi {
                     schema = @Schema(type = SchemaType.OBJECT, implementation = ProductDTO.class)
             )
     )
-    public Response createProduct(@RequestBody Product product){
+    public Response createProduct(@RequestBody Product product) {
         Product createdProduct = productService.createProduct(product);
         return Response.accepted(productMapper.mapToDTO(createdProduct)).build();
     }
@@ -95,8 +95,8 @@ public class ProductApi {
                     schema = @Schema(type = SchemaType.OBJECT, implementation = ProductDTO.class)
             )
     )
-    public Response updateProductBaseById(@PathParam("id") Long id, @RequestBody ProductSearchCriteria searchCriteria){
-        return Response.accepted(productService.updateProductById(id,searchCriteria)).build();
+    public Response updateProductBaseById(@PathParam("id") Long id, @RequestBody ProductSearchCriteria searchCriteria) {
+        return Response.accepted(productService.updateProductById(id, searchCriteria)).build();
     }
 
     @PUT
@@ -112,7 +112,7 @@ public class ProductApi {
                     schema = @Schema(type = SchemaType.OBJECT, implementation = ProductDTO.class)
             )
     )
-    public Response updateProductWithDetailsById(@RequestBody Product product){
+    public Response updateProductWithDetailsById(@RequestBody Product product) {
         Product updatedProduct = productService.updateProductWithDetailsById(product);
         return Response.accepted(productMapper.mapToDTO(updatedProduct)).build();
     }
@@ -130,8 +130,9 @@ public class ProductApi {
                     schema = @Schema(type = SchemaType.ARRAY, implementation = ProductDTO.class)
             )
     )
-    public Response getProductsBySearchCriteria(@RequestBody ProductEnhancedSearchCriteria searchCriteria){
-        log.info("searchCriteria:{}",searchCriteria);
+    public Response getProductsBySearchCriteria(@RequestBody ProductEnhancedSearchCriteria searchCriteria) {
+        log.info("searchCriteria:{}", searchCriteria);
+
         List<Product> products = productService.getProductsBySearchCriteria(searchCriteria);
         return Response.ok(productMapper.mapToListDTO(products)).build();
     }

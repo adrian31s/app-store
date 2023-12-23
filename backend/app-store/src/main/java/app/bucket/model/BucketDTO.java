@@ -1,6 +1,5 @@
 package app.bucket.model;
 
-import app.single_product_order.model.ProductOrder;
 import app.single_product_order.model.ProductOrderDTO;
 import lombok.Getter;
 import lombok.Setter;

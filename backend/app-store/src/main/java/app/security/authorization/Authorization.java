@@ -1,10 +1,7 @@
 package app.security.authorization;
 
-import app.address.model.AddressDTO;
 import app.person.model.Person;
 import app.person.service.PersonService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +22,6 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Base64;
 
 @Slf4j
 public class Authorization {

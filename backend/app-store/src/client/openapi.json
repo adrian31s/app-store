@@ -26,19 +26,8 @@
                 }
               }
             }
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
-        },
-        "security" : [ {
-          "SecurityScheme" : [ "ADMIN" ]
-        }, {
-          "SecurityScheme" : [ "ADMIN" ]
-        } ]
+        }
       }
     },
     "/address/getAddressById/id/{id}" : {
@@ -87,19 +76,8 @@
                 }
               }
             }
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
-        },
-        "security" : [ {
-          "SecurityScheme" : [ "ADMIN" ]
-        }, {
-          "SecurityScheme" : [ "ADMIN" ]
-        } ]
+        }
       }
     },
     "/address/updateAddressById/id/{id}" : {
@@ -128,19 +106,8 @@
         "responses" : {
           "204" : {
             "description" : "NO CONTENT"
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
-        },
-        "security" : [ {
-          "SecurityScheme" : [ "USER", "ADMIN" ]
-        }, {
-          "SecurityScheme" : [ "USER", "ADMIN" ]
-        } ]
+        }
       }
     },
     "/auth/login" : {
@@ -202,16 +169,8 @@
           },
           "401" : {
             "description" : "NOT AUTHORIZED"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
-        },
-        "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
-        } ]
+        }
       }
     },
     "/bucket/getActiveBucketAssignedToPerson" : {
@@ -252,19 +211,8 @@
                 }
               }
             }
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
-        },
-        "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
-        } ]
+        }
       }
     },
     "/person/getAll" : {
@@ -285,19 +233,8 @@
                 }
               }
             }
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
-        },
-        "security" : [ {
-          "SecurityScheme" : [ "ADMIN" ]
-        }, {
-          "SecurityScheme" : [ "ADMIN" ]
-        } ]
+        }
       }
     },
     "/person/getById" : {
@@ -336,19 +273,8 @@
                 }
               }
             }
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
-        },
-        "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
-        } ]
+        }
       }
     },
     "/person/update" : {
@@ -396,19 +322,8 @@
                 }
               }
             }
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
-        },
-        "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
-        } ]
+        }
       }
     },
     "/product/create" : {
@@ -897,18 +812,10 @@
         "responses" : {
           "204" : {
             "description" : "NO CONTENT"
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
         },
         "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
+          "user" : [ ]
         } ]
       }
     },
@@ -938,18 +845,10 @@
           },
           "304" : {
             "description" : "NOT MODIFIED"
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
         },
         "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
+          "user" : [ ]
         } ]
       }
     },
@@ -991,18 +890,10 @@
                 }
               }
             }
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
         },
         "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
+          "user" : [ ]
         } ]
       }
     },
@@ -1052,7 +943,60 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "user" : [ ]
+        } ]
+      }
+    },
+    "/store/forgotPassword" : {
+      "patch" : {
+        "tags" : [ "Application Api" ],
+        "description" : "send email to forgotten password account",
+        "operationId" : "forgotPassword",
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "ACCEPTED",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "bid" : {
+                      "format" : "int64",
+                      "type" : "integer"
+                    },
+                    "username" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "lastName" : {
+                      "type" : "string"
+                    },
+                    "addresses" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/AddressDTO"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "user" : [ ]
+        } ]
       }
     },
     "/store/removeOpinion" : {
@@ -1071,18 +1015,10 @@
         "responses" : {
           "204" : {
             "description" : "NO CONTENT"
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
         },
         "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
+          "user" : [ ]
         } ]
       }
     },
@@ -1102,18 +1038,10 @@
         "responses" : {
           "204" : {
             "description" : "NO CONTENT"
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
         },
         "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
+          "user" : [ ]
         } ]
       }
     },
@@ -1162,18 +1090,10 @@
                 }
               }
             }
-          },
-          "401" : {
-            "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
         },
         "security" : [ {
-          "SecurityScheme" : [ "USER" ]
-        }, {
-          "SecurityScheme" : [ "USER" ]
+          "user" : [ ]
         } ]
       }
     }

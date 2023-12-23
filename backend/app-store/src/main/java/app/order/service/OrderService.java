@@ -13,8 +13,6 @@ import app.person.model.Person;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ApplicationScoped
@@ -40,7 +38,7 @@ public class OrderService {
         return order;
     }
 
-    private Order setupOrder(Bucket bucket){
+    private Order setupOrder(Bucket bucket) {
         Order order = new Order();
         order.setBucket(bucket);
         order.setOrdered(new Date());

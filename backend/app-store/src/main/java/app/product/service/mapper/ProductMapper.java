@@ -21,9 +21,11 @@ import java.util.List;
         uses = {ChargerMapper.class, CoolerMapper.class, DRAMMemoryMapper.class, GraphicCardMapper.class,
                 HardDriveMapper.class, MotherboardMapper.class, PcCaseMapper.class, ProcessorMapper.class, OpinionMapper.class})
 public interface ProductMapper {
-    Product mapToProduct (ProductSearchCriteria searchCriteria);
-    ProductSearchCriteria mapToSearchCriteria (Product product);
+    Product mapToProduct(ProductSearchCriteria searchCriteria);
+
+    ProductSearchCriteria mapToSearchCriteria(Product product);
 
     ProductDTO mapToDTO(Product product);
+
     List<ProductDTO> mapToListDTO(List<Product> products);
 }

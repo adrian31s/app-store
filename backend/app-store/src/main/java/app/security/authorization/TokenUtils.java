@@ -3,16 +3,13 @@ package app.security.authorization;
 import app.person.model.utill.Role;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
-import java.security.Key;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -47,7 +44,7 @@ public class TokenUtils {
         try (InputStream contentIS = TokenUtils.class.getResourceAsStream(pemResName)) {
             byte[] tmp = new byte[4096];
             int length = contentIS.read(tmp);
-            return decodePrivateKey(new String(tmp, 0, length, "UTF-8"));
+            return decodePrivateKey(new String(tmp, 0, length, StandardCharsets.UTF_8));
         }
     }
 

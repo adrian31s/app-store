@@ -5,7 +5,6 @@ import app.bucket.model.Bucket;
 import app.person.dao.PersonDao;
 import app.person.model.Person;
 import app.single_product_order.dao.ProductOrderDao;
-import app.single_product_order.model.ProductOrder;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -21,7 +20,7 @@ public class BucketService {
     @Inject
     ProductOrderDao productOrderDao;
 
-    public List<Bucket> getAll(){
+    public List<Bucket> getAll() {
         return bucketDao.getAllEntities();
     }
 
@@ -30,7 +29,7 @@ public class BucketService {
     }
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public Bucket create(Long personId){
+    public Bucket create(Long personId) {
         Person person = personDao.getById(personId);
         Bucket bucket = new Bucket();
         bucket.setPerson(person);
@@ -38,12 +37,13 @@ public class BucketService {
     }
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public Bucket getActiveBucketByPersonId(Long personId){
+    public Bucket getActiveBucketByPersonId(Long personId) {
         return bucketDao.getActiveBucketByPersonId(personId);
     }
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public int removeProductFromBucket(Long personId,Long productId){
+    public int removeProductFromBucket(Long personId, Long productId) {
         Long activeBucketId = bucketDao.getActiveBucketByPersonId(personId).getBid();
-        return productOrderDao.deleteProductOrderById(activeBucketId,productId);
-    }}
+        return productOrderDao.deleteProductOrderById(activeBucketId, productId);
+    }
+}
