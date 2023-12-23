@@ -132,6 +132,7 @@ public class ProductApi {
     )
     public Response getProductsBySearchCriteria(@RequestBody ProductEnhancedSearchCriteria searchCriteria) {
         log.info("searchCriteria:{}", searchCriteria);
+
         List<Product> products = productService.getProductsBySearchCriteria(searchCriteria);
         return Response.ok(productMapper.mapToListDTO(products)).build();
     }

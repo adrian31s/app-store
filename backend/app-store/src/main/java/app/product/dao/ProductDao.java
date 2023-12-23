@@ -46,8 +46,6 @@ public class ProductDao extends BaseDao<Product> {
 
         String stringQuery = sb.substring(0, sb.length() - 5);
         log.info("created SQL:{}", stringQuery);
-        log.info("productsFieldsValue:{}", productFieldsValue);
-        log.info("detailsFieldsValue:{}", productDetailsFieldsValue);
         TypedQuery<Product> query = getEntityManager().createQuery(stringQuery, Product.class);
         return query.getResultList();
     }
