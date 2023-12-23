@@ -23,27 +23,27 @@
             <form>
                 <div id="label-for-register">Załóż konto</div>
                 <div class="mb-3">
-                    <input id="username" class="form-control" placeholder="login*" name="username" />
+                    <input [(ngModel)]="username" id="username" class="form-control" placeholder="login*" name="username" />
                 </div>
                 <div class="mb-3">
-                    <input type="password" id="password" class="form-control" placeholder="hasło*" name="password" />
+                    <input [(ngModel)]="password" type="password" id="password" class="form-control" placeholder="hasło*" name="password" />
                 </div>
                 <div class="mb-3">
-                    <input type="email" id="email" class="form-control" placeholder="e-mail*" name="email" />
+                    <input [(ngModel)]="email" type="email" id="email" class="form-control" placeholder="e-mail*" name="email" />
                 </div>
                 <div class="mb-3">
-                    <input id="firstName" class="form-control" placeholder="imię*" name="firstName" />
+                    <input [(ngModel)]="firstName" id="firstName" class="form-control" placeholder="imię*" name="firstName" />
                 </div>
                 <div class="mb-3">
-                    <input id="lastName" class="form-control" placeholder="nazwisko*" name="lastName" />
+                    <input [(ngModel)]="lastName" id="lastName" class="form-control" placeholder="nazwisko*" name="lastName" />
                 </div>
                 <div id="checkbox" class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="termsCheckbox" name="termsCheckbox" />
+                    <input [(ngModel)]="acceptTerms" type="checkbox" class="form-check-input" id="termsCheckbox" name="termsCheckbox" />
                     <label class="form-check-label" for="termsCheckbox">Akceptuję regulamin sklepu KUPSPRZECIK.PL*</label>
                 </div>
                 <label>*pola wymagane</label>
             </form>
-            <button type="button" class="btn btn-outline-dark">Zarejestruj się</button>
+            <button type="button" class="btn btn-outline-dark" (click)="register()">Zarejestruj się</button>
         </div>
     </div>
     <div class="modal-footer">
@@ -51,5 +51,4 @@
         <div><img [src]="images[0]" class="filter-white" /></div>
     </div>
 </ng-template>
-
-<button class="in-homecomponent-button" (click)="open(content)">Zarejestruj się</button>
+<p-toast [life]="1500"></p-toast>

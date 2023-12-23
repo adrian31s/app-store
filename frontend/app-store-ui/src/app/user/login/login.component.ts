@@ -11,8 +11,9 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  @Output() isLogged = new EventEmitter<boolean>();
-  @Output() closeLoginDialog = new EventEmitter<void>();
+  @Output() isLogged = new EventEmitter<void>();
+  @Output() openRegisterDialog = new EventEmitter<void>();
+
   loginEmail: string = '';
   password: string = '';
 
@@ -42,7 +43,7 @@ export class LoginComponent {
           this.authService.setToken(value.token);
           this.authService.setUsername(this.loginEmail)
           this.displayToastMessage('success', 'Sukces', 'Zalogowany');
-          this.isLogged.emit(true);
+          this.isLogged.emit();
           window.location.reload();
         }
         return false;
@@ -52,13 +53,6 @@ export class LoginComponent {
         this.displayToastMessage('error', 'Blad', 'Bledne dane');
       }
     );
-  }
-
-  send() {
-    //just for tests
-    this.loginService.testUserResource({ body: {} }).subscribe((v) => {
-      console.log(v);
-    });
   }
 
   openTypeEmailDialog() {
@@ -71,6 +65,10 @@ export class LoginComponent {
       (value)=>{
         this.displayToastMessage('success', 'Sukces', 'Wyslano wiadomosc email');
       });
+
+  closeAndOpenRegisterDialog(){
+    this.openRegisterDialog.emit();
+
   }
 
   private displayToastMessage(
