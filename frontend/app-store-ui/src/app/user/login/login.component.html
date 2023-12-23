@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="flex justify-content-center flex-column align-items-center" *ngIf="forgotedPasswordDialog">
-        <input type="text" [(ngModel)]="forgotedPasswordEmail" class="input" placeholder="Email" id="forgotedPasswordEmail" />
+        <input type="text" [(ngModel)]="forgottenPasswordUserEmail" class="input" placeholder="Email" id="loginEmail" />
         <button (click)="sendNotificationToEmail()">Przeslij</button>
     </div>    
 </div>

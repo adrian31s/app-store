@@ -86,6 +86,10 @@ public class PersonService {
             predicates.put("password", searchCriteria.getPassword());
         }
 
+        if (!StringUtil.isNullOrEmpty(searchCriteria.getEmail()) && !searchCriteria.getEmail().isBlank()) {
+            predicates.put("email", searchCriteria.getEmail());
+        }
+
         return predicates;
     }
 

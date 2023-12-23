@@ -30,11 +30,6 @@ export class AuthService {
     localStorage.setItem('username', username);
   }
 
-  sendNotificationToEmail() {
-    //need to be implemented later
-    this.displayToastMessage('success', 'Sukces', 'Wyslano wiadomosc email');
-  }
-
   getUsername(): string {
     return this.username;
   }

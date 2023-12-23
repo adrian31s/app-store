@@ -813,10 +813,7 @@
           "204" : {
             "description" : "NO CONTENT"
           }
-        },
-        "security" : [ {
-          "user" : [ ]
-        } ]
+        }
       }
     },
     "/store/addProductToBucket" : {
@@ -846,10 +843,7 @@
           "304" : {
             "description" : "NOT MODIFIED"
           }
-        },
-        "security" : [ {
-          "user" : [ ]
-        } ]
+        }
       }
     },
     "/store/create/order" : {
@@ -891,10 +885,7 @@
               }
             }
           }
-        },
-        "security" : [ {
-          "user" : [ ]
-        } ]
+        }
       }
     },
     "/store/create/person" : {
@@ -943,10 +934,7 @@
               }
             }
           }
-        },
-        "security" : [ {
-          "user" : [ ]
-        } ]
+        }
       }
     },
     "/store/forgotPassword" : {
@@ -993,10 +981,7 @@
               }
             }
           }
-        },
-        "security" : [ {
-          "user" : [ ]
-        } ]
+        }
       }
     },
     "/store/removeOpinion" : {
@@ -1016,10 +1001,7 @@
           "204" : {
             "description" : "NO CONTENT"
           }
-        },
-        "security" : [ {
-          "user" : [ ]
-        } ]
+        }
       }
     },
     "/store/removeProductFromBucket" : {
@@ -1039,10 +1021,7 @@
           "204" : {
             "description" : "NO CONTENT"
           }
-        },
-        "security" : [ {
-          "user" : [ ]
-        } ]
+        }
       }
     },
     "/store/updatePersonAddress" : {
@@ -1091,10 +1070,7 @@
               }
             }
           }
-        },
-        "security" : [ {
-          "user" : [ ]
-        } ]
+        }
       }
     }
   },
