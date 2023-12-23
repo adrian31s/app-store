@@ -1,6 +1,5 @@
 package app.person.model;
 
-import app.address.model.Address;
 import app.address.model.AddressDTO;
 import lombok.Getter;
 import lombok.Setter;

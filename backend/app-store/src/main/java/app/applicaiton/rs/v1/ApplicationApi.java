@@ -7,6 +7,7 @@ import app.address.model.Address;
 import app.address.service.AddressService;
 import app.bucket.model.Bucket;
 import app.bucket.service.BucketService;
+import app.email.service.EmailService;
 import app.opinion.service.OpinionService;
 import app.order.model.Order;
 import app.order.model.OrderDTO;
@@ -15,6 +16,7 @@ import app.order.service.OrderMapperImpl;
 import app.order.service.OrderService;
 import app.person.model.Person;
 import app.person.model.PersonDTO;
+import app.person.model.PersonSearchCriteria;
 import app.person.model.utill.Role;
 import app.person.service.PersonMapper;
 import app.person.service.PersonMapperImpl;
@@ -24,6 +26,7 @@ import app.product.service.ProductService;
 import app.security.authorization.TokenUtils;
 import app.single_product_order.dao.ProductOrderDao;
 import app.single_product_order.model.ProductOrder;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -31,17 +34,19 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.validation.ConstraintViolationException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.UUID;
 
 @Path("store")
+@Slf4j
+@SecurityRequirement(name = "user", scopes = {})
 public class ApplicationApi {
     private final AddressService addressService;
     private final PersonService personService;
@@ -52,9 +57,10 @@ public class ApplicationApi {
     private final PersonMapper personMapper;
     private final OrderMapper orderMapper;
     private final OpinionService opinionService;
+    private final EmailService emailService;
 
     @Inject
-    public ApplicationApi(AddressService addressService, PersonService personService, BucketService bucketService, OrderService orderService, ProductService productService, ProductOrderDao productOrderDao, OpinionService opinionService) {
+    public ApplicationApi(AddressService addressService, PersonService personService, BucketService bucketService, OrderService orderService, ProductService productService, ProductOrderDao productOrderDao, OpinionService opinionService, EmailService emailService) {
         this.addressService = addressService;
         this.personService = personService;
         this.bucketService = bucketService;
@@ -62,6 +68,7 @@ public class ApplicationApi {
         this.productService = productService;
         this.productOrderDao = productOrderDao;
         this.opinionService = opinionService;
+        this.emailService = emailService;
         this.personMapper = new PersonMapperImpl();
         this.orderMapper = new OrderMapperImpl();
     }
@@ -114,7 +121,7 @@ public class ApplicationApi {
         try {
             personId = personService.createPerson(person).getBid();
         } catch (BaseDaoException cve) { //workaround
-            if(cve.getCause().getMessage().contains("ConstraintViolationException")){
+            if (cve.getCause().getMessage().contains("ConstraintViolationException")) {
                 return Response.status(Response.Status.BAD_REQUEST).entity("username and email must be unique").build();
             }
             return Response.status(Response.Status.BAD_REQUEST).entity(cve.getCause()).build();
@@ -231,4 +238,29 @@ public class ApplicationApi {
         opinionService.removeOpinion(username, opinionId);
         return Response.noContent().build();
     }
+
+    @PATCH
+    @Path("/forgotPassword")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "forgotPassword", description = "send email to forgotten password account")
+    @APIResponse(
+            responseCode = "202",
+            description = "ACCEPTED",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = PersonDTO.class)
+            )
+    )
+    public Response genNewPassword(@QueryParam("email") String email) {
+        List<Person> personList = personService.findBySearchCriteria(PersonSearchCriteria.builder().email(email).build());
+        if (personList.size() != 1) {
+            return Response.noContent().build();
+        }
+        Person person = personList.get(0);
+        PersonSearchCriteria psc = PersonSearchCriteria.builder().password(UUID.randomUUID().toString()).build();
+        personService.updateById(person.getBid(), psc);
+        emailService.sendEmailForgotPassword(psc.getPassword(), person.getEmail());
+        return Response.ok().build();
+    }
+
 }

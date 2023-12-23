@@ -5,7 +5,6 @@ import app.person.model.PersonDTO;
 import app.person.service.PersonMapper;
 import app.person.service.PersonMapperImpl;
 import app.person.service.PersonService;
-import app.product.model.ProductDTO;
 import app.security.authorization.TokenUtils;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;

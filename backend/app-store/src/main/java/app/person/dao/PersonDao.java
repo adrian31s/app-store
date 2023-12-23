@@ -15,11 +15,11 @@ import javax.transaction.Transactional;
 public class PersonDao extends BaseDao<Person> {
 
     @Transactional(Transactional.TxType.SUPPORTS)
-    public Person findByUsernameAndPerson(String username, String password){
+    public Person findByUsernameAndPerson(String username, String password) {
         CriteriaBuilder cb = this.getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Person> cq = cb.createQuery(Person.class);
         Root<Person> root = cq.from(Person.class);
-        cq.where(cb.and(cb.equal(root.get(Person_.USERNAME), username),cb.equal(root.get(Person_.PASSWORD),password)));
+        cq.where(cb.and(cb.equal(root.get(Person_.USERNAME), username), cb.equal(root.get(Person_.PASSWORD), password)));
 
         return this.getEntityManager().createQuery(cq).getSingleResult();
     }

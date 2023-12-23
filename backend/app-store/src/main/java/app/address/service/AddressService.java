@@ -1,7 +1,5 @@
 package app.address.service;
 
-import adi.jpa.crud.dao.BaseDao;
-import adi.jpa.crud.exception.BaseDaoException;
 import app.address.dao.AddressDao;
 import app.address.model.Address;
 import app.address.model.AddressSearchCriteria;
@@ -10,12 +8,8 @@ import io.netty.util.internal.StringUtil;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
 @ApplicationScoped
 public class AddressService {

@@ -32,7 +32,7 @@ public class OpinionDao extends BaseDao<Opinion> {
     }
 
     @Transactional
-    public void deleteAll(){
+    public void deleteAll() {
         getEntityManager().createQuery("DELETE FROM Opinion").executeUpdate();
     }
 }

@@ -10,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -82,6 +80,10 @@ public class PersonService {
 
         if (!StringUtil.isNullOrEmpty(searchCriteria.getLastName()) && !searchCriteria.getLastName().isBlank()) {
             predicates.put("lastName", searchCriteria.getLastName());
+        }
+
+        if (!StringUtil.isNullOrEmpty(searchCriteria.getPassword()) && !searchCriteria.getPassword().isBlank()) {
+            predicates.put("password", searchCriteria.getPassword());
         }
 
         return predicates;

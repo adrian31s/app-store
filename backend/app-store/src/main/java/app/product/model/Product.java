@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -105,7 +104,7 @@ public class Product extends BaseEntity {
     private String picturesAsBytes;
 
     @PostLoad
-    public void calculateRate(){
+    public void calculateRate() {
         int opinionsSize = this.getOpinions().size();
 
         if (opinionsSize != 0) {

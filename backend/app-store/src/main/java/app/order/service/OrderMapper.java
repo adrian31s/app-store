@@ -12,5 +12,6 @@ import java.util.Set;
 public interface OrderMapper {
     @Mapping(source = "order.bucket.bid", target = "bucketId")
     OrderDTO mapToDTO(Order order);
+
     List<OrderDTO> mapToListDTO(Set<Order> orders);
 }

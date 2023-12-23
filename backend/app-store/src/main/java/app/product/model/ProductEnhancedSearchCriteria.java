@@ -1,11 +1,10 @@
 package app.product.model;
 
 
-import lombok.NoArgsConstructor;
 import lombok.With;
 
 @With
-public record ProductEnhancedSearchCriteria (
+public record ProductEnhancedSearchCriteria(
         String bid,
         String productCategoryProperty,
         String name,
@@ -40,8 +39,8 @@ public record ProductEnhancedSearchCriteria (
         String maxMemory,
         String length
 
-){
-    public ProductEnhancedSearchCriteria(){ //test purpose
-        this(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+) {
+    public ProductEnhancedSearchCriteria() { //test purpose
+        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
 }

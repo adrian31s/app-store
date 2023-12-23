@@ -1,6 +1,5 @@
 package app.product.types.pc_case.service;
 
-import app.product.types.pc_case.dao.PcCaseDao;
 import app.product.types.pc_case.model.PcCase;
 import app.product.types.pc_case.model.PcCaseDTO;
 import org.mapstruct.Mapper;

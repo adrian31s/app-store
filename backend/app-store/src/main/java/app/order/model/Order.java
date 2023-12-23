@@ -1,7 +1,6 @@
 package app.order.model;
 
 import adi.jpa.crud.model.BaseEntity;
-
 import app.bucket.model.Bucket;
 import app.order.model.utill.Status;
 import lombok.Getter;

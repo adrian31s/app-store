@@ -1,11 +1,8 @@
 package app.address.model;
 
-import io.netty.util.internal.StringUtil;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.HashMap;
 
 @Getter
 @Setter

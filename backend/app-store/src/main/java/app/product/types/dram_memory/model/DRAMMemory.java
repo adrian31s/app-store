@@ -3,7 +3,6 @@ package app.product.types.dram_memory.model;
 import adi.jpa.crud.model.BaseEntity;
 import app.product.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
