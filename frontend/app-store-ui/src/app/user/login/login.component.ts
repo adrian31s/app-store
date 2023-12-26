@@ -65,10 +65,10 @@ export class LoginComponent {
       (value)=>{
         this.displayToastMessage('success', 'Sukces', 'Wyslano wiadomosc email');
       });
+    }
 
   closeAndOpenRegisterDialog(){
     this.openRegisterDialog.emit();
-
   }
 
   private displayToastMessage(

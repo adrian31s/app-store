@@ -30,9 +30,10 @@ import { RegisterPanelComponent } from "./register-panel/register-panel.componen
 import { UserPanelComponent } from './user-panel/user-panel.component';
 import { UserDataComponent } from './user-panel/user-data/user-data.component';
 import { RatingModule } from 'primeng/rating';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FilterComponent } from './products/filter/filter.component';
+import { FastFilterComponent } from './home/fast-filter/fast-filter.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { FilterComponent } from './products/filter/filter.component';
     LoginComponent,
     UserPanelComponent,
     FilterComponent,
-    RegisterPanelComponent
+    RegisterPanelComponent,
+    FastFilterComponent
   ],
   providers: [
     {
@@ -76,7 +78,7 @@ import { FilterComponent } from './products/filter/filter.component';
     StyleClassModule,
     UserDataComponent,
     RatingModule,
-    InputTextModule,
+    OverlayPanelModule,
     CheckboxModule
   ],
 })

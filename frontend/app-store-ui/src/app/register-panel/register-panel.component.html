@@ -23,19 +23,19 @@
             <form>
                 <div id="label-for-register">Załóż konto</div>
                 <div class="mb-3">
-                    <input [(ngModel)]="username" id="username" class="form-control" placeholder="login*" name="username" />
+                    <input (keydown.enter)="register()" [(ngModel)]="username" id="username" class="form-control" placeholder="login*" name="username" />
                 </div>
                 <div class="mb-3">
-                    <input [(ngModel)]="password" type="password" id="password" class="form-control" placeholder="hasło*" name="password" />
+                    <input (keydown.enter)="register()" [(ngModel)]="password" type="password" id="password" class="form-control" placeholder="hasło*" name="password" />
                 </div>
                 <div class="mb-3">
-                    <input [(ngModel)]="email" type="email" id="email" class="form-control" placeholder="e-mail*" name="email" />
+                    <input (keydown.enter)="register()" [(ngModel)]="email" type="email" id="email" class="form-control" placeholder="e-mail*" name="email" />
                 </div>
                 <div class="mb-3">
-                    <input [(ngModel)]="firstName" id="firstName" class="form-control" placeholder="imię*" name="firstName" />
+                    <input (keydown.enter)="register()" [(ngModel)]="firstName" id="firstName" class="form-control" placeholder="imię*" name="firstName" />
                 </div>
                 <div class="mb-3">
-                    <input [(ngModel)]="lastName" id="lastName" class="form-control" placeholder="nazwisko*" name="lastName" />
+                    <input (keydown.enter)="register()" [(ngModel)]="lastName" id="lastName" class="form-control" placeholder="nazwisko*" name="lastName" />
                 </div>
                 <div id="checkbox" class="mb-3 form-check">
                     <input [(ngModel)]="acceptTerms" type="checkbox" class="form-check-input" id="termsCheckbox" name="termsCheckbox" />
