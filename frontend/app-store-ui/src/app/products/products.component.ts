@@ -36,7 +36,6 @@ export class ProductsComponent implements OnInit {
       this.imagesUrlToBytes[i] = await this.getImageSrc(
         this.products[i].thumbnail
       );
-      console.log(this.imagesUrlToBytes[i]);
     }
   }
 

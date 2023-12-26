@@ -15,9 +15,7 @@
         <img *ngIf="isUserLogged" [src]="images[2]" alt="Panel użytkownika" />
         <div class="dropdown-content">
           <a style="text-decoration:none" [routerLink]="'user-panel'">Konto</a>
-          <br>
           <a>Zamówienia</a>
-          <br>
           <a>Opinie</a>
           <a (click)="logout()">Wyloguj się</a>
         </div>
@@ -49,17 +47,12 @@
     <app-product-updater></app-product-updater>
     <app-product-creator></app-product-creator>
   </p-dialog>
-
-
-  <p-dialog header="Logowanie" [modal]="true" [(visible)]="loginDialogVisible" [draggable]="false">
-    <app-login 
-    (isLogged)="setIsUserLogged()"
-    (openRegisterDialog)="closeLoginAndOpenRegister()"
-    ></app-login>
-  </p-dialog>
 </div>
 
-<app-register-panel 
-[openDialog]="registerDialogVisible"
-(closeDialog)="openRegisterDialog(false)">
+
+<p-dialog header="Logowanie" [modal]="true" [(visible)]="loginDialogVisible" [draggable]="false">
+  <app-login (isLogged)="setIsUserLogged()" (openRegisterDialog)="closeLoginAndOpenRegister()"></app-login>
+</p-dialog>
+
+<app-register-panel [openDialog]="registerDialogVisible" (closeDialog)="openRegisterDialog(false)">
 </app-register-panel>

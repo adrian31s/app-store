@@ -1,0 +1,22 @@
+<div class="flex flex-column" style="position: relative; overflow: auto;">
+    <div class="input-group mb-3">
+        <div class="input-container w-full">
+            <input [(ngModel)]="productName" type="text" class="form-control" placeholder="Wyszukaj wśród produktów"
+                aria-label="Search" aria-describedby="basic-addon1" (ngModelChange)="findByPeroductName()">
+            <img class="search" [src]="images[0]" (click)="findByPeroductName()" />
+        </div>
+    </div>
+    <div class="filteredProductsMain" *ngIf="productDtos.length>0 && productName.length>0 && productName!==''">
+        <a class="flex flex-row gap-3 text-indigo-400" style="text-decoration: none;" *ngFor="let product of productDtos; let i = index"
+        [routerLink]="['/product']" [queryParams]="{productId: product.bid}">
+            <img [src]="imagesUrlToBytes[i]" [alt]="productName">
+            <div class="flex flex-column">
+                <ul>
+                    <li>{{ product.name }}</li>
+                    <li>{{ product.model }}</li>
+                    <li>{{ product.price }}</li>
+                </ul>
+            </div>
+        </a>
+    </div>
+</div>

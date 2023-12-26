@@ -1,10 +1,9 @@
-<p-toast [life]="1500"></p-toast>
 <div>
     <div class="main">
         <div class="login">
             <h3>Mam konto</h3>
-            <input type="text" [(ngModel)]="loginEmail" class="input" placeholder="Login lub e-mail" id="loginEmail" />
-            <input type="password" [(ngModel)]="password" class="input" placeholder="Haslo" id="password" />
+            <input  (keydown.enter)="login()" type="text" [(ngModel)]="loginEmail" class="input" placeholder="Login lub e-mail" id="loginEmail" />
+            <input  (keydown.enter)="login()" type="password" [(ngModel)]="password" class="input" placeholder="Haslo" id="password" />
             <span (click)="openTypeEmailDialog()">nie pamietam hasla</span>
             <button (click)="login()">Zaloguj sie</button>
         </div>
@@ -29,7 +28,7 @@
         </div>
     </div>
     <div class="flex justify-content-center flex-column align-items-center" *ngIf="forgotedPasswordDialog">
-        <input type="text" [(ngModel)]="forgottenPasswordUserEmail" class="input" placeholder="Email" id="loginEmail" />
+        <input (keydown.enter)="sendNotificationToEmail()" type="text" [(ngModel)]="forgottenPasswordUserEmail" class="input" placeholder="Email" id="loginEmail" />
         <button (click)="sendNotificationToEmail()">Przeslij</button>
     </div>    
 </div>
