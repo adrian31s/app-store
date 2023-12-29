@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OpinionDto, ProductDto } from 'client/src/app/api/models';
-import { ApplicationApiService, ProductApiService } from 'client/src/app/api/services';
+import {
+  ApplicationApiService,
+  ProductApiService,
+} from 'client/src/app/api/services';
 import {
   productCommonFieldsUtil,
   productTypesFieldsUtil,
@@ -10,6 +13,7 @@ import { ObjectReceiverService } from '../s3/object-receiver.service';
 import ProductUtil from '../utils/ProductUtil';
 import { AuthService } from '../auth/service/auth.service';
 import { MessageService } from 'primeng/api';
+import { error } from 'console';
 
 @Component({
   selector: 'app-product',
@@ -25,13 +29,14 @@ export class ProductComponent implements OnInit {
 
   product!: ProductDto;
   productDetails!: any;
-  opinions?:OpinionDto[]
+  opinions?: OpinionDto[];
   productId: number = 0;
+  quantity: number = 1;
 
-  username!:string;
-  customOpinionRate:number=0;
-  customOpinionComment:string='';
-  addOpinionActive:boolean = false;
+  username!: string;
+  customOpinionRate: number = 0;
+  customOpinionComment: string = '';
+  addOpinionActive: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -84,46 +89,80 @@ export class ProductComponent implements OnInit {
     return labels;
   }
 
-  addOpinion(){
-    if(this.customOpinionComment.length< 3|| this.customOpinionRate===0){
+  addOpinion() {
+    if (this.customOpinionComment.length < 3 || this.customOpinionRate === 0) {
       this.messageService.add({
-        severity: "error",
-        summary: "nie dodano",
-        detail: "twoja opinia musi posiadac komentarz dluzszy niz 3 znaki jak i ranking w skali 1-5",
+        severity: 'error',
+        summary: 'nie dodano',
+        detail:
+          'twoja opinia musi posiadac komentarz dluzszy niz 3 znaki jak i ranking w skali 1-5',
       });
       return;
     }
-    this.applicationSerive.addOpinion({opinion:this.customOpinionComment, productId:this.productId, rate:this.customOpinionRate}).subscribe(
+    this.applicationSerive
+      .addOpinion({
+        opinion: this.customOpinionComment,
+        productId: this.productId,
+        rate: this.customOpinionRate,
+      })
+      .subscribe(
+        (complete) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'dodano',
+            detail: 'twoja opinia zostala dodana pomyslnie',
+          });
+          this.customOpinionComment = '';
+          this.customOpinionRate = 0;
+          this.addOpinionActive = false;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  removeOpinion(opnionId: number | undefined) {
+    this.applicationSerive.removeOpinion({ opinionId: opnionId }).subscribe(
       (complete) => {
         this.messageService.add({
-          severity: "success",
-          summary: "dodano",
-          detail: "twoja opinia zostala dodana pomyslnie",
+          severity: 'success',
+          summary: 'usunieto',
+          detail: 'twoja opinia zostala usunieta',
         });
-        this.customOpinionComment='';
-        this.customOpinionRate=0;
-        this.addOpinionActive=false;
+
+        this.opinions = this.opinions?.filter((o) => o.bid !== opnionId);
       },
-      (error)=>{
+      (error) => {
         console.log(error);
       }
     );
   }
 
-  removeOpinion(opnionId:number | undefined){
-    this.applicationSerive.removeOpinion({opinionId:opnionId}).subscribe(
-      (complete) => {
-        this.messageService.add({
-          severity: "success",
-          summary: "usunieto",
-          detail: "twoja opinia zostala usunieta",
-        });
+  addProductToBucket() {
+    this.applicationSerive
+      .addProductToBucket({
+        productId: this.productId,
+        quantity: this.quantity,
+      })
+      .subscribe(
+        (value) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'dodano',
+            detail:
+              'produkt w ilosci: ' +
+              this.quantity +
+              ' został dodany do koszyka zakupowego',
+          });
+        },
+        (error) => console.log(error.error)
+      );
+  }
 
-        this.opinions = this.opinions?.filter(o=>o.bid!==opnionId);
-      },
-      (error)=>{
-        console.log(error);
-      }
-    )
+  calculatePrice() {
+    return this.product.price !== undefined
+      ? this.quantity * this.product.price
+      : 0;
   }
 }

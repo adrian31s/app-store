@@ -21,11 +21,26 @@
         </div>
       </div>
     </div>
-
-    <div id="cart">
-      <div class="dropdown"> <img [src]="images[1]" class="filter-white" alt="Koszyk" />
-        <div class="dropdown-content">
-          <a>Koszyk jest pusty!</a>
+    <div class="dropdown">
+      <div class="bucketProductsCounter"> {{ bucketItems?.length }}</div>
+      <img [src]="images[1]" class="filter-white" alt="Koszyk" />
+      <div class="dropdown-content dropdown-content-bucket" *ngIf="bucketItems!==undefined && bucketItems.length>0">
+        <div class="filteredProductsMain">
+          <div class="flex flex-row align-items-center gap-5" *ngFor="let product of bucketItems; let i = index">
+            <a class="flex flex-row  gap-3 text-indigo-400 bucketItems" style="text-decoration: none;"
+              [routerLink]="['/product']" [queryParams]="{productId: bucketItems[i].productDTO?.bid}">
+              <img [src]="imagesUrlToBytes[i]" [alt]="bucketItems[i].productDTO?.bid" style="height: 80px;">
+              <div class="flex flex-column">
+                <ul>
+                  <li>{{ bucketItems[i].productDTO?.name +" " + bucketItems[i].productDTO?.model }}</li>
+                  <li>{{ "ilosc: " + bucketItems[i].quantityProductOrder }}</li>
+                  <li>{{ calculatePrice(bucketItems[i].quantityProductOrder,bucketItems[i].productDTO?.price) + "ZŁ" }}
+                  </li>
+                </ul>
+              </div>
+            </a>
+            <i class="pi pi-trash deleteProduct" (click)="deleteProductFromBucket(bucketItems[i].productDTO?.bid)"></i>
+          </div>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
             </div>
             <div class="specs" *ngIf="productDetails">
                 <h1>{{ product['model'] }}</h1>
-                <p-rating [(ngModel)]="product.rate" [readonly]="true"  [disabled]="true" [cancel]="false"></p-rating>
+                <p-rating [(ngModel)]="product.rate" [readonly]="true" [disabled]="true" [cancel]="false"></p-rating>
                 <span *ngFor="let productAttribute of productCommonFields">
                     <span *ngIf="productAttribute['label']!=='price' && productAttribute['label']!=='name'">
                         <br>
@@ -32,9 +32,16 @@
             <div class="previous-product">
                 <a href="#" class="previous round"><img class="filter-white" [src]=images[0] /></a>
             </div>
-            <div class="price">
-                <h2>{{ product.price + " ZŁ" }}</h2>
-                <button type="button" class="btn btn-danger">Dodaj do koszyka</button>
+            <div class="price gap-8">
+                <div style="width: 200px;">
+                    <h2>{{ calculatePrice() + " ZŁ" }}</h2>
+                </div>
+                <button (click)="addProductToBucket()" type="button" class="btn btn-danger">Dodaj do koszyka</button>
+                <p-inputNumber [(ngModel)]="quantity" [showButtons]="true" [size]="2" buttonLayout="horizontal"
+                    spinnerMode="horizontal" inputId="vertical" decrementButtonClass="p-button-secondary"
+                    incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus" [min]="1" [max]="product.quantity" [allowEmpty]="false"
+                    placeholder="1"></p-inputNumber>
             </div>
         </div>
     </div>
@@ -75,4 +82,3 @@
         </div>
     </div>
 </div>
-<router-outlet></router-outlet>

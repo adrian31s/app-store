@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from './auth/service/auth.service';
+import { ProductDto, ProductOrderDto } from 'client/src/app/api/models';
+import { ApplicationApiService } from 'client/src/app/api/services';
+import { validateHeaderName } from 'http';
+import { ObjectReceiverService } from './s3/object-receiver.service';
+import { MessageService } from 'primeng/api';
+import { error } from 'console';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +18,9 @@ export class AppComponent implements OnInit {
   loginDialogVisible: boolean = false;
   registerDialogVisible: boolean = false;
 
+  bucketItems?: ProductOrderDto[] = [];
+  imagesUrlToBytes: any[] = [];
+
   isUserLogged: boolean = false;
   visible: boolean = false;
 
@@ -21,10 +30,16 @@ export class AppComponent implements OnInit {
     './assets/images/checked-user-512.png',
   ];
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private applicationApiService: ApplicationApiService,
+    private objectReceiver: ObjectReceiverService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.isUserLogged = this.authService.getToken() !== '';
+    this.initBucket();
   }
 
   //admin dialog
@@ -37,11 +52,11 @@ export class AppComponent implements OnInit {
     this.loginDialogVisible = true;
   }
 
-  openRegisterDialog(visible:boolean) {
+  openRegisterDialog(visible: boolean) {
     this.registerDialogVisible = visible;
   }
 
-  closeLoginAndOpenRegister(){
+  closeLoginAndOpenRegister() {
     this.registerDialogVisible = true;
     this.loginDialogVisible = false;
   }
@@ -54,5 +69,42 @@ export class AppComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.isUserLogged = false;
+  }
+
+  initBucket() {
+    this.applicationApiService.getActiveBucket().subscribe(
+      (value) => {
+        this.bucketItems = value.productOrders;
+        this.imagesUrlToBytes = new Array(value.productOrders?.length).fill('');
+        this.getImagesSrc();
+      },
+      (error) => console.log(error.error)
+    );
+  }
+
+  async getImagesSrc() {
+    if (this.bucketItems !== undefined)
+      for (let i = 0; i < this.bucketItems.length; i++) {
+          this.imagesUrlToBytes[i] = await this.getImageSrc(
+            this.bucketItems[i].productDTO?.thumbnail
+          );
+      }
+  }
+
+  getImageSrc(imageId?: string) {
+    return this.objectReceiver.getS3ImageSrcByImageName(imageId);
+  }
+
+  calculatePrice(quantity?: number, price?: number) {
+    return quantity !== undefined && price !== undefined ? quantity * price : 0;
+  }
+
+  deleteProductFromBucket(productId?:number){
+    this.applicationApiService.removeProductFromBucket({productId:productId}).subscribe(
+      (value) =>{
+        window.location.reload();
+      },
+      (error)=> console.log(error.error)
+    )
   }
 }

@@ -32,6 +32,23 @@ public class BucketDao extends BaseDao<Bucket> {
         }
     }
 
+    @Transactional(Transactional.TxType.REQUIRED)
+    public int updateProductQuantity(Long productId, Long personId, int newQuantity) {
+        String query = """
+                update productorder po
+                set quantity_product_order = ?1
+                where bid = (select po1.bid
+                			   from productorder po1
+                			   join bucket b on po1.bucket_id=b.bid
+                			   where b.archived is not true and b.person_id = ?2 and po1.product_id = ?3 )
+                """;
+        return getEntityManager().createNativeQuery(query)
+                .setParameter(2, personId)
+                .setParameter(3, productId)
+                .setParameter(1, newQuantity)
+                .executeUpdate();
+    }
+
     @Override
     public Class<Bucket> getClazz() {
         return Bucket.class;

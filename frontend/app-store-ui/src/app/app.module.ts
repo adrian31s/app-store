@@ -34,6 +34,9 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FilterComponent } from './products/filter/filter.component';
 import { FastFilterComponent } from './home/fast-filter/fast-filter.component';
+import { SliderModule } from 'primeng/slider';
+import { InputNumberModule } from 'primeng/inputnumber';
+
 
 @NgModule({
   declarations: [
@@ -79,7 +82,9 @@ import { FastFilterComponent } from './home/fast-filter/fast-filter.component';
     UserDataComponent,
     RatingModule,
     OverlayPanelModule,
-    CheckboxModule
+    CheckboxModule,
+    SliderModule,
+    InputNumberModule
   ],
 })
 export class AppModule {}

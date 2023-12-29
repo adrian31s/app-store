@@ -30,8 +30,8 @@
                             </li>
                         </div>
                         <div class="priceAndBucket">
-                            <h2 class="text-green-300">{{ "Cena: " + product['price'] + "Zł"}}</h2>
-                            <h2 class="text-red-300">DODAJ DO KOSZYKA</h2>
+                            <h2 class="text-green-300">{{ "Cena: " + product['price'] + "Zł"}}</h2>                        
+                            <h2 class="text-red-300" (click)="addProductToBucket(product.bid)">DODAJ DO KOSZYKA</h2>
                         </div>
                     </div>
                 </div>
@@ -39,4 +39,3 @@
         </div>
     </div>
 </div>
-<p-toast></p-toast>

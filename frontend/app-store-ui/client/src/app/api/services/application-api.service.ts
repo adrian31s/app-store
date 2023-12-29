@@ -21,6 +21,9 @@ import { CreatePerson$Params } from '../fn/application-api/create-person';
 import { Date } from '../models/date';
 import { forgotPassword } from '../fn/application-api/forgot-password';
 import { ForgotPassword$Params } from '../fn/application-api/forgot-password';
+import { getActiveBucket } from '../fn/application-api/get-active-bucket';
+import { GetActiveBucket$Params } from '../fn/application-api/get-active-bucket';
+import { ProductOrderDto } from '../models/product-order-dto';
 import { removeOpinion } from '../fn/application-api/remove-opinion';
 import { RemoveOpinion$Params } from '../fn/application-api/remove-opinion';
 import { removeProductFromBucket } from '../fn/application-api/remove-product-from-bucket';
@@ -252,6 +255,59 @@ export class ApplicationApiService extends BaseService {
 'name'?: string;
 'lastName'?: string;
 'addresses'?: Array<AddressDto>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `getActiveBucket()` */
+  static readonly GetActiveBucketPath = '/store/getActiveBucket';
+
+  /**
+   * get active bucket
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getActiveBucket()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getActiveBucket$Response(params?: GetActiveBucket$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+'bid'?: number;
+'archived'?: boolean;
+'productOrders'?: Array<ProductOrderDto>;
+'personId'?: number;
+'orderId'?: number;
+}>> {
+    return getActiveBucket(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * get active bucket
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getActiveBucket$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getActiveBucket(params?: GetActiveBucket$Params, context?: HttpContext): Observable<{
+'bid'?: number;
+'archived'?: boolean;
+'productOrders'?: Array<ProductOrderDto>;
+'personId'?: number;
+'orderId'?: number;
+}> {
+    return this.getActiveBucket$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+'bid'?: number;
+'archived'?: boolean;
+'productOrders'?: Array<ProductOrderDto>;
+'personId'?: number;
+'orderId'?: number;
+}>): {
+'bid'?: number;
+'archived'?: boolean;
+'productOrders'?: Array<ProductOrderDto>;
+'personId'?: number;
+'orderId'?: number;
 } => r.body)
     );
   }

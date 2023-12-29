@@ -669,6 +669,35 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AddressDTO'
+  /store/getActiveBucket:
+    get:
+      tags:
+      - Application Api
+      description: get active bucket
+      operationId: getActiveBucket
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid:
+                    format: int64
+                    type: integer
+                  archived:
+                    type: boolean
+                  productOrders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductOrderDTO'
+                  personId:
+                    format: int64
+                    type: integer
+                  orderId:
+                    format: int64
+                    type: integer
   /store/removeOpinion:
     post:
       tags:
@@ -1284,9 +1313,8 @@ components:
         quantityProductOrder:
           format: int32
           type: integer
-        productId:
-          format: int64
-          type: integer
+        productDTO:
+          $ref: '#/components/schemas/ProductDTO'
         bucketId:
           format: int64
           type: integer
