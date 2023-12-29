@@ -6,6 +6,9 @@ import app.address.mapper.AddressMapperImpl;
 import app.address.model.Address;
 import app.address.service.AddressService;
 import app.bucket.model.Bucket;
+import app.bucket.model.BucketDTO;
+import app.bucket.service.BucketMapper;
+import app.bucket.service.BucketMapperImpl;
 import app.bucket.service.BucketService;
 import app.email.service.EmailService;
 import app.opinion.service.OpinionService;
@@ -54,6 +57,8 @@ public class ApplicationApi {
     private final ProductOrderDao productOrderDao;
     private final PersonMapper personMapper;
     private final OrderMapper orderMapper;
+    private final BucketMapper bucketMapper;
+
     private final OpinionService opinionService;
     private final EmailService emailService;
 
@@ -65,6 +70,7 @@ public class ApplicationApi {
         this.orderService = orderService;
         this.productService = productService;
         this.productOrderDao = productOrderDao;
+        this.bucketMapper = new BucketMapperImpl();
         this.opinionService = opinionService;
         this.emailService = emailService;
         this.personMapper = new PersonMapperImpl();
@@ -168,6 +174,11 @@ public class ApplicationApi {
     public Response addProductToBucket(@QueryParam("productId") Long productId,
                                        @QueryParam("quantity") int quantity,
                                        @HeaderParam("Authorization") String token) {
+        int affectedRows = bucketService.updateProductQuantity(TokenUtils.encodeToken(token), productId, quantity);
+        if (affectedRows != 0) {
+            return Response.noContent().build();
+        }
+
         Product product = productService.getProductById(productId);
         Bucket bucket = bucketService.getActiveBucketByPersonId(TokenUtils.encodeToken(token));
         if (product != null && bucket != null) {
@@ -237,6 +248,8 @@ public class ApplicationApi {
         return Response.noContent().build();
     }
 
+    @RolesAllowed(value = "USER")
+
     @PATCH
     @Path("/forgotPassword")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -261,4 +274,21 @@ public class ApplicationApi {
         return Response.ok().build();
     }
 
+    @RolesAllowed(value = "USER")
+    @GET
+    @Path("/getActiveBucket")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "getActiveBucket", description = "get active bucket")
+    @APIResponse(
+            responseCode = "200",
+            description = "OK",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = BucketDTO.class)
+            )
+    )
+    public Response getActiveBucket(@HeaderParam("Authorization") String token) {
+        Bucket bucket = bucketService.getActiveBucketByPersonId(TokenUtils.encodeToken(token));
+        return Response.ok(bucketMapper.mapToDTO(bucket)).build();
+    }
 }

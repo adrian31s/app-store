@@ -46,4 +46,9 @@ public class BucketService {
         Long activeBucketId = bucketDao.getActiveBucketByPersonId(personId).getBid();
         return productOrderDao.deleteProductOrderById(activeBucketId, productId);
     }
+
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public int updateProductQuantity(Long personId, Long productId, int quantity){
+        return bucketDao.updateProductQuantity(productId,personId,quantity);
+    }
 }

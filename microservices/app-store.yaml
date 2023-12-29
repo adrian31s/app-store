@@ -7,8 +7,8 @@ metadata:
 spec:
   containers:
   - name: app-store
-    image: adrian31s/app-store:1.0.10-SNAPSHOT
-    imagePullPolicy: Always
+    image: adrian31s/app-store:1.0.10
+    imagePullPolicy: Never
     env:
       - name: DB_URL
         valueFrom:
