@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: app-store-ui
-    image: adrian31s/app-store-ui:1.0.10-SNAPSHOT
+    image: adrian31s/app-store-ui:1.0.10
     imagePullPolicy: Always
     ports:
     - containerPort: 4200
