@@ -36,6 +36,7 @@ import { FilterComponent } from './products/filter/filter.component';
 import { FastFilterComponent } from './home/fast-filter/fast-filter.component';
 import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { BucketComponent } from './user/bucket/bucket.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     UserPanelComponent,
     FilterComponent,
     RegisterPanelComponent,
-    FastFilterComponent
+    FastFilterComponent,
+    BucketComponent
   ],
   providers: [
     {

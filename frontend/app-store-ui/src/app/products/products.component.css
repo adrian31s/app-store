@@ -61,3 +61,47 @@
     rgb(233, 255, 241) 100%
   );
 }
+
+.addToBucket{
+  color: rgb(197, 25, 25);
+  cursor: pointer;
+}
+
+.addToBucket:hover{
+  color: rgb(72, 255, 0);
+}
+
+button {
+  border-radius: 50px;
+  width: 180px;
+  font-weight: 900;
+  font-size: large;
+  background: rgb(40, 97, 83);
+  background: linear-gradient(
+    90deg,
+    rgba(40, 97, 83, 1) 0%,
+    rgba(2, 110, 113, 1) 36%,
+    rgba(208, 228, 215, 1) 100%
+  );
+  border-style: none;
+  box-shadow: 0 3px #666;
+}
+
+button:active {
+  box-shadow: 0 0px #666;
+  transform: translateY(4px);
+}
+
+button:hover {
+  background: rgb(40, 97, 83);
+  background: linear-gradient(
+    90deg,
+    rgb(58, 140, 120) 0%,
+    rgb(3, 145, 150) 36%,
+    rgb(233, 255, 241) 100%
+  );
+}
+
+::ng-deep:host .p-dialog {
+  width: 400px !important;
+}

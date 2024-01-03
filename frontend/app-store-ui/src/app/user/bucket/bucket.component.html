@@ -1,0 +1,35 @@
+<div class="flex justify-content-center mt-7">
+    <div class="mainDiv" *ngIf="bucketItems.length>0">
+        <div class="productDiv" *ngFor="let bucketItem of bucketItems; let i = index">
+            <img style="height: 80px;" [src]="imagesUrlToBytes[i]" [alt]="i">
+            <p>{{ bucketItem.productDTO?.name +" " + bucketItem.productDTO?.model }}</p>
+            <div *ngIf="!checkIfQuantityCorrect(i)" class="flex flex-column gap-3">
+                <p style="color: red;">{{ "wybrana ilosc: " + bucketItem.quantityProductOrder }}</p>
+                <p-inputNumber [(ngModel)]="bucketItem.quantityProductOrder" [showButtons]="true" [size]="2" buttonLayout="horizontal"
+                spinnerMode="horizontal" inputId="vertical" decrementButtonClass="p-button-secondary"
+                incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus" [min]="1" [max]="bucketItem.quantityProductOrder" [allowEmpty]="false" 
+                placeholder="1"></p-inputNumber>
+                <p style="color: grey;">{{"dostepna ilosc: " + bucketItem.productDTO?.quantity}}</p>
+            </div>
+            <div *ngIf="checkIfQuantityCorrect(i)"  class="flex flex-column gap-3">
+                <p style="color: green;">{{ "wybrana ilosc: " + bucketItem.quantityProductOrder }}</p>
+                <p-inputNumber [(ngModel)]="bucketItem.quantityProductOrder" [showButtons]="true" [size]="2" buttonLayout="horizontal"
+                spinnerMode="horizontal" inputId="vertical" decrementButtonClass="p-button-secondary"
+                incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus" [min]="1" [max]="bucketItem.productDTO?.quantity" [allowEmpty]="false"
+                placeholder="1"></p-inputNumber>
+                <p style="color: grey;">{{"dostepna ilosc: " + bucketItem.productDTO?.quantity}}</p>
+            </div>
+            <p style="width: 80px;">{{ calculatePrice(bucketItem.quantityProductOrder,bucketItem.productDTO?.price) + "ZŁ" }}</p>
+            <i class="pi pi-trash deleteProduct" (click)="deleteProductFromBucket(bucketItem.productDTO?.bid)"></i>
+        </div>
+        <div class="butonAndPrice">
+            <button>adres dostawy</button>
+            <p style="font-size: large; font-weight: 900; color: greenyellow;">{{"kwota: " + calculateWholePrice() +" ZŁ" }}</p>
+        </div>
+    </div>
+    <div *ngIf="bucketItems.length===0">
+        <h1 style="color: red; font-weight: 900;">koszyk jest pusty</h1>
+    </div>
+</div>

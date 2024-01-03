@@ -1,0 +1,70 @@
+.mainDiv {
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.productDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-color: rebeccapurple;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.deleteProduct:hover {
+  color: red;
+}
+
+.deleteProduct {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.butonAndPrice {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  border-radius: 50px;
+  width: 180px;
+  font-weight: 900;
+  font-size: large;
+  background: rgb(40, 97, 83);
+  background: linear-gradient(
+    90deg,
+    rgba(40, 97, 83, 1) 0%,
+    rgba(2, 110, 113, 1) 36%,
+    rgba(208, 228, 215, 1) 100%
+  );
+  border-style: none;
+  box-shadow: 0 3px #666;
+}
+
+button:active {
+  box-shadow: 0 0px #666;
+  transform: translateY(4px);
+}
+
+button:hover {
+  background: rgb(40, 97, 83);
+  background: linear-gradient(
+    90deg,
+    rgb(58, 140, 120) 0%,
+    rgb(3, 145, 150) 36%,
+    rgb(233, 255, 241) 100%
+  );
+}
