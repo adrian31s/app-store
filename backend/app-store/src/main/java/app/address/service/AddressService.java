@@ -13,8 +13,12 @@ import java.util.List;
 
 @ApplicationScoped
 public class AddressService {
+    private final AddressDao dao;
+
     @Inject
-    AddressDao dao;
+    public AddressService(AddressDao dao) {
+        this.dao = dao;
+    }
 
     public List<Address> getAll() {
         return dao.getAllEntities();
@@ -38,6 +42,10 @@ public class AddressService {
 
     public List<Address> getByMultipleValues(AddressSearchCriteria searchCriteria) {
         return dao.getEntitiesByMultipleFields(getPredicates(searchCriteria));
+    }
+
+    public List<Address> getAddressesByPersonId(Long personId){
+        return dao.getAddressByPersonId(personId);
     }
 
     public void addPerson(Long addressId, Person person) {

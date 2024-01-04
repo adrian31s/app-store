@@ -1,6 +1,7 @@
 package app.order.model;
 
 import adi.jpa.crud.model.BaseEntity;
+import app.address.model.Address;
 import app.bucket.model.Bucket;
 import app.order.model.utill.Status;
 import lombok.Getter;
@@ -32,4 +33,8 @@ public class Order extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bucket_id", referencedColumnName = "BID")
     private Bucket bucket;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "BID")
+    private Address deliveryAddress;
 }

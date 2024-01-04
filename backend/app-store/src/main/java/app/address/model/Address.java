@@ -1,16 +1,14 @@
 package app.address.model;
 
 import adi.jpa.crud.model.BaseEntity;
+import app.order.model.Order;
 import app.person.model.Person;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,6 +38,11 @@ public class Address extends BaseEntity {
 
     @ToString.Exclude
     @JsonIgnore
-    @ManyToMany(mappedBy = "addresses")
+    @ManyToMany(mappedBy = "addresses", cascade = {CascadeType.PERSIST})
     private Set<Person> personSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "deliveryAddress")
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<Order> orders=  new HashSet<>();
 }

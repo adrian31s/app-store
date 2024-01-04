@@ -576,35 +576,6 @@ paths:
           description: NO CONTENT
         "304":
           description: NOT MODIFIED
-  /store/create/order:
-    post:
-      tags:
-      - Application Api
-      description: create new order
-      operationId: createOrder
-      responses:
-        "202":
-          description: ACCEPTED
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  bid:
-                    format: int64
-                    type: integer
-                  ordered:
-                    $ref: '#/components/schemas/Date'
-                  delivered:
-                    $ref: '#/components/schemas/Date'
-                  status:
-                    $ref: '#/components/schemas/Status'
-                  totalPrice:
-                    format: double
-                    type: number
-                  bucketId:
-                    format: int64
-                    type: integer
   /store/create/person:
     post:
       tags:
@@ -637,6 +608,21 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AddressDTO'
+  /store/finalizeBuying:
+    get:
+      tags:
+      - Application Api
+      description: "finalize buying, set bucket as archived, send message to email"
+      operationId: finalizeBuying
+      parameters:
+      - name: deliveryAddressId
+        in: query
+        schema:
+          format: int64
+          type: integer
+      responses:
+        "204":
+          description: NO CONTENT
   /store/forgotPassword:
     patch:
       tags:
@@ -698,6 +684,36 @@ paths:
                   orderId:
                     format: int64
                     type: integer
+  /store/getPersonAddresses:
+    get:
+      tags:
+      - Application Api
+      description: get person addresses
+      operationId: getPersonAddresses
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: object
+                  properties:
+                    bid:
+                      format: int64
+                      type: integer
+                    province:
+                      type: string
+                    zipCode:
+                      type: string
+                    streetName:
+                      type: string
+                    buildingNumber:
+                      type: string
+                    apartmentNumber:
+                      format: int32
+                      type: integer
   /store/removeOpinion:
     post:
       tags:
@@ -911,10 +927,6 @@ components:
         memory:
           format: int32
           type: integer
-    Date:
-      format: date
-      type: string
-      example: 2022-03-10
     GraphicCard:
       type: object
       properties:
@@ -1341,10 +1353,4 @@ components:
       - ADMIN
       - USER
       - NOT_LOGGED
-      type: string
-    Status:
-      enum:
-      - IN_PROGRESS
-      - DELIVERED
-      - ON_THE_WAY
       type: string

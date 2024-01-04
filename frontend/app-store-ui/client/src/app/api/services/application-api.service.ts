@@ -14,21 +14,21 @@ import { AddOpinion$Params } from '../fn/application-api/add-opinion';
 import { addProductToBucket } from '../fn/application-api/add-product-to-bucket';
 import { AddProductToBucket$Params } from '../fn/application-api/add-product-to-bucket';
 import { AddressDto } from '../models/address-dto';
-import { createOrder } from '../fn/application-api/create-order';
-import { CreateOrder$Params } from '../fn/application-api/create-order';
 import { createPerson } from '../fn/application-api/create-person';
 import { CreatePerson$Params } from '../fn/application-api/create-person';
-import { Date } from '../models/date';
+import { finalizeBuying } from '../fn/application-api/finalize-buying';
+import { FinalizeBuying$Params } from '../fn/application-api/finalize-buying';
 import { forgotPassword } from '../fn/application-api/forgot-password';
 import { ForgotPassword$Params } from '../fn/application-api/forgot-password';
 import { getActiveBucket } from '../fn/application-api/get-active-bucket';
 import { GetActiveBucket$Params } from '../fn/application-api/get-active-bucket';
+import { getPersonAddresses } from '../fn/application-api/get-person-addresses';
+import { GetPersonAddresses$Params } from '../fn/application-api/get-person-addresses';
 import { ProductOrderDto } from '../models/product-order-dto';
 import { removeOpinion } from '../fn/application-api/remove-opinion';
 import { RemoveOpinion$Params } from '../fn/application-api/remove-opinion';
 import { removeProductFromBucket } from '../fn/application-api/remove-product-from-bucket';
 import { RemoveProductFromBucket$Params } from '../fn/application-api/remove-product-from-bucket';
-import { Status } from '../models/status';
 import { updatePersonAddressById } from '../fn/application-api/update-person-address-by-id';
 import { UpdatePersonAddressById$Params } from '../fn/application-api/update-person-address-by-id';
 
@@ -96,63 +96,6 @@ export class ApplicationApiService extends BaseService {
     );
   }
 
-  /** Path part for operation `createOrder()` */
-  static readonly CreateOrderPath = '/store/create/order';
-
-  /**
-   * create new order
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `createOrder()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  createOrder$Response(params?: CreateOrder$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-'bid'?: number;
-'ordered'?: Date;
-'delivered'?: Date;
-'status'?: Status;
-'totalPrice'?: number;
-'bucketId'?: number;
-}>> {
-    return createOrder(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * create new order
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `createOrder$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  createOrder(params?: CreateOrder$Params, context?: HttpContext): Observable<{
-'bid'?: number;
-'ordered'?: Date;
-'delivered'?: Date;
-'status'?: Status;
-'totalPrice'?: number;
-'bucketId'?: number;
-}> {
-    return this.createOrder$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-'bid'?: number;
-'ordered'?: Date;
-'delivered'?: Date;
-'status'?: Status;
-'totalPrice'?: number;
-'bucketId'?: number;
-}>): {
-'bid'?: number;
-'ordered'?: Date;
-'delivered'?: Date;
-'status'?: Status;
-'totalPrice'?: number;
-'bucketId'?: number;
-} => r.body)
-    );
-  }
-
   /** Path part for operation `createPerson()` */
   static readonly CreatePersonPath = '/store/create/person';
 
@@ -203,6 +146,35 @@ export class ApplicationApiService extends BaseService {
 'lastName'?: string;
 'addresses'?: Array<AddressDto>;
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `finalizeBuying()` */
+  static readonly FinalizeBuyingPath = '/store/finalizeBuying';
+
+  /**
+   * finalize buying, set bucket as archived, send message to email
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `finalizeBuying()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  finalizeBuying$Response(params?: FinalizeBuying$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return finalizeBuying(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * finalize buying, set bucket as archived, send message to email
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `finalizeBuying$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  finalizeBuying(params?: FinalizeBuying$Params, context?: HttpContext): Observable<void> {
+    return this.finalizeBuying$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
@@ -309,6 +281,63 @@ export class ApplicationApiService extends BaseService {
 'personId'?: number;
 'orderId'?: number;
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `getPersonAddresses()` */
+  static readonly GetPersonAddressesPath = '/store/getPersonAddresses';
+
+  /**
+   * get person addresses
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getPersonAddresses()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPersonAddresses$Response(params?: GetPersonAddresses$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<{
+'bid'?: number;
+'province'?: string;
+'zipCode'?: string;
+'streetName'?: string;
+'buildingNumber'?: string;
+'apartmentNumber'?: number;
+}>>> {
+    return getPersonAddresses(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * get person addresses
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getPersonAddresses$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPersonAddresses(params?: GetPersonAddresses$Params, context?: HttpContext): Observable<Array<{
+'bid'?: number;
+'province'?: string;
+'zipCode'?: string;
+'streetName'?: string;
+'buildingNumber'?: string;
+'apartmentNumber'?: number;
+}>> {
+    return this.getPersonAddresses$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<{
+'bid'?: number;
+'province'?: string;
+'zipCode'?: string;
+'streetName'?: string;
+'buildingNumber'?: string;
+'apartmentNumber'?: number;
+}>>): Array<{
+'bid'?: number;
+'province'?: string;
+'zipCode'?: string;
+'streetName'?: string;
+'buildingNumber'?: string;
+'apartmentNumber'?: number;
+}> => r.body)
     );
   }
 

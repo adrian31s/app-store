@@ -1,6 +1,8 @@
 package app.order.service;
 
 
+import app.address.model.Address;
+import app.address.service.AddressService;
 import app.bucket.dao.BucketDao;
 import app.bucket.model.Bucket;
 import app.bucket.service.BucketService;
@@ -25,24 +27,28 @@ public class OrderService {
     BucketDao bucketDao;
     @Inject
     BucketService bucketService;
+    @Inject
+    AddressService addressService;
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public Order createOrder(Long personId) {
+    public Order createOrder(Long personId, Long deliveryAddressId) {
         Person person = persondao.getById(personId);
-        if (person == null) return null;
+        Address address = addressService.getById(deliveryAddressId);
         Bucket bucket = bucketDao.getActiveBucketByPersonId(personId);
-        if (bucket == null) return null;
+
+        if (person == null || address==null || bucket == null) throw new RuntimeException("could not create Order");
         bucket.setArchived(Boolean.TRUE);
-        Order order = setupOrder(bucket);
+        Order order = setupOrder(bucket,address);
         bucketService.create(personId);
         return order;
     }
 
-    private Order setupOrder(Bucket bucket) {
+    private Order setupOrder(Bucket bucket, Address address) {
         Order order = new Order();
         order.setBucket(bucket);
         order.setOrdered(new Date());
         order.setStatus(Status.IN_PROGRESS);
+        order.setDeliveryAddress(address);
         return orderDao.createEntity(order);
     }
 }

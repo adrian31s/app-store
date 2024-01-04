@@ -21,12 +21,25 @@ public class EmailService {
 
     public void sendEmailForgotPassword(String password, String email) {
         String content = rffs.loadFileFromResources("forgotten_password.html");
-        content = content.replace("%password%", password);
+        content = content.replaceFirst("%password%", password);
 
         Mail mail = new Mail();
         mail.setTo(List.of(email));
         mail.setHtml(content);
         mail.setSubject("NOWO WYGENEROWANE HASLO - KUPSPRZECIK.PL");
+        mailer.send(mail);
+    }
+
+    public void sendEmailFinalizePurchase(String email, String products, String orderId) {
+        String content = rffs.loadFileFromResources("finalize_purchase.html");
+        content = content
+                .replaceFirst("%li_products_li%", products)
+                .replaceFirst("%order_id%", orderId);
+
+        Mail mail = new Mail();
+        mail.setTo(List.of(email));
+        mail.setHtml(content);
+        mail.setSubject("Dziekujemy za zakup - KUPSPRZECIK.PL");
         mailer.send(mail);
     }
 }

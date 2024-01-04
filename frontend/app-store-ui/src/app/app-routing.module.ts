@@ -4,7 +4,7 @@ import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { UserPanelComponent } from './user-panel/user-panel.component';
-import { BucketComponent } from './user/bucket/bucket.component';
+import { BucketComponent } from './user/purchase-completion/bucket/bucket.component';
 
 const routes: Routes = [
   { path: 'products', component: ProductsComponent },

@@ -13,12 +13,17 @@ import java.util.List;
 
 @ApplicationScoped
 public class BucketService {
+    private final BucketDao bucketDao;
+    private final PersonDao personDao;
+    private final ProductOrderDao productOrderDao;
+
     @Inject
-    BucketDao bucketDao;
-    @Inject
-    PersonDao personDao;
-    @Inject
-    ProductOrderDao productOrderDao;
+    public BucketService(BucketDao bucketDao, PersonDao personDao, ProductOrderDao productOrderDao) {
+        this.bucketDao = bucketDao;
+        this.personDao = personDao;
+        this.productOrderDao = productOrderDao;
+    }
+
 
     public List<Bucket> getAll() {
         return bucketDao.getAllEntities();
