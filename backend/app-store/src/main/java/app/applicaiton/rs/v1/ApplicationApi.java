@@ -80,7 +80,7 @@ public class ApplicationApi {
     }
 
     @RolesAllowed(value = "USER")
-    @PATCH
+    @PUT
     @Path("/updatePersonAddress")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -94,6 +94,7 @@ public class ApplicationApi {
             )
     )
     public Response updatePersonAddressById(@HeaderParam("Authorization") String token, @RequestBody Address addres) {
+        log.info("updatePersonAddressById");
         AddressMapper addressMapper = new AddressMapperImpl();
 
         List<Address> addresses = addressService.getByMultipleValues(addressMapper.toSearchCriteria(addres));

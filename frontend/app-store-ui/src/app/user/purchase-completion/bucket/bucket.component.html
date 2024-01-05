@@ -1,32 +1,61 @@
 <div class="flex justify-content-center mt-7">
-    <div class="mainDiv" *ngIf="bucketItems.length>0">
-        <div class="productDiv" *ngFor="let bucketItem of bucketItems; let i = index">
-            <img style="height: 80px;" [src]="imagesUrlToBytes[i]" [alt]="i">
-            <p>{{ bucketItem.productDTO?.name +" " + bucketItem.productDTO?.model }}</p>
-            <div *ngIf="!checkIfQuantityCorrect(i)" class="flex flex-column gap-3">
-                <p style="color: red;">{{ "wybrana ilosc: " + bucketItem.quantityProductOrder }}</p>
-                <p-inputNumber [(ngModel)]="bucketItem.quantityProductOrder" [showButtons]="true" [size]="2" buttonLayout="horizontal"
-                spinnerMode="horizontal" inputId="vertical" decrementButtonClass="p-button-secondary"
-                incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-                decrementButtonIcon="pi pi-minus" [min]="1" [max]="bucketItem.quantityProductOrder" [allowEmpty]="false" 
-                placeholder="1"></p-inputNumber>
-                <p style="color: grey;">{{"dostepna ilosc: " + bucketItem.productDTO?.quantity}}</p>
+    <div>
+        <div class="mainDiv" *ngIf="bucketItems.length>0">
+            <div class="productDiv" *ngFor="let bucketItem of bucketItems; let i = index">
+                <img style="height: 80px;" [src]="imagesUrlToBytes[i]" [alt]="i">
+                <p>{{ bucketItem.productDTO?.name +" " + bucketItem.productDTO?.model }}</p>
+                <div *ngIf="!checkIfQuantityCorrect(i)" class="flex flex-column gap-3">
+                    <p style="color: red;">{{ "wybrana ilosc: " + bucketItem.quantityProductOrder }}</p>
+                    <p-inputNumber [(ngModel)]="bucketItem.quantityProductOrder" [showButtons]="true" [size]="2"
+                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="vertical"
+                        decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary"
+                        incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="1"
+                        [max]="bucketItem.quantityProductOrder" [allowEmpty]="false" placeholder="1"
+                        (onInput)="this.productOrdersToUpdateQuantity.set(bucketItem.productDTO!.bid!,bucketItem.quantityProductOrder!)"></p-inputNumber>
+                    <p style="color: grey;">{{"dostepna ilosc: " + bucketItem.productDTO?.quantity}}</p>
+                </div>
+                <div *ngIf="checkIfQuantityCorrect(i)" class="flex flex-column gap-3">
+                    <p style="color: green;">{{ "wybrana ilosc: " + bucketItem.quantityProductOrder }}</p>
+                    <p-inputNumber [(ngModel)]="bucketItem.quantityProductOrder" [showButtons]="true" [size]="2"
+                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="vertical"
+                        decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary"
+                        incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="1"
+                        [max]="bucketItem.productDTO?.quantity" [allowEmpty]="false" placeholder="1"
+                        (onInput)="this.productOrdersToUpdateQuantity.set(bucketItem.productDTO!.bid!,bucketItem.quantityProductOrder!)"
+                        ></p-inputNumber>
+                    <p style="color: grey;">{{"dostepna ilosc: " + bucketItem.productDTO?.quantity}}</p>
+                </div>
+                <p style="width: 80px;">{{ calculatePrice(bucketItem.quantityProductOrder,bucketItem.productDTO?.price)
+                    +
+                    "ZŁ" }}</p>
+                <i class="pi pi-trash deleteProduct" (click)="deleteProductFromBucket(bucketItem.productDTO?.bid)"></i>
             </div>
-            <div *ngIf="checkIfQuantityCorrect(i)"  class="flex flex-column gap-3">
-                <p style="color: green;">{{ "wybrana ilosc: " + bucketItem.quantityProductOrder }}</p>
-                <p-inputNumber [(ngModel)]="bucketItem.quantityProductOrder" [showButtons]="true" [size]="2" buttonLayout="horizontal"
-                spinnerMode="horizontal" inputId="vertical" decrementButtonClass="p-button-secondary"
-                incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-                decrementButtonIcon="pi pi-minus" [min]="1" [max]="bucketItem.productDTO?.quantity" [allowEmpty]="false"
-                placeholder="1"></p-inputNumber>
-                <p style="color: grey;">{{"dostepna ilosc: " + bucketItem.productDTO?.quantity}}</p>
+
+            <div *ngIf="deliveryAddress!==undefined">
+                <h3 class="flex align-items-center justify-content-center" style="color: greenyellow;">Wybrany adres
+                </h3>
+                <p>{{ "numer apartamentu: " + deliveryAddress.apartmentNumber }}</p>
+                <p>{{ "numer budynku: " + deliveryAddress.buildingNumber }}</p>
+                <p>{{ "wojewodztwo: " + deliveryAddress.province }}</p>
+                <p>{{ "numer ulicy: " + deliveryAddress.streetName }}</p>
+                <p>{{ "kod pocztowy: " + deliveryAddress.zipCode }}</p>
             </div>
-            <p style="width: 80px;">{{ calculatePrice(bucketItem.quantityProductOrder,bucketItem.productDTO?.price) + "ZŁ" }}</p>
-            <i class="pi pi-trash deleteProduct" (click)="deleteProductFromBucket(bucketItem.productDTO?.bid)"></i>
-        </div>
-        <div class="butonAndPrice">
-            <button>adres dostawy</button>
-            <p style="font-size: large; font-weight: 900; color: greenyellow;">{{"kwota: " + calculateWholePrice() +" ZŁ" }}</p>
+            <div *ngIf="deliveryAddress===undefined">
+                <h3 class="flex align-items-center justify-content-center" style="color: red;">Brak Adresu</h3>
+            </div>
+
+            <div class="butonAndPrice">
+                <button (click)="addressCreatorVisible=true">adres dostawy</button>
+                <button (click)="createOrder()">Zamawiam</button>
+                <p style="font-size: large; font-weight: 900; color: greenyellow;">{{"kwota: " + calculateWholePrice() +
+                    "ZŁ" }}</p>
+            </div>
+            <p-dialog appendTo="body" header="Adres kreator" [(visible)]="addressCreatorVisible" [modal]="true"
+                [draggable]="false" [resizable]="false">
+                <app-home-delivery-address class="flex align-items-center justify-content-center"
+                    [shouldReturDeliveryAddress]="true"
+                    (selectedAddressEmitter)="setDeliveryAddress($event)"></app-home-delivery-address>
+            </p-dialog>
         </div>
     </div>
     <div *ngIf="bucketItems.length===0">

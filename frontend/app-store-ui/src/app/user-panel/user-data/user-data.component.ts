@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-user-data',
   templateUrl: './user-data.component.html',
   styleUrls: ['../user-panel.component.css'],
-  standalone: true,
+  standalone: false,
 })
 export class UserDataComponent {
 

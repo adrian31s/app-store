@@ -1,5 +1,7 @@
 package app.applicaiton.service;
 
+import app.address.model.Address;
+import app.address.service.AddressService;
 import app.bucket.dao.BucketDao;
 import app.bucket.model.Bucket;
 import app.bucket.service.BucketService;
@@ -18,6 +20,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 @ApplicationScoped
@@ -29,10 +32,11 @@ public class ApplicationService {
     private final OrderService orderService;
     private final BucketService bucketService;
     private final EmailService emailService;
+    private final AddressService addressService;
 
 
     @Inject
-    public ApplicationService(BucketDao bucketDao, PersonDao personDao, ProductOrderDao productOrderDao, ProductDao productDao, OrderService orderService, BucketService bucketService, EmailService emailService) {
+    public ApplicationService(BucketDao bucketDao, PersonDao personDao, ProductOrderDao productOrderDao, ProductDao productDao, OrderService orderService, BucketService bucketService, EmailService emailService, AddressService addressService) {
         this.bucketDao = bucketDao;
         this.personDao = personDao;
         this.productOrderDao = productOrderDao;
@@ -40,6 +44,7 @@ public class ApplicationService {
         this.orderService = orderService;
         this.bucketService = bucketService;
         this.emailService = emailService;
+        this.addressService = addressService;
     }
 
     @Transactional(value = Transactional.TxType.REQUIRED, rollbackOn = Exception.class)
@@ -48,11 +53,12 @@ public class ApplicationService {
         Bucket bucket = bucketService.getActiveBucketByPersonId(personId);
         updateProductsQuantity(bucket.getProductOrders());
         Order order = orderService.createOrder(personId, deliveryAddressId);
-        emailService.sendEmailFinalizePurchase(person.getEmail(), buildHTMLProductsList(bucket.getProductOrders()), order.getBid().toString());
+        emailService.sendEmailFinalizePurchase(person.getEmail(), buildHTMLParams(bucket.getProductOrders(),order));
     }
 
-    private String buildHTMLProductsList(Collection<ProductOrder> productOrders) {
+    private HashMap<String,String> buildHTMLParams(Collection<ProductOrder> productOrders, Order order) {
         StringBuilder sb = new StringBuilder();
+        HashMap<String,String> params = new HashMap<>();
         for (ProductOrder productOrder : productOrders) {
             sb
                     .append("<li>")
@@ -61,7 +67,16 @@ public class ApplicationService {
                     .append(productOrder.getQuantityProductOrder())
                     .append("</li>\n");
         }
-        return sb.toString();
+        params.put("products",sb.toString());
+        params.put("orderId",order.getBid().toString());
+        Address address = order.getDeliveryAddress();
+        params.put("apartmentNumber",String.valueOf(address.getApartmentNumber()));
+        params.put("buildingNumber",address.getBuildingNumber());
+        params.put("province",address.getProvince());
+        params.put("city",address.getStreetName());
+        params.put("zipCode",address.getZipCode());
+        params.put("price", String.valueOf(order.getTotalPrice()));
+        return params;
     }
 
     private void updateProductsQuantity(Collection<ProductOrder> productOrders) {

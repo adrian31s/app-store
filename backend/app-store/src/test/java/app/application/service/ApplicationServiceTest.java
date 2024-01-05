@@ -67,6 +67,7 @@ public class ApplicationServiceTest extends BaseTest {
 
         Product product = new Product();
         product.setQuantity(100);
+        product.setPrice(100d);
         product.setProductCategory(ProductCategory.CHARGER);
         Charger charger = new Charger();
         product.setCharger(charger);
@@ -101,6 +102,7 @@ public class ApplicationServiceTest extends BaseTest {
 
         Product product = new Product();
         product.setQuantity(100);
+        product.setPrice(100d);
         product.setProductCategory(ProductCategory.CHARGER);
         Charger charger = new Charger();
         product.setCharger(charger);
@@ -125,14 +127,14 @@ public class ApplicationServiceTest extends BaseTest {
 
     private void mockEmailService() {
         EmailService mock = Mockito.mock(EmailService.class);
-        Mockito.doNothing().when(mock).sendEmailFinalizePurchase(any(), any(), any());
+        Mockito.doNothing().when(mock).sendEmailFinalizePurchase(any(), any());
         QuarkusMock.installMockForType(mock, EmailService.class);
     }
 
 
     private void mockEmailServiceWithException() {
         EmailService mock = Mockito.mock(EmailService.class);
-        Mockito.doThrow(new RuntimeException("TEST")).when(mock).sendEmailFinalizePurchase(any(), any(), any());
+        Mockito.doThrow(new RuntimeException("TEST")).when(mock).sendEmailFinalizePurchase(any(), any());
         QuarkusMock.installMockForType(mock, EmailService.class);
     }
 

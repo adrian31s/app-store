@@ -20,7 +20,7 @@ export function updatePersonAddressById(http: HttpClient, rootUrl: string, param
 'lastName'?: string;
 'addresses'?: Array<AddressDto>;
 }>> {
-  const rb = new RequestBuilder(rootUrl, updatePersonAddressById.PATH, 'patch');
+  const rb = new RequestBuilder(rootUrl, updatePersonAddressById.PATH, 'put');
   if (params) {
     rb.body(params.body, 'application/json');
   }

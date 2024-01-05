@@ -75,6 +75,9 @@ export class ProductsComponent implements OnInit {
             detail:
               "produkt w ilosci:" + this.productOrderQuantity + " został dodany do koszyka zakupowego",
           });
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         },
         (error) => console.log(error.error)
       );

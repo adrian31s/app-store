@@ -55,7 +55,8 @@ import { HomeDeliveryAddressComponent } from './user/purchase-completion/home-de
     RegisterPanelComponent,
     FastFilterComponent,
     BucketComponent,
-    HomeDeliveryAddressComponent
+    HomeDeliveryAddressComponent,
+    UserDataComponent
     ],
   providers: [
     {
@@ -84,7 +85,6 @@ import { HomeDeliveryAddressComponent } from './user/purchase-completion/home-de
     TableModule,
     ToastModule,
     StyleClassModule,
-    UserDataComponent,
     RatingModule,
     OverlayPanelModule,
     CheckboxModule,

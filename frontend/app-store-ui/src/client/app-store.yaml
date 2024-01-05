@@ -745,7 +745,7 @@ paths:
         "204":
           description: NO CONTENT
   /store/updatePersonAddress:
-    patch:
+    put:
       tags:
       - Application Api
       description: "update person address by person id, if address not exists then\

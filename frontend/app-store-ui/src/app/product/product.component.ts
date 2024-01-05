@@ -155,6 +155,9 @@ export class ProductComponent implements OnInit {
               this.quantity +
               ' został dodany do koszyka zakupowego',
           });
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         },
         (error) => console.log(error.error)
       );
