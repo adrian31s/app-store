@@ -4,12 +4,14 @@ import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { UserPanelComponent } from './user-panel/user-panel.component';
+import { BucketComponent } from './user/purchase-completion/bucket/bucket.component';
 
 const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'home', component: HomeComponent },
   { path: 'product', component: ProductComponent },
   { path: 'user-panel', component: UserPanelComponent },
+  { path: 'bucket', component: BucketComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 

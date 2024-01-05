@@ -846,48 +846,6 @@
         }
       }
     },
-    "/store/create/order" : {
-      "post" : {
-        "tags" : [ "Application Api" ],
-        "description" : "create new order",
-        "operationId" : "createOrder",
-        "responses" : {
-          "202" : {
-            "description" : "ACCEPTED",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "bid" : {
-                      "format" : "int64",
-                      "type" : "integer"
-                    },
-                    "ordered" : {
-                      "$ref" : "#/components/schemas/Date"
-                    },
-                    "delivered" : {
-                      "$ref" : "#/components/schemas/Date"
-                    },
-                    "status" : {
-                      "$ref" : "#/components/schemas/Status"
-                    },
-                    "totalPrice" : {
-                      "format" : "double",
-                      "type" : "number"
-                    },
-                    "bucketId" : {
-                      "format" : "int64",
-                      "type" : "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/store/create/person" : {
       "post" : {
         "tags" : [ "Application Api" ],
@@ -933,6 +891,26 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/store/finalizeBuying" : {
+      "get" : {
+        "tags" : [ "Application Api" ],
+        "description" : "finalize buying, set bucket as archived, send message to email",
+        "operationId" : "finalizeBuying",
+        "parameters" : [ {
+          "name" : "deliveryAddressId",
+          "in" : "query",
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "NO CONTENT"
           }
         }
       }
@@ -1026,6 +1004,50 @@
         }
       }
     },
+    "/store/getPersonAddresses" : {
+      "get" : {
+        "tags" : [ "Application Api" ],
+        "description" : "get person addresses",
+        "operationId" : "getPersonAddresses",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "bid" : {
+                        "format" : "int64",
+                        "type" : "integer"
+                      },
+                      "province" : {
+                        "type" : "string"
+                      },
+                      "zipCode" : {
+                        "type" : "string"
+                      },
+                      "streetName" : {
+                        "type" : "string"
+                      },
+                      "buildingNumber" : {
+                        "type" : "string"
+                      },
+                      "apartmentNumber" : {
+                        "format" : "int32",
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/store/removeOpinion" : {
       "post" : {
         "tags" : [ "Application Api" ],
@@ -1067,7 +1089,7 @@
       }
     },
     "/store/updatePersonAddress" : {
-      "patch" : {
+      "put" : {
         "tags" : [ "Application Api" ],
         "description" : "update person address by person id, if address not exists then create new one",
         "operationId" : "updatePersonAddressById",
@@ -1332,11 +1354,6 @@
             "type" : "integer"
           }
         }
-      },
-      "Date" : {
-        "format" : "date",
-        "type" : "string",
-        "example" : "2022-03-10"
       },
       "GraphicCard" : {
         "type" : "object",
@@ -1947,10 +1964,6 @@
       },
       "Role" : {
         "enum" : [ "ADMIN", "USER", "NOT_LOGGED" ],
-        "type" : "string"
-      },
-      "Status" : {
-        "enum" : [ "IN_PROGRESS", "DELIVERED", "ON_THE_WAY" ],
         "type" : "string"
       }
     }

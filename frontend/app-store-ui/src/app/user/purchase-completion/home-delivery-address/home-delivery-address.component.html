@@ -1,0 +1,54 @@
+<div>
+    <div *ngIf="shouldReturDeliveryAddress">
+        <h2>Wybierz adres dostawy</h2>
+    </div>
+    <div class="flex flex-column gap-3">
+        <div *ngFor="let address of addresses" class="field-checkbox">
+            <p-radioButton *ngIf="shouldReturDeliveryAddress" [inputId]="address.bid+''" name="address" [(ngModel)]="selectedAddress"
+                [value]="address"></p-radioButton>
+            <label [for]="address.bid" class="ml-7">
+                <p>{{ "numer apartamentu: " + address.apartmentNumber }}</p>
+                <p>{{ "numer budynku: " + address.buildingNumber }}</p>
+                <p>{{ "wojewodztwo: " + address.province }}</p>
+                <p>{{ "numer ulicy: " + address.streetName }}</p>
+                <p>{{ "kod pocztowy: " + address.zipCode }}</p>
+                <hr>
+            </label>
+        </div>
+    </div>
+    <button class="ml-3 w-4" *ngIf="shouldReturDeliveryAddress" (click)="setDeliveryAddress()">Akceptuj</button>
+    <button class="ml-5 w-6" (click)="addressCreatorVisible=true"><i class="pi pi-plus"></i> Dodaj adres</button>
+</div>
+<p-dialog appendTo="body" header="Adres kreator" [(visible)]="addressCreatorVisible" [modal]="true" [draggable]="false"
+    [resizable]="false">
+    <div>
+        <div class="data-panel" id="data-panel-2">
+            <div class="data-input">
+                <label for="province">Wojewodztwo</label>
+                <input id="province" class="form-control" placeholder="" name="province"
+                    [(ngModel)]="newAddress.province" />
+            </div>
+            <div class="data-input">
+                <label for="zipCode">Kod pocztowy</label>
+                <input id="zipCode" class="form-control" placeholder="" name="zipCode"
+                    [(ngModel)]="newAddress.zipCode" />
+            </div>
+            <div class="data-input">
+                <label for="streetName">Ulica</label>
+                <input id="streetName" class="form-control" placeholder="" name="streetName"
+                    [(ngModel)]="newAddress.streetName" />
+            </div>
+            <div class="data-input">
+                <label for="buildingNumber">Nr domu</label>
+                <input id="buildingNumber" class="form-control" placeholder="" name="buildingNumber"
+                    [(ngModel)]="newAddress.buildingNumber" />
+            </div>
+            <div class="data-input">
+                <label for="apartmentNumber">Nr mieszkania</label>
+                <input id="apartmentNumber" class="form-control" type="number" placeholder="" name="apartmentNumber"
+                    [(ngModel)]="newAddress.apartmentNumber" />
+            </div>
+            <button class="mt-4 w-3" (click)="createNewAddress()"><i class="pi pi-plus"></i>Dodaj</button>
+        </div>
+    </div>
+</p-dialog>

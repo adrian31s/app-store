@@ -11,6 +11,10 @@ body {
     font-family: "TT Octosquares Trial Light";
 }
 
+*{
+    user-select: none;
+}
+
 /* div{
     border-style: solid;
     border-width: 1px;

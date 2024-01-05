@@ -30,9 +30,23 @@
                             </li>
                         </div>
                         <div class="priceAndBucket">
-                            <h2 class="text-green-300">{{ "Cena: " + product['price'] + "Zł"}}</h2>                        
-                            <h2 class="text-red-300" (click)="addProductToBucket(product.bid)">DODAJ DO KOSZYKA</h2>
+                            <h2 class="text-green-300">{{ "Cena: " + product['price'] + "Zł"}}</h2>
+                            <h2 class="addToBucket" (click)="quantityDialogVisible=true">DODAJ DO KOSZYKA</h2>
                         </div>
+                        <p-dialog [style]="{width: '400px'}" [draggable]="false" [(visible)]="quantityDialogVisible" header="Wybierz ilość produktu do kupienia">
+                            <div class="flex flex-column align-items-center">
+                                <p style="color: green;">{{ "wybrana ilosc: " + productOrderQuantity }}</p>
+                                <p-inputNumber [(ngModel)]="productOrderQuantity" [showButtons]="true" [size]="2"
+                                    buttonLayout="horizontal" spinnerMode="horizontal" inputId="vertical"
+                                    (onHide)="quantityDialogVisible = false" decrementButtonClass="p-button-secondary"
+                                    incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                                    decrementButtonIcon="pi pi-minus" [min]="1" [max]="product.quantity"
+                                    [allowEmpty]="false" placeholder="1"></p-inputNumber>
+                                    <p style="color: grey;">{{"dostepna ilosc: " + product.quantity}}</p>
+                                <button (click)="addProductToBucket(product.bid)">dodaj produkt</button>
+                            </div>
+                        </p-dialog>
+
                     </div>
                 </div>
             </div>

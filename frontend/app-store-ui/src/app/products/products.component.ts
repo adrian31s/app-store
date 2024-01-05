@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit {
   imagesUrlToBytes: any[] = [];
   productCommonFields = productCommonFieldsUtil;
   productOrderQuantity:number = 1;
+  quantityDialogVisible:boolean=false;
 
   constructor(
     private productApiService: ProductApiService,
@@ -60,10 +61,11 @@ export class ProductsComponent implements OnInit {
   }
 
   addProductToBucket(productId?:number) {
+    this.quantityDialogVisible=false;
     this.applicationSerive
       .addProductToBucket({
         productId: productId,
-        quantity: 1,
+        quantity: this.productOrderQuantity,
       })
       .subscribe(
         (value) => {
@@ -71,8 +73,11 @@ export class ProductsComponent implements OnInit {
             severity: 'success',
             summary: 'dodano',
             detail:
-              'produkt w ilosci: 1 został dodany do koszyka zakupowego',
+              "produkt w ilosci:" + this.productOrderQuantity + " został dodany do koszyka zakupowego",
           });
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         },
         (error) => console.log(error.error)
       );

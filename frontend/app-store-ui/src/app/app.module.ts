@@ -36,6 +36,9 @@ import { FilterComponent } from './products/filter/filter.component';
 import { FastFilterComponent } from './home/fast-filter/fast-filter.component';
 import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { BucketComponent } from './user/purchase-completion/bucket/bucket.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { HomeDeliveryAddressComponent } from './user/purchase-completion/home-delivery-address/home-delivery-address.component';
 
 
 @NgModule({
@@ -50,8 +53,11 @@ import { InputNumberModule } from 'primeng/inputnumber';
     UserPanelComponent,
     FilterComponent,
     RegisterPanelComponent,
-    FastFilterComponent
-  ],
+    FastFilterComponent,
+    BucketComponent,
+    HomeDeliveryAddressComponent,
+    UserDataComponent
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -79,11 +85,11 @@ import { InputNumberModule } from 'primeng/inputnumber';
     TableModule,
     ToastModule,
     StyleClassModule,
-    UserDataComponent,
     RatingModule,
     OverlayPanelModule,
     CheckboxModule,
     SliderModule,
+    RadioButtonModule,
     InputNumberModule
   ],
 })

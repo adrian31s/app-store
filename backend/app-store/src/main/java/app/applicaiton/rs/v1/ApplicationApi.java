@@ -4,7 +4,9 @@ import adi.jpa.crud.exception.BaseDaoException;
 import app.address.mapper.AddressMapper;
 import app.address.mapper.AddressMapperImpl;
 import app.address.model.Address;
+import app.address.model.AddressDTO;
 import app.address.service.AddressService;
+import app.applicaiton.service.ApplicationService;
 import app.bucket.model.Bucket;
 import app.bucket.model.BucketDTO;
 import app.bucket.service.BucketMapper;
@@ -12,8 +14,6 @@ import app.bucket.service.BucketMapperImpl;
 import app.bucket.service.BucketService;
 import app.email.service.EmailService;
 import app.opinion.service.OpinionService;
-import app.order.model.Order;
-import app.order.model.OrderDTO;
 import app.order.service.OrderMapper;
 import app.order.service.OrderMapperImpl;
 import app.order.service.OrderService;
@@ -61,15 +61,17 @@ public class ApplicationApi {
 
     private final OpinionService opinionService;
     private final EmailService emailService;
+    private final ApplicationService applicationService;
 
     @Inject
-    public ApplicationApi(AddressService addressService, PersonService personService, BucketService bucketService, OrderService orderService, ProductService productService, ProductOrderDao productOrderDao, OpinionService opinionService, EmailService emailService) {
+    public ApplicationApi(AddressService addressService, PersonService personService, BucketService bucketService, OrderService orderService, ProductService productService, ProductOrderDao productOrderDao, OpinionService opinionService, EmailService emailService, ApplicationService applicationService) {
         this.addressService = addressService;
         this.personService = personService;
         this.bucketService = bucketService;
         this.orderService = orderService;
         this.productService = productService;
         this.productOrderDao = productOrderDao;
+        this.applicationService = applicationService;
         this.bucketMapper = new BucketMapperImpl();
         this.opinionService = opinionService;
         this.emailService = emailService;
@@ -78,7 +80,7 @@ public class ApplicationApi {
     }
 
     @RolesAllowed(value = "USER")
-    @PATCH
+    @PUT
     @Path("/updatePersonAddress")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -92,6 +94,7 @@ public class ApplicationApi {
             )
     )
     public Response updatePersonAddressById(@HeaderParam("Authorization") String token, @RequestBody Address addres) {
+        log.info("updatePersonAddressById");
         AddressMapper addressMapper = new AddressMapperImpl();
 
         List<Address> addresses = addressService.getByMultipleValues(addressMapper.toSearchCriteria(addres));
@@ -103,6 +106,26 @@ public class ApplicationApi {
 
         Person person = personService.addAddress(TokenUtils.encodeToken(token), addres.getBid());
         return Response.accepted(personMapper.mapToDTO(person)).build();
+    }
+
+    @RolesAllowed(value = "USER")
+    @GET
+    @Path("/getPersonAddresses")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "getPersonAddresses", description = "get person addresses")
+    @APIResponse(
+            responseCode = "200",
+            description = "OK",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = AddressDTO[].class)
+            )
+    )
+    public Response getPersonAddresses(@HeaderParam("Authorization") String token) {
+        AddressMapper addressMapper = new AddressMapperImpl();
+        List<Address> addresses = addressService.getAddressesByPersonId(TokenUtils.encodeToken(token));
+        return Response.ok(addressMapper.mapToListDTO(addresses)).build();
     }
 
 
@@ -136,24 +159,24 @@ public class ApplicationApi {
     }
 
 
-    @POST
-    @RolesAllowed(value = "USER")
-    @Path("/create/order")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation(operationId = "createOrder", description = "create new order")
-    @APIResponse(
-            responseCode = "202",
-            description = "ACCEPTED",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = OrderDTO.class)
-            )
-    )
-    public Response createOrder(@HeaderParam("Authorization") String token) {
-        Order order = orderService.createOrder(TokenUtils.encodeToken(token));
-        return Response.accepted(orderMapper.mapToDTO(order)).build();
-    }
+//    @POST
+//    @RolesAllowed(value = "USER")
+//    @Path("/create/order")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Operation(operationId = "createOrder", description = "create new order")
+//    @APIResponse(
+//            responseCode = "202",
+//            description = "ACCEPTED",
+//            content = @Content(
+//                    mediaType = MediaType.APPLICATION_JSON,
+//                    schema = @Schema(type = SchemaType.OBJECT, implementation = OrderDTO.class)
+//            )
+//    )
+//    public Response createOrder(@HeaderParam("Authorization") String token) {
+//        Order order = orderService.createOrder(TokenUtils.encodeToken(token));
+//        return Response.accepted(orderMapper.mapToDTO(order)).build();
+//    }
 
     @POST
     @RolesAllowed(value = "USER")
@@ -291,4 +314,20 @@ public class ApplicationApi {
         Bucket bucket = bucketService.getActiveBucketByPersonId(TokenUtils.encodeToken(token));
         return Response.ok(bucketMapper.mapToDTO(bucket)).build();
     }
+
+    @RolesAllowed(value = "USER")
+    @GET
+    @Path("/finalizeBuying")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "finalizeBuying", description = "finalize buying, set bucket as archived, send message to email")
+    @APIResponse(
+            responseCode = "204",
+            description = "NO CONTENT"
+    )
+    public Response finalizeBuying(@HeaderParam("Authorization") String token, @QueryParam("deliveryAddressId") Long deliveryAddressId) {
+        applicationService.finalize(TokenUtils.encodeToken(token), deliveryAddressId);
+        return Response.noContent().build();
+    }
+
+
 }

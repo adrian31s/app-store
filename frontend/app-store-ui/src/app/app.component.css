@@ -244,4 +244,9 @@ to samo
 
 .deleteProduct{
   color:white;
+  font-size: 2rem;
+}
+
+a{
+  cursor: pointer;
 }

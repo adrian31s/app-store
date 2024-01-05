@@ -1,0 +1,35 @@
+<html style="background-color: #1f2429;">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Dziekujemy za zakup</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+<header style="background-color: #1f2429;">
+    <div>
+        <a style="display: flex;text-decoration:none; width: 20vh;" href="http://localhost:30002">
+            <h1 style="color: white;">KUP</h1>
+            <h1 style="color: red;">S</h1>
+            <h1 style="color: white;">PRZECIK.PL</h1>
+        </a>
+    </div>
+    <div style="margin-left: 50px; background-color: #1f2429;">
+        <h3 style="color: white;">Dziekujemy za zakup przedmiotow</h3>
+        <span style="color: white;">id zamowienia: </span>
+        <span style="color: red;">%order_id%</span>
+        <ul style="color: white">
+            %li_products_li%
+        </ul>
+        <span style="color: white;">kwota: </span>
+        <span style="color: red;">%price% ZL</span>
+        <hr>
+        <h1 style="margin-left: 10rem; margin-top: 2rem; color: red;">Adres</h1>
+        <p style="color: white;">numer apartamentu: %apartment_number%</p>
+        <p style="color: white;">numer budynku: %building_number%</p>
+        <p style="color: white;">wojewodztwo: %province%</p>
+        <p style="color: white;">ulica: %city%</p>
+        <p style="color: white;">kod pocztowy: %zip_code%</p>
+    </div>
+</header>
+</html>

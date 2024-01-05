@@ -23,10 +23,11 @@
     </div>
     <div class="dropdown">
       <div class="bucketProductsCounter"> {{ bucketItems?.length }}</div>
-      <img [src]="images[1]" class="filter-white" alt="Koszyk" />
+      <img [src]="images[1]" class="filter-white" alt="Koszyk" [routerLink]="['/bucket']" style="cursor: pointer;"/>
       <div class="dropdown-content dropdown-content-bucket" *ngIf="bucketItems!==undefined && bucketItems.length>0">
         <div class="filteredProductsMain">
-          <div class="flex flex-row align-items-center gap-5" *ngFor="let product of bucketItems; let i = index">
+          <div class="flex flex-row justify-content-between align-items-center gap-5"
+            *ngFor="let product of bucketItems; let i = index">
             <a class="flex flex-row  gap-3 text-indigo-400 bucketItems" style="text-decoration: none;"
               [routerLink]="['/product']" [queryParams]="{productId: bucketItems[i].productDTO?.bid}">
               <img [src]="imagesUrlToBytes[i]" [alt]="bucketItems[i].productDTO?.bid" style="height: 80px;">
