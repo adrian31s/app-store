@@ -40,8 +40,7 @@ export class LoginComponent {
     this.loginService.login({ body: request }).subscribe(
       (value) => {
         if (value.token !== undefined) {
-          this.authService.setToken(value.token);
-          this.authService.setUsername(this.loginEmail)
+          this.authService.setToken(value.token,this.loginEmail);
           this.displayToastMessage('success', 'Sukces', 'Zalogowany');
           this.isLogged.emit();
           window.location.reload();

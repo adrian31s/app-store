@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   imagesUrlToBytes: any[] = [];
 
   isUserLogged: boolean = false;
+  isAdminActive: boolean = false;
   visible: boolean = false;
 
   images = [
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserLogged = this.authService.getToken() !== '';
+    this.isAdminActive = this.authService.getUsername() !== 'admin';
     this.initBucket();
   }
 

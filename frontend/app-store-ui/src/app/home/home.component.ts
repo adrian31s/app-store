@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/service/auth.service';
 
 interface Category {
   value: string;
@@ -9,14 +10,26 @@ interface Category {
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  isAdmin: boolean = false;
   choose = '';
-  images = ['../assets/images/svg/search.svg', '../assets/images/svg/pc.svg', '../assets/images/svg/laptop.svg', '../assets/images/svg/mouse.svg', '../assets/images/svg/pc-display.svg', '../assets/images/svg/message-square-chat-svgrepo-com.svg'];
+  images = [
+    '../assets/images/svg/search.svg',
+    '../assets/images/svg/pc.svg',
+    '../assets/images/svg/laptop.svg',
+    '../assets/images/svg/mouse.svg',
+    '../assets/images/svg/pc-display.svg',
+    '../assets/images/svg/message-square-chat-svgrepo-com.svg',
+  ];
+  visible: boolean = false;
 
+  constructor(private router: Router, private authService: AuthService) {}
 
-  constructor(private router: Router){
+  ngOnInit(): void {
+    console.log(this.authService.getUsername())
+    this.isAdmin = this.authService.getUsername() === 'admin';
   }
 
   /*do wyświetlania z menu wyboru*/
@@ -26,7 +39,11 @@ export class HomeComponent {
     this.selectedCategory = category;
   }
 
-  redirectToProducts(){
-      this.router.navigate(["/products"])
+  redirectToProducts() {
+    this.router.navigate(['/products']);
+  }
+
+  showDialog() {
+    this.visible = true;
   }
 }
