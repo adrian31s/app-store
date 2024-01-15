@@ -7,9 +7,9 @@
 <br>
 
 <div id="choose">
-  <div class="dropdown"><img class="filter-white" [src]="images[1]" />
+  <!-- <div class="dropdown"><img class="filter-white" [src]="images[1]" />
     <div class="category">Komputery</div>
-    <!-- <div class="dropdown-content">
+    <div class="dropdown-content">
             <input type="range" class="form-range" id="customRange1">
             <label for="customRange1" class="form-label">Cena</label>
             <div class="dropdown-inner"><div>{{ selectedCategory?.label || 'Wybierz przeznaczenie'}}</div>
@@ -19,12 +19,12 @@
                     <a (click)="onCategorySelected({ value: 'special', label: 'Do zadań specjalnych'})">Do zadań specjalnych</a>
                 </div>
             </div>
-        </div> -->
-  </div>
+        </div>
+  </div> -->
 
-  <div class="dropdown"><img class="filter-white" [src]="images[2]" />
+  <!-- <div class="dropdown"><img class="filter-white" [src]="images[2]" />
     <div class="category">Laptopy</div>
-    <!-- <div class="dropdown-content">
+    <div class="dropdown-content">
           <input type="range" class="form-range" id="customRange1">
           <label for="customRange1" class="form-label">Cena</label>
           <div class="dropdown-inner">{{ selectedCategory?.label || 'Wybierz przeznaczenie'}}
@@ -34,8 +34,8 @@
               <a (click)="onCategorySelected({ value: 'special', label: 'Do zadań specjalnych'})">Do zadań specjalnych</a>
             </div>
           </div>
-        </div> -->
-  </div>
+        </div>
+  </div> -->
 
   <a (click)="redirectToProducts()" style="cursor: pointer;">
     <div class="dropdown">
@@ -62,9 +62,9 @@
     </div>
   </a>
 
-  <div class="dropdown"><img class="filter-white" [src]="images[4]" />
+  <!-- <div class="dropdown"><img class="filter-white" [src]="images[4]" />
     <div class="category">Gotowe zestawy</div>
-    <!-- <div class="dropdown-content">
+    <div class="dropdown-content">
             <input type="range" class="form-range" id="customRange1">
             <label for="customRange1" class="form-label">Cena</label>
             <div class="dropdown-inner">{{ selectedCategory?.label || 'Wybierz przeznaczenie' }}
@@ -74,12 +74,18 @@
                 <a (click)="onCategorySelected({ value: 'office', label: 'Do zadań specjalnych' })">Do zadań specjalnych</a>
               </div>
             </div>
-        </div> -->
-  </div>
+        </div>
+  </div> -->
 
-  <div class="dropdown"><img class="filter-white" [src]="images[5]" />
-    <div class="category">Kontakt</div>
+  <div class="dropdown" *ngIf="isAdmin">
+    <div class="category" (click)="showDialog()">Dodaj/Usun</div>
   </div>
 </div>
+
+  <p-dialog appendTo="body" header="Zarzadzanie produktami" [(visible)]="visible" [modal]="true"
+    [style]="{width: '90%', height: '900px'}" [draggable]="false" [resizable]="false">
+    <app-product-updater></app-product-updater>
+    <app-product-creator></app-product-creator>
+  </p-dialog>
 
 <router-outlet></router-outlet>

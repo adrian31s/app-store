@@ -112,7 +112,7 @@ export class RegisterPanelComponent {
     this.loginService.login({ body: request }).subscribe(
       (value) => {
         if (value.token !== undefined) {
-          this.authService.setToken(value.token);
+          this.authService.setToken(value.token,this.username);
           this.displayToastMessage(
             'success',
             'Sukces',

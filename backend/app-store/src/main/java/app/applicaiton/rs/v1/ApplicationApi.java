@@ -271,8 +271,6 @@ public class ApplicationApi {
         return Response.noContent().build();
     }
 
-    @RolesAllowed(value = "USER")
-
     @PATCH
     @Path("/forgotPassword")
     @Consumes(MediaType.APPLICATION_JSON)

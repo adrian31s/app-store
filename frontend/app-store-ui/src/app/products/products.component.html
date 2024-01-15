@@ -31,7 +31,7 @@
                         </div>
                         <div class="priceAndBucket">
                             <h2 class="text-green-300">{{ "Cena: " + product['price'] + "Zł"}}</h2>
-                            <h2 class="addToBucket" (click)="quantityDialogVisible=true">DODAJ DO KOSZYKA</h2>
+                            <h2 class="addToBucket" (click)="setSelectedProduct(i)">DODAJ DO KOSZYKA</h2>
                         </div>
                         <p-dialog [style]="{width: '400px'}" [draggable]="false" [(visible)]="quantityDialogVisible" header="Wybierz ilość produktu do kupienia">
                             <div class="flex flex-column align-items-center">
@@ -40,10 +40,10 @@
                                     buttonLayout="horizontal" spinnerMode="horizontal" inputId="vertical"
                                     (onHide)="quantityDialogVisible = false" decrementButtonClass="p-button-secondary"
                                     incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-                                    decrementButtonIcon="pi pi-minus" [min]="1" [max]="product.quantity"
+                                    decrementButtonIcon="pi pi-minus" [min]="1" [max]="selectedProduct.quantity"
                                     [allowEmpty]="false" placeholder="1"></p-inputNumber>
-                                    <p style="color: grey;">{{"dostepna ilosc: " + product.quantity}}</p>
-                                <button (click)="addProductToBucket(product.bid)">dodaj produkt</button>
+                                    <p style="color: grey;">{{"dostepna ilosc: " + selectedProduct.quantity}}</p>
+                                <button (click)="addProductToBucket(selectedProduct.bid)">dodaj produkt</button>
                             </div>
                         </p-dialog>
 

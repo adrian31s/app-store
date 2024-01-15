@@ -20,9 +20,10 @@ export class AuthService {
       this.username = localUsername;
     }  }
 
-  setToken(token: string) {
+  setToken(token: string, username:string) {
     this.token = token;
     localStorage.setItem('token', token);
+    this.setUsername(username)
   }
 
   setUsername(username: string){
