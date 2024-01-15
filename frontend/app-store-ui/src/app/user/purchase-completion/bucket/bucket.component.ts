@@ -106,11 +106,12 @@ export class BucketComponent implements OnInit {
       return;
     }
 
-    for(let map of this.productOrdersToUpdateQuantity){
-      this.applicationApiService.addProductToBucket({productId:map[0],quantity:map[1]}).subscribe((complete)=>this.finalizePurchase());
+    if(this.productOrdersToUpdateQuantity.size>0){
+      for(let map of this.productOrdersToUpdateQuantity){
+        this.applicationApiService.addProductToBucket({productId:map[0],quantity:map[1]}).subscribe((complete)=>this.finalizePurchase());
+      }
     }
-
-
+    else this.finalizePurchase()
   }
 
   private finalizePurchase(){

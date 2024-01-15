@@ -11,6 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 @ApplicationScoped
 @Slf4j
@@ -33,6 +34,8 @@ public class S3BucketHandler {
             log.info("SUCCESSFULLY PUTTED");
             return key;
         } catch (Exception ex) {
+            log.error(ex.getMessage());
+            log.error(Arrays.toString(ex.getStackTrace()));
             log.info("PUT FAILED");
             return "not-found";
         }

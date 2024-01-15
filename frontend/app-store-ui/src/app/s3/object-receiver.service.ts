@@ -6,8 +6,8 @@ import PhotoUtil from '../utils/PhotoUtil';
   providedIn: 'root',
 })
 export class ObjectReceiverService {
-  accessKeyId: string = 'AKIA2Y4DV6GK2TG5GOHI';
-  secretAccessKey: string = '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';
+  accessKeyId: string = '';
+  secretAccessKey: string = '';
 
   constructor() {}
 

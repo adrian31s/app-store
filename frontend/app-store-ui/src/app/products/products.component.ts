@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   productCommonFields = productCommonFieldsUtil;
   productOrderQuantity:number = 1;
   quantityDialogVisible:boolean=false;
+  selectedProduct: ProductDto={};
 
   constructor(
     private productApiService: ProductApiService,
@@ -81,5 +82,10 @@ export class ProductsComponent implements OnInit {
         },
         (error) => console.log(error.error)
       );
+  }
+
+  setSelectedProduct(productId:number){
+    this.quantityDialogVisible=true
+    this.selectedProduct=this.products[productId]
   }
 }
