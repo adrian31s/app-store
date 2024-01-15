@@ -22,6 +22,10 @@ version controll
 
 
 # manual run
+install docker engine , run microservices/runLocal.sh script - linux
+
+install docker desktop, run scripts listed below - windows
+
 *** not needed ***
 docker pull adrian31s/app-store-ui:1.0.12
 docker pull adrian31s/app-store:1.0.12
@@ -48,3 +52,9 @@ frontend: http://localhost:30002
 backend: http://localhost:30001
 swaggerUi: http://localhost:30001/q/swagger-ui/
 
+
+### how its working ###
+on first run register new user and set admin username. 
+as admin add products
+
+then application is ready to use by other users
