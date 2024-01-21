@@ -40,6 +40,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -147,9 +148,10 @@ public class ApplicationApi {
         Long personId;
         try {
             personId = personService.createPerson(person).getBid();
-        } catch (BaseDaoException cve) { //workaround
-            if (cve.getCause().getMessage().contains("ConstraintViolationException")) {
-                return Response.status(Response.Status.BAD_REQUEST).entity("username and email must be unique").build();
+        } catch (BaseDaoException | ConstraintViolationException cve) { //workaround
+            log.info(cve.getCause().getMessage());
+            if (cve.getCause().getMessage().toUpperCase().contains("CONSTRAINT")) {
+                return Response.status(Response.Status.BAD_REQUEST).entity("Username and email must be unique. Email must be correct").build();
             }
             return Response.status(Response.Status.BAD_REQUEST).entity(cve.getCause()).build();
         }
@@ -318,12 +320,23 @@ public class ApplicationApi {
     @Path("/finalizeBuying")
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(operationId = "finalizeBuying", description = "finalize buying, set bucket as archived, send message to email")
-    @APIResponse(
-            responseCode = "204",
-            description = "NO CONTENT"
-    )
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "204",
+                    description = "NO CONTENT"
+            ),
+            @APIResponse(
+                    responseCode = "304",
+                    description = "NOT MODIFIED"
+            )
+    })
+
     public Response finalizeBuying(@HeaderParam("Authorization") String token, @QueryParam("deliveryAddressId") Long deliveryAddressId) {
-        applicationService.finalize(TokenUtils.encodeToken(token), deliveryAddressId);
+        try{
+            applicationService.finalize(TokenUtils.encodeToken(token), deliveryAddressId);
+        } catch (RuntimeException re){
+            return Response.notModified().build();
+        }
         return Response.noContent().build();
     }
 

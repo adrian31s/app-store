@@ -911,6 +911,9 @@
         "responses" : {
           "204" : {
             "description" : "NO CONTENT"
+          },
+          "304" : {
+            "description" : "NOT MODIFIED"
           }
         }
       }

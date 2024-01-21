@@ -51,6 +51,9 @@ public class ApplicationService {
     public void finalize(Long personId, Long deliveryAddressId) {
         Person person = personDao.getById(personId);
         Bucket bucket = bucketService.getActiveBucketByPersonId(personId);
+        if(bucket.getProductOrders().isEmpty()){
+            throw new RuntimeException("bucket is empty");
+        }
         updateProductsQuantity(bucket.getProductOrders());
         Order order = orderService.createOrder(personId, deliveryAddressId);
         emailService.sendEmailFinalizePurchase(person.getEmail(), buildHTMLParams(bucket.getProductOrders(),order));

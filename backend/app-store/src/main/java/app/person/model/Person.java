@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +29,7 @@ public class Person extends BaseEntity {
     private String password;
 
     @Column(name = "EMAIL", unique = true)
+    @Email(message = "invalid email address")
     private String email;
 
     @Column(name = "ROLE")

@@ -27,8 +27,8 @@ install docker engine , run microservices/runLocal.sh script - linux
 install docker desktop, run scripts listed below - windows
 
 *** not needed ***
-docker pull adrian31s/app-store-ui:1.0.12
-docker pull adrian31s/app-store:1.0.12
+docker pull adrian31s/app-store-ui:1.0.13
+docker pull adrian31s/app-store:1.0.13
 docker pull postgres:latest
 *** not needed ***
 
@@ -39,9 +39,9 @@ docker run -d --name app_postgres -p 30200:5432 -e POSTGRES_DB=appstore -e POSTG
 
 ### wait 30 sek 
 
-docker run -d -e DB_URL=jdbc:postgresql://app_postgres/appstore -e DB_PASSWORD=store-password -e DB_USER=store-user -e HIBERNATE_GENERATION=update -p 30001:8080 --network app-store-network adrian31s/app-store:1.0.12
+docker run -d -e DB_URL=jdbc:postgresql://app_postgres/appstore -e DB_PASSWORD=store-password -e DB_USER=store-user -e HIBERNATE_GENERATION=update -p 30001:8080 --network app-store-network adrian31s/app-store:1.0.13
 
-docker run -d -p 30002:80 --network app-store-network adrian31s/app-store-ui:1.0.12
+docker run -d -p 30002:80 --network app-store-network adrian31s/app-store-ui:1.0.13
 
 
 
