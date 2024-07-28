@@ -1,6 +1,6 @@
 package app.product.types.hard_drive.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.product.types.hard_drive.model.HardDrive;
 
 import javax.enterprise.context.ApplicationScoped;

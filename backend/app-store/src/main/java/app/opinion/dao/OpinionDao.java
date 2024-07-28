@@ -1,6 +1,6 @@
 package app.opinion.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.opinion.model.Opinion;
 import app.opinion.model.Opinion_;
 

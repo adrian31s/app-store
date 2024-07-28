@@ -1,6 +1,6 @@
 package app.address.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.address.model.Address;
 import app.address.model.Address_;
 import app.person.model.Person;

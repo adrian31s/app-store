@@ -1,6 +1,6 @@
 package app.product.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.product.model.Product;
 import lombok.extern.slf4j.Slf4j;
 

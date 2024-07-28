@@ -1,6 +1,6 @@
 package app.address.model;
 
-import adi.jpa.crud.model.BaseEntity;
+import app.common.base.model.BaseEntity;
 import app.order.model.Order;
 import app.person.model.Person;
 import com.fasterxml.jackson.annotation.JsonIgnore;

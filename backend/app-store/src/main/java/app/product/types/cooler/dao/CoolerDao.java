@@ -1,6 +1,6 @@
 package app.product.types.cooler.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.product.types.cooler.model.Cooler;
 
 import javax.enterprise.context.ApplicationScoped;

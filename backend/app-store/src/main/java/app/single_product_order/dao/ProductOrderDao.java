@@ -1,6 +1,6 @@
 package app.single_product_order.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.single_product_order.model.ProductOrder;
 import app.single_product_order.model.ProductOrder_;
 

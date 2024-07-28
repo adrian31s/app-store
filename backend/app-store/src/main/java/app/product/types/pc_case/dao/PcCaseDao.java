@@ -1,6 +1,6 @@
 package app.product.types.pc_case.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.product.types.pc_case.model.PcCase;
 
 import javax.enterprise.context.ApplicationScoped;

@@ -1,6 +1,6 @@
 package app.opinion.model;
 
-import adi.jpa.crud.model.BaseEntity;
+import app.common.base.model.BaseEntity;
 import app.product.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

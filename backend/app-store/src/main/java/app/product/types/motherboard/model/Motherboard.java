@@ -1,6 +1,6 @@
 package app.product.types.motherboard.model;
 
-import adi.jpa.crud.model.BaseEntity;
+import app.common.base.model.BaseEntity;
 import app.product.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

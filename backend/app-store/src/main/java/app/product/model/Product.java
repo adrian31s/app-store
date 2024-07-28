@@ -1,6 +1,6 @@
 package app.product.model;
 
-import adi.jpa.crud.model.BaseEntity;
+import app.common.base.model.BaseEntity;
 import app.opinion.model.Opinion;
 import app.product.model.utill.ProductCategory;
 import app.product.types.charger.model.Charger;

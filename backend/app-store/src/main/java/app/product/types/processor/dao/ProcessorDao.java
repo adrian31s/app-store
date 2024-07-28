@@ -1,6 +1,6 @@
 package app.product.types.processor.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.product.types.processor.model.Processor;
 
 import javax.enterprise.context.ApplicationScoped;

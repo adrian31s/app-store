@@ -1,6 +1,6 @@
 package app.product.types.graphic_card.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.product.types.graphic_card.model.GraphicCard;
 
 import javax.enterprise.context.ApplicationScoped;

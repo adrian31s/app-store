@@ -1,6 +1,6 @@
 package app.product.types.charger.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.product.types.charger.model.Charger;
 import app.product.types.charger.model.Charger_;
 

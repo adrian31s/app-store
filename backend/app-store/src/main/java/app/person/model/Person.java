@@ -1,6 +1,6 @@
 package app.person.model;
 
-import adi.jpa.crud.model.BaseEntity;
+import app.common.base.model.BaseEntity;
 import app.address.model.Address;
 import app.bucket.model.Bucket;
 import app.person.model.utill.Role;

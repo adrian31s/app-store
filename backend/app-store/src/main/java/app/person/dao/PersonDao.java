@@ -1,6 +1,6 @@
 package app.person.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.person.model.Person;
 import app.person.model.Person_;
 

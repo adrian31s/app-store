@@ -1,6 +1,6 @@
 package app.bucket.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.bucket.model.Bucket;
 import app.bucket.model.Bucket_;
 import app.person.model.Person;

@@ -1,6 +1,6 @@
 package app.product.types.motherboard.dao;
 
-import adi.jpa.crud.dao.BaseDao;
+import app.common.base.dao.BaseDao;
 import app.product.types.motherboard.model.Motherboard;
 
 import javax.enterprise.context.ApplicationScoped;

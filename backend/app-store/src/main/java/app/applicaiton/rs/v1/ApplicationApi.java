@@ -1,6 +1,6 @@
 package app.applicaiton.rs.v1;
 
-import adi.jpa.crud.exception.BaseDaoException;
+import app.common.base.exception.BaseDaoException;
 import app.address.mapper.AddressMapper;
 import app.address.mapper.AddressMapperImpl;
 import app.address.model.Address;

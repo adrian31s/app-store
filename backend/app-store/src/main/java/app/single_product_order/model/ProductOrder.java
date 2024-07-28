@@ -1,6 +1,6 @@
 package app.single_product_order.model;
 
-import adi.jpa.crud.model.BaseEntity;
+import app.common.base.model.BaseEntity;
 import app.bucket.model.Bucket;
 import app.product.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
